@@ -3,7 +3,7 @@
 import React from 'react'
 import NavLink from './navLink'
 
-let page = (props) =>
+let Page = (props) => (
   <html lang='de'>
     <head>
         <meta charSet='UTF-8'/>
@@ -42,5 +42,6 @@ let page = (props) =>
       <div className='content'>{ props.children }</div>
     </body>
   </html>
+)
 
-export default page
+export default Page

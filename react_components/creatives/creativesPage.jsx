@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-let creativesPage = (props) =>
+let CreativesPage = (props) => (
   <section className='creatives-page'>
     <div className='inner-content sticker' id='hrWunder'>
       <div className='right-person' style={{ backgroundImage: 'url(/assets/img/people/hrWunder.jpg)' }}/>
@@ -96,5 +96,6 @@ let creativesPage = (props) =>
       <div className='center-person' style={{ backgroundImage: 'url(/assets/img/people/manuMartina.jpg)' }}/>
     </div>
   </section>
+)
 
-export default creativesPage
+export default CreativesPage

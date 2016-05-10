@@ -3,7 +3,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-export default (props) => {
+let NavLink = (props) => {
   let { href, ...other } = props
   let isActive = props.currentPath === props.href
 
@@ -13,3 +13,5 @@ export default (props) => {
     </Link>
   )
 }
+
+export default NavLink
