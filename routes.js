@@ -8,10 +8,8 @@ import Creatives from './react_components/creatives/creativesPage'
 import NewsPage from './react_components/news/newsPage'
 
 export default (
-  <Router className='App' history={ browserHistory } >
     <Route path='/' component={ Page } >
       <IndexRoute component={ NewsPage } />
       <Route path='creatives' component={ Creatives } />
     </Route>
-  </Router>
 )

@@ -23,11 +23,10 @@ app.use((req, res, next) => {
     } else if (renderProps) {
       preFetchData(renderProps.components, store).then(preFetchedData => {
         store.news = preFetchedData.news
-        console.log('hhh', store)
         res.status(200).send(renderToString(<RouterContext {...renderProps} />))
       })
     } else {
-      res.status(404).send('not found')
+      res.status(404).send('Not Found')
     }
   })
 })

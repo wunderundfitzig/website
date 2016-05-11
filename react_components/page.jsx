@@ -13,7 +13,7 @@ let Page = (props) => (
         />
         <title>{ 'wunder & fitzig | ' }</title>
         <link rel='stylesheet' href='/assets/css/main.css'/>
-        <script src='/assets/js/client.js'/>
+        <script src='/assets/js/bundle.js'/>
     </head>
 
     <body>

@@ -25,7 +25,7 @@ let preFetchData = (components, oldDataSet) => {
       let oldDataExists = oldData !== undefined
       let oldDataIsStillValid = oldDataExists && Date.now() - oldData.timestamp < 3600000 // cache for 1h
 
-      if (!oldData.alwaysReload && oldDataIsStillValid) {
+      if (oldDataIsStillValid && !oldData.alwaysReload) {
         responses.push(oldData)
       } else {
         responses.push(
