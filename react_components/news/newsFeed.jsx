@@ -5,8 +5,7 @@ import NewsPost from './newsPost'
 import store from '../../store'
 
 let NewsFeed = (props) => {
-  console.log(store)
-  let posts = store.news.data
+  let posts = store.news.data.data
   let NewsPosts = posts.map((post, index) => {
     if (post.type === 'photo' || post.type === 'link') {
       return (

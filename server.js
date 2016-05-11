@@ -21,13 +21,13 @@ app.use((req, res, next) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      preFetchData(renderProps.components).then(preFetchedData => {
-        store.news = preFetchedData.wundfFeed
+      preFetchData(renderProps.components, store).then(preFetchedData => {
+        store.news = preFetchedData.news
+        console.log('hhh', store)
         res.status(200).send(renderToString(<RouterContext {...renderProps} />))
       })
     } else {
-      // not found -> redirect to start page
-      res.redirect(303, '/')
+      res.status(404).send('not found')
     }
   })
 })

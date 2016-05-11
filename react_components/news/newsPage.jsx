@@ -42,7 +42,8 @@ let NewsPage = () => (
 
 NewsPage.accessToken = '1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE'
 NewsPage.load = [{
-  key: 'wundfFeed',
+  key: 'news',
+  alwaysReload: false,
   url: 'https://graph.facebook.com/wunderundfitzig/feed',
   params: {
     fields: 'message,object_id,created_time,picture,link,type',

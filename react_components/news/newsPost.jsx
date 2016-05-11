@@ -72,7 +72,7 @@ export default class NewsPost extends React.Component {
 
 NewsPost.propTypes = {
   accessToken: React.PropTypes.string.isRequired,
-  id: React.PropTypes.number.isRequired,
+  id: React.PropTypes.string.isRequired,
   type: React.PropTypes.string.isRequired,
   isFirst: React.PropTypes.bool.isRequired,
   createdTime: React.PropTypes.string.isRequired,
