@@ -27,12 +27,7 @@ let NewsPage = () => (
       </div>
     </div>
     <div id='news-frame' className='news-feed'>
-    <NewsFeed
-      url='https://graph.facebook.com/wunderundfitzig/feed'
-      fields='message,object_id,created_time,picture,link,type'
-      accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE'
-      limit='10'
-    />
+      <NewsFeed accessToken={ NewsPage.accessToken } />
     </div>
     <p className='more-news-link'>
       ältere News sind für alle Ewigkeit auf <a href='http://www.facebook.com/wunderundfitzig' target='_blank'>facebook</a> zu finden
@@ -44,5 +39,16 @@ let NewsPage = () => (
     </div>
   </section>
 )
+
+NewsPage.accessToken = '1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE'
+NewsPage.load = [{
+  key: 'wundfFeed',
+  url: 'https://graph.facebook.com/wunderundfitzig/feed',
+  params: {
+    fields: 'message,object_id,created_time,picture,link,type',
+    access_token: NewsPage.accessToken,
+    limit: 10
+  }
+}]
 
 export default NewsPage
