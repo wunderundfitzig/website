@@ -12,7 +12,7 @@ let Page = (props) => (
           name='viewport'
           content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
         />
-        <title>{ 'wunder & fitzig | ' }</title>
+        <title>{ 'wunder & fitzig | !!!' }</title>
         <link rel='stylesheet' href='/assets/css/main.css'/>
         <script src='/assets/js/bundle.js'/>
         <script dangerouslySetInnerHTML={{ __html: 'window.news = ' + JSON.stringify(store.news) }} />

@@ -6,10 +6,8 @@ import ReactTransitionGroup from 'react-addons-transition-group'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import StorieItem from './storieItem'
-import helpers from '../mixins'
 
 export default React.createClass({
-  mixins: [helpers],
   // animations
   componentWillEnter: function (callback) {
     // first position for scroll down or up animation

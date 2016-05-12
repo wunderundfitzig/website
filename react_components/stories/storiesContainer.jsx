@@ -2,7 +2,6 @@
 
 import React from 'react'
 import ReactTransitionGroup from 'react-addons-transition-group'
-import request from 'superagent'
 
 import Storie from './storie'
 

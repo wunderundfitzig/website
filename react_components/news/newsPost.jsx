@@ -1,7 +1,7 @@
-/* globals fetch */
 'use strict'
 
 import React from 'react'
+import fetch from 'node-fetch'
 
 export default class NewsPost extends React.Component {
   constructor (props) {

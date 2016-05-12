@@ -2,10 +2,8 @@
 
 import React from 'react'
 import classNames from 'classnames'
-var helpers = require('../mixins')
 
 export default React.createClass({
-  mixins: [helpers],
   // animations
   componentWillEnter: function (callback) {
     // first position left or right from screen
