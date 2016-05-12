@@ -1,7 +1,7 @@
+/* globals fetch */
 'use strict'
 
 import React from 'react'
-import request from 'superagent'
 
 export default class NewsPost extends React.Component {
   constructor (props) {
@@ -42,18 +42,11 @@ export default class NewsPost extends React.Component {
   componentDidMount () {
     if (this.props.type !== 'photo') return
     // replace low res images with large ones
-    request.get('https://graph.facebook.com/' + this.props.id)
-      .query({
-        fields: 'images',
-        access_token: this.props.accessToken
-      })
-      .end((err, res) => {
-        if (err) return console.error(err)
-        this.setState({
-          // images[0] should be the largest one
-          picture: res.body.images[0].source
-        })
-      })
+    let fetchBigImg = fetch(`https://graph.facebook.com/${ this.props.id }?fields=images&access_token=${ this.props.accessToken }`)
+      .then(res => res.json().then(json => json.images[0].source)) // images[0] should be the largest one
+      .catch(err => console.error(err))
+
+    fetchBigImg.then(bigImg => this.setState({ picture: bigImg }))
   }
 
   render () {

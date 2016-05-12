@@ -2,6 +2,7 @@
 
 import React from 'react'
 import NavLink from './navLink'
+import store from '../store'
 
 let Page = (props) => (
   <html lang='de'>
@@ -14,6 +15,7 @@ let Page = (props) => (
         <title>{ 'wunder & fitzig | ' }</title>
         <link rel='stylesheet' href='/assets/css/main.css'/>
         <script src='/assets/js/bundle.js'/>
+        <script dangerouslySetInnerHTML={{ __html: 'window.news = ' + JSON.stringify(store.news) }} />
     </head>
 
     <body>

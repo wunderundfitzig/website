@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "nodemon --exec 'babel-node server.js' --ignore assets/",
     "build:js": "browserify client.js -t babelify --extension=.jsx --debug | exorcist assets/js/bundle.js.map > assets/js/bundle.js",
-    "watch:js": "nodemon --exec 'npm run build:js' -e js,jsx --ignore assets/ -q",
+    "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore assets/ -q",
     "build:css": "echo no_css_yet",
     "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore assets/ -q",
     "build": "npm run build:js && npm run build:css",
@@ -29,8 +29,7 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-router": "^2.4.0",
-    "serve-favicon": "^2.3.0",
-    "superagent": "^1.8.3"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",

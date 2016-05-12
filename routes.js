@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 import Page from './react_components/page'
 // import Stories from './react_components/stories/storiesContainer'
 import Creatives from './react_components/creatives/creativesPage'
