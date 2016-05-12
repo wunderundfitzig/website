@@ -4,9 +4,13 @@
   "description": "static website realized with way to complicated tools",
   "main": "app.js",
   "scripts": {
-    "start": "npm run browserify & npm run server",
-    "server": "nodemon --exec 'babel-node' server.js",
-    "browserify": "browserify client.js -t babelify --extension=.jsx --debug | exorcist assets/js/bundle.js.map > assets/js/bundle.js"
+    "serve": "nodemon --exec 'babel-node server.js' --ignore assets/",
+    "build:js": "browserify client.js -t babelify --extension=.jsx --debug | exorcist assets/js/bundle.js.map > assets/js/bundle.js",
+    "watch:js": "nodemon --exec 'npm run build:js' -e js,jsx --ignore assets/ -q",
+    "build:css": "echo no_css_yet",
+    "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore assets/ -q",
+    "build": "npm run build:js && npm run build:css",
+    "build:watch": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve -s'"
   },
   "repository": {
     "type": "git",
@@ -36,6 +40,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "exorcist": "^0.4.0",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "parallelshell": "^2.0.0"
   }
 }
