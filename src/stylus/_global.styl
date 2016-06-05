@@ -1,0 +1,73 @@
+@font-face
+    font-family: 'Colaborate'
+    font-weight: 600
+    font-style: normal
+    src: url('../fonts/ColabMed-webfont.eot')
+    src: url('../fonts/ColabMed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ColabMed-webfont.woff') format('woff'),
+         url('../fonts/ColabMed-webfont.ttf') format('truetype'),
+         url('../fonts/ColabMed-webfont.svg#colaborate-mediumregular') format('svg')
+
+@font-face
+    font-family: 'Colaborate'
+    font-weight: 400
+    font-style: normal
+    src: url('../fonts/ColabLig-webfont.eot')
+    src: url('../fonts/ColabLig-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ColabLig-webfont.woff') format('woff'),
+         url('../fonts/ColabLig-webfont.ttf') format('truetype'),
+         url('../fonts/ColabLig-webfont.svg#colaboratelightregular') format('svg')
+
+@font-face
+    font-family: 'Colaborate'
+    src: url('../fonts/ColabThi-webfont.eot')
+    src: url('../fonts/ColabThi-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ColabThi-webfont.woff') format('woff'),
+         url('../fonts/ColabThi-webfont.ttf') format('truetype'),
+         url('../fonts/ColabThi-webfont.svg#colaborate-thinregular') format('svg')
+    font-weight: 300
+    font-style: normal
+
+*
+  box-sizing border-box
+
+body
+  color       wuf-black
+  font-size   19px
+  background  url(../img/bg.jpg)
+  font-family 'Colaborate', sans-serif
+  font-weight 300
+  line-height 1.3em
+  @media mobile
+    font-size 12px
+
+h1,
+h2,
+h3,
+h3,
+h5,
+h6
+  font-weight 300;
+
+a
+  color           grey;
+  text-decoration none;
+
+a:hover
+  border-bottom 1px solid grey;
+
+
+.content
+  width       100%;
+  height      100%;
+  position    absolute;
+  padding-top header-height;
+  @media mobile
+    padding-top mobile-header-height;
+
+.inner-content
+  margin     0 auto;
+  max-width  page-width;
+  padding    0 40px;
+  @media mobile
+    padding 0 10px

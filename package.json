@@ -8,7 +8,7 @@
     "livereload": "livereload .reload",
     "build:js": "browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js",
     "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore src/assets/js/ -q",
-    "build:css": "echo no_css_yet",
+    "build:css": "cd src/stylus; stylus < main.styl > ../assets/css/main.css",
     "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore src/assets/css/ -q",
     "build": "npm run build:js && npm run build:css",
     "dev": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve-dev -s' 'npm run livereload -s'"
@@ -45,6 +45,7 @@
     "exorcist": "^0.4.0",
     "livereload": "^0.4.1",
     "nodemon": "^1.9.2",
-    "parallelshell": "^2.0.0"
+    "parallelshell": "^2.0.0",
+    "stylus": "^0.54.5"
   }
 }
