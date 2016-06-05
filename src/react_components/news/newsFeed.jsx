@@ -26,7 +26,7 @@ let NewsFeed = (props) => {
 
   return (
     <span>
-      <h2>News</h2>
+      <h2>recent work:</h2>
       { NewsPosts }
     </span>
   )

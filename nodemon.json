@@ -1,5 +1,5 @@
 {
   "events": {
-    "restart": "touch .reload 2> /dev/null"
+    "restart": "sleep 2; touch .reload 2> /dev/null"
   }
 }

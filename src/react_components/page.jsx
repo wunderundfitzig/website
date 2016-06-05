@@ -1,7 +1,8 @@
 'use strict'
 
 import React from 'react'
-import NavLink from './navLink'
+import { Link } from 'react-router'
+import { routeTitles } from '../routes'
 import store from '../store'
 
 let Page = (props) => (
@@ -12,7 +13,7 @@ let Page = (props) => (
           name='viewport'
           content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
         />
-        <title>{ 'wunder & fitzig | !!!' }</title>
+        <title>{ `wunder & fitzig | ${ routeTitles[props.location.pathname] }` }</title>
         <link rel='stylesheet' href='/assets/css/main.css'/>
         <script src='/assets/js/bundle.js'/>
         <script dangerouslySetInnerHTML={{ __html: 'window.news = ' + JSON.stringify(store.news) }} />
@@ -23,19 +24,19 @@ let Page = (props) => (
         <nav className='topNavigation'>
           <ul>
             <li className='menu-item'>
-              <NavLink href='/creatives/' currentPath={ props.route.path }>
+              <Link to='/creatives/' activeClassName='active'>
                 <img className='menu-img' src='/assets/img/creatives.svg' alt='creatives'/>
-              </NavLink>
+              </Link>
             </li>
             <li className='menu-item'>
-              <NavLink href='/' currentPath={ props.route.path }>
+              <Link to='/' activeClassName='active' onlyActiveOnIndex={ true }>
                 <img className='menu-logo' src='/assets/img/logo.svg' alt='wunder &amp; fitzig'/>
-              </NavLink>
+              </Link>
             </li>
             <li className='menu-item'>
-              <NavLink href='/stories/' currentPath={ props.route.path }>
+              <Link to='/stories/' activeClassName='active'>
                 <img className='menu-img' src='/assets/img/stories.svg' alt='stories'/>
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </nav>

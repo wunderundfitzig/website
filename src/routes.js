@@ -14,3 +14,10 @@ export default (
       <Route path='stories' component={ Stories } />
     </Route>
 )
+
+let routeTitles = {
+  '/': 'web & print',
+  '/creatives/': 'creatives'
+}
+
+export { routeTitles }

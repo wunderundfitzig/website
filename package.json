@@ -4,7 +4,7 @@
   "description": "static website realized with way to complicated tools",
   "main": "app.js",
   "scripts": {
-    "serve-dev": "nodemon --exec 'babel-node src/server.js' --ext js,jsx --watch src/assets/",
+    "serve-dev": "nodemon --exec 'babel-node src/server.js' --ext js,jsx --ignore src/assets/",
     "livereload": "livereload .reload",
     "build:js": "browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js",
     "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore src/assets/js/ -q",
