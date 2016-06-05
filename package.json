@@ -4,14 +4,14 @@
   "description": "static website realized with way to complicated tools",
   "main": "app.js",
   "scripts": {
-    "serve": "nodemon --exec 'babel-node server.js' --ext js,jsx --ignore assets/",
+    "serve-dev": "nodemon --exec 'babel-node src/server.js' --ext js,jsx --watch src/assets/",
     "livereload": "livereload .reload",
-    "build:js": "browserify client.js -t babelify --extension=.jsx --debug | exorcist assets/js/bundle.js.map > assets/js/bundle.js",
-    "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore assets/ -q",
+    "build:js": "browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js",
+    "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore src/assets/js/ -q",
     "build:css": "echo no_css_yet",
-    "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore assets/ -q",
+    "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore src/assets/css/ -q",
     "build": "npm run build:js && npm run build:css",
-    "dev": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve -s' 'npm run livereload -s'"
+    "dev": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve-dev -s' 'npm run livereload -s'"
   },
   "repository": {
     "type": "git",

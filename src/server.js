@@ -12,8 +12,8 @@ import store from './store'
 
 var app = express()
 app.use(favicon(path.join(__dirname, 'assets/favicon.ico')))
-app.use('/assets', express.static('assets'))
-app.use('/wunderundfitzig.jpg', express.static('assets/wunderundfitzig.jpg'))
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
+app.use('/wunderundfitzig.jpg', express.static(path.join(__dirname, 'assets/wunderundfitzig.jpg')))
 app.use((req, res, next) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
