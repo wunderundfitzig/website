@@ -34,7 +34,7 @@ let NewsPage = () => (
     </p>
     <div className='impressum'>
       <p>
-        wunder &amp; fitzig GBR - 2014
+        wunder &amp; fitzig GBR - 2016
       </p>
     </div>
   </section>

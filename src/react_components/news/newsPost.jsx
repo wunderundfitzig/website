@@ -6,7 +6,10 @@ import fetch from 'node-fetch'
 export default class NewsPost extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { picture: this.props.picture }
+    this.state = {
+      isHighRes: false,
+      picture: this.props.picture
+    }
   }
 
   /**
@@ -28,6 +31,24 @@ export default class NewsPost extends React.Component {
   }
 
   /**
+  * find first url in message and remove it from the message
+  * @param message {string}
+  * @return {string}
+  */
+  getAndRemoveFirstURL (message) {
+    let regex = /((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/
+    let matches = message.match(regex)
+    let url = null
+
+    if (matches) {
+      message = message.replace(regex, '')
+      url = matches[0]
+    }
+
+    return { url: url, message: message }
+  }
+
+  /**
   * format linebreaks and links as html
   * @param message {string}
   * @return {string}
@@ -46,18 +67,20 @@ export default class NewsPost extends React.Component {
       .then(res => res.json().then(json => json.images[0].source)) // images[0] should be the largest one
       .catch(err => console.error(err))
 
-    fetchBigImg.then(bigImg => this.setState({ picture: bigImg }))
+    fetchBigImg.then(bigImg => this.setState({ picture: bigImg, isHighRes: true }))
   }
 
   render () {
+    let { url, message } = this.getAndRemoveFirstURL(this.props.message)
+
     return (
-      <div className={ 'fb-post ' + this.props.type }>
+      <div className='fb-post'>
         { /* first element does not show the date */ }
         { this.props.isFirst ? '' : <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p> }
-        <a href={ this.props.link } target='_blank' className='fb-link'>
-          <img className='fb-picture' src={ this.state.picture } />
+        <a href={ url } target='_blank' className='fb-link'>
+          <img className={ `fb-picture ${ this.state.isHighRes ? 'isHighRes' : '' }` } src={ this.state.picture } />
         </a>
-        <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(this.props.message) }}></p>
+        <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }}></p>
       </div>
     )
   }
