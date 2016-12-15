@@ -6,7 +6,6 @@ const buzzwords = [
   'Nutzererlebnisse.',
   'Corporate Identities.',
   'Inhaltsarchitektur.',
-  'Infografiken.',
   'Nutzererlebnisse.'
 ]
 
@@ -14,7 +13,8 @@ class Hero extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      buzzword: buzzwords[0]
+      buzzword: buzzwords[0],
+      animationFinished: false
     }
   }
 
@@ -42,7 +42,11 @@ class Hero extends React.Component {
       this.animateTyping({ word: buzzwords[i], backwards: true })
       .then(() => this.animateTyping({ word: buzzwords[++i] }))
       .then(() => {
-        if (i < buzzwords.length - 1) setTimeout(() => { replaceWord(i) }, 3000)
+        if (i < buzzwords.length - 1) {
+          setTimeout(() => { replaceWord(i) }, 3000)
+        } else {
+          this.setState({ animationFinished: true })
+        }
       })
     }
     setTimeout(replaceWord, 1000)
@@ -52,7 +56,7 @@ class Hero extends React.Component {
     return (
       <div>
         <h1 className='sloagen'>
-          Wir gestalten <strong>{ this.state.buzzword }</strong>
+          Wir gestalten <strong contentEditable={ this.state.animationFinished } >{ this.state.buzzword }</strong>
         </h1>
         <h2 className='sub-sloagen'>Digital & Analog</h2>
 
