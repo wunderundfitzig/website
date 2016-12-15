@@ -56,6 +56,8 @@ NewsFeed.propTypes = {
   accessToken: React.PropTypes.string.isRequired
 }
 
-NewsFeed.contextTypes = { requestInitialData: React.PropTypes.func }
+NewsFeed.contextTypes = {
+  requestInitialData: React.PropTypes.func
+}
 
 export default NewsFeed

@@ -7,7 +7,10 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerRouter, createServerRenderContext } from 'react-router'
 import { InitialDataCollecter, InitialDataLoader } from './initialDataLoader'
-import Page from './react_components/page'
+
+import PageWrapper from './react_components/page'
+
+let cache = {}
 
 const app = express()
 app.use(favicon(path.join(__dirname, 'assets/favicon.ico')))
@@ -21,7 +24,7 @@ app.use((req, res, next) => {
   let markup = renderToString(
     <ServerRouter location={ req.url } context={ renderContext }>
       <InitialDataCollecter initialDataLoader={ initialDataLoader }>
-        <Page initialData={ {} } location={ req.url } />
+        <PageWrapper />
       </InitialDataCollecter>
     </ServerRouter>
   )
@@ -30,11 +33,13 @@ app.use((req, res, next) => {
   if (result.redirect) return res.redirect(301, result.redirect.pathname)
   if (result.missed) res.status(404)
 
-  initialDataLoader.getData()
+  initialDataLoader.getData(cache)
   .then(initialData => {
+    cache = { ...cache, ...initialData }
+
     markup = renderToString(
       <ServerRouter location={ req.url } context={ renderContext }>
-        <Page initialData={ initialData } location={ req.url } />
+        <PageWrapper initialData={ initialData } />
       </ServerRouter>
     )
     res.send(markup)

@@ -63,7 +63,6 @@ export default class NewsPost extends React.Component {
   }
 
   componentDidMount () {
-    console.log('wtf')
     if (this.props.type !== 'photo') return
     // replace low res images with large ones
     let fetchBigImg = fetch(`https://graph.facebook.com/${ this.props.id }?fields=images&access_token=${ this.props.accessToken }`)

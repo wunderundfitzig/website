@@ -52,6 +52,8 @@ export class InitialDataLoader {
       }
     })
 
+    this.storedRequestDescriptions = []
+
     return Promise.all(responses).then(responses => responses.reduce((obj, response) => {
       obj[response.key] = response
       return obj
@@ -61,9 +63,14 @@ export class InitialDataLoader {
 
 export class InitialDataCollecter extends React.Component {
   getChildContext () {
-    return { requestInitialData: (requestDescriptions) => {
-      this.props.initialDataLoader.addRequestDescriptions(requestDescriptions)
-    }}
+    const initialDataLoader = this.props.initialDataLoader || new InitialDataLoader()
+    return {
+      requestInitialData: (requestDescriptions) => {
+        initialDataLoader.addRequestDescriptions(requestDescriptions)
+      },
+
+      loadInitialData: alreadyLoaded => initialDataLoader.getData(alreadyLoaded)
+    }
   }
 
   render () { return this.props.children }
@@ -74,5 +81,6 @@ InitialDataCollecter.propTypes = {
   children: React.PropTypes.node
 }
 InitialDataCollecter.childContextTypes = {
-  requestInitialData: React.PropTypes.func
+  requestInitialData: React.PropTypes.func,
+  loadInitialData: React.PropTypes.func
 }
