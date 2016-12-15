@@ -5,7 +5,7 @@ import NewsFeed from './newsFeed'
 import Hero from './Hero'
 
 const NewsPage = ({ news }) => (
-  <section id='news-page'>
+  <div id='news-page'>
     <Hero />
     <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
     <div className='impressum'>
@@ -13,7 +13,7 @@ const NewsPage = ({ news }) => (
         wunder &amp; fitzig GBR - 2016
       </p>
     </div>
-  </section>
+  </div>
 )
 
 export default NewsPage

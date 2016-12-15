@@ -3,24 +3,22 @@
 import React from 'react'
 
 let CreativesPage = (props) => (
-  <section className='creatives-page'>
-    <div className='inner-content sticker' id='hrWunder'>
-      <div className='right-person' style={{ backgroundImage: 'url(/assets/img/people/hrWunder.jpg)' }}/>
-      <div className='text'>
-        <h2>Herr Wunder</h2>
-        <div className = 'paragraphs'>
-          <p>
-            Herr Wunder konzeptioniert und programmiert
-            Webseiten.
-          </p>
-          <p>
-            Konzepte und Design hat er gerne modern und radikal schlicht.
-            Ziel ist es nur was wirklich gebraucht wird umsusetzen,
-            und das mit größtmöglicher Perfektion.
-          </p>
-        </div>
-      </div>
-    </div>
+  <article id='creatives-page'>
+    <section className='creatives-section' data-section-name='hr-wunder'>
+      <span className='creatives-image' style={{
+        backgroundImage: 'url(/assets/img/people/hrWunderr.jpg)'
+      }}/>
+      <h2 className='creatives-section-title'>Herr Wunder</h2>
+      <p className='creatives-section-paragraph'>
+        Herr Wunder konzeptioniert und programmiert
+        Webseiten.
+      </p>
+      <p className='creatives-section-paragraph'>
+        Konzepte und Design hat er gerne modern und radikal schlicht.
+        Ziel ist es nur was wirklich gebraucht wird umsusetzen,
+        und das mit größtmöglicher Perfektion.
+      </p>
+    </section>
 
     <div className='inner-content sticker' id='frFitzig'>
       <div className='left-person' style={{ backgroundImage: 'url(/assets/img/people/frFitzig.jpg)', left: '-10%' }}/>
@@ -95,7 +93,7 @@ let CreativesPage = (props) => (
       </div>
       <div className='center-person' style={{ backgroundImage: 'url(/assets/img/people/manuMartina.jpg)' }}/>
     </div>
-  </section>
+  </article>
 )
 
 export default CreativesPage

@@ -9,6 +9,8 @@ const buzzwords = [
   'Nutzererlebnisse.'
 ]
 
+let intervalID, timeoutId
+
 class Hero extends React.Component {
   constructor (props) {
     super(props)
@@ -22,7 +24,7 @@ class Hero extends React.Component {
     let remainingChars = word.length
 
     return new Promise(resolve => {
-      const intervalID = setInterval(() => {
+      intervalID = setInterval(() => {
         let charecterOffset = --remainingChars
         if (!backwards) {
           charecterOffset *= -1
@@ -43,13 +45,18 @@ class Hero extends React.Component {
       .then(() => this.animateTyping({ word: buzzwords[++i] }))
       .then(() => {
         if (i < buzzwords.length - 1) {
-          setTimeout(() => { replaceWord(i) }, 3000)
+          timeoutId = setTimeout(() => { replaceWord(i) }, 3000)
         } else {
           this.setState({ animationFinished: true })
         }
       })
     }
-    setTimeout(replaceWord, 1000)
+    timeoutId = setTimeout(replaceWord, 1000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(intervalID)
+    clearTimeout(timeoutId)
   }
 
   render () {
