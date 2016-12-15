@@ -2,23 +2,72 @@
 
 import React from 'react'
 
-const Hero = ({ news }) => (
-  <div>
-    <h1 className='sloagen'>
-      Wir gestalten <strong>Nutzererlebnisse.</strong>
-    </h1>
-    <h2 className='sub-sloagen'>Digital & Analog</h2>
+const buzzwords = [
+  'Nutzererlebnisse.',
+  'Corporate Identities.',
+  'Inhaltsarchitektur.',
+  'Infografiken.',
+  'Nutzererlebnisse.'
+]
 
-    <div className='contact'>
-      <span>+49 (0) 30 864 514 59 | </span>
-      <a className='email' href='mailto:info@wunderundfitzig.de'>
-        info@wunderundfitzig.de
-      </a><br />
-      <a href='https://goo.gl/maps/VsHnP' target='_blank'>
-        Lausitzer Straße 47 10999 Berlin
-      </a>
-    </div>
-  </div>
-)
+class Hero extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      buzzword: buzzwords[0]
+    }
+  }
+
+  animateTyping ({ word, backwards = false }) {
+    let remainingChars = word.length
+
+    return new Promise(resolve => {
+      const intervalID = setInterval(() => {
+        let charecterOffset = --remainingChars
+        if (!backwards) {
+          charecterOffset *= -1
+          if (charecterOffset === 0) charecterOffset = word.length
+        }
+        this.setState({ buzzword: word.slice(0, charecterOffset) })
+        if (remainingChars === 0) {
+          clearInterval(intervalID)
+          resolve()
+        }
+      }, 80)
+    })
+  }
+
+  componentDidMount () {
+    const replaceWord = (i = 0) => {
+      this.animateTyping({ word: buzzwords[i], backwards: true })
+      .then(() => this.animateTyping({ word: buzzwords[++i] }))
+      .then(() => {
+        if (i < buzzwords.length - 1) setTimeout(() => { replaceWord(i) }, 2000)
+      })
+    }
+    setTimeout(replaceWord, 1000)
+  }
+
+  render () {
+    return (
+      <div>
+        <h1 className='sloagen'>
+          Wir gestalten <strong>{ this.state.buzzword }</strong>
+        </h1>
+        <h2 className='sub-sloagen'>Digital & Analog</h2>
+
+        <div className='contact'>
+          <span>+49 (0) 30 864 514 59 | </span>
+          <a className='email' href='mailto:info@wunderundfitzig.de'>
+            info@wunderundfitzig.de
+          </a><br />
+          <a href='https://goo.gl/maps/VsHnP' target='_blank'>
+            Lausitzer Straße 47 10999 Berlin
+          </a>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Hero
