@@ -43,10 +43,9 @@ class NewsFeed extends React.Component {
     })
 
     return (
-      <span>
-        <h2>recent work:</h2>
-        { NewsPosts }
-      </span>
+      <ul className='news-feed'>
+        <li className='news-post'>{ NewsPosts }</li>
+      </ul>
     )
   }
 }

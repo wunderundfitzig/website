@@ -2,31 +2,13 @@
 
 import React from 'react'
 import NewsFeed from './newsFeed'
+import Hero from './Hero'
 
-let NewsPage = ({ news }) => (
+const NewsPage = ({ news }) => (
   <section className='inner-content'>
-    <h1 className='neugierig'>neu<strong>gierig</strong>?</h1>
-    <div className='contact'>
-      <div className='wrapper'>
-        <p>
-          wunder &amp; fitzig<br/>
-          Web &amp; Print
-        </p>
-        <p>
-          <a className='externlink' href='https://goo.gl/maps/VsHnP' target='_blank'>
-            Lausitzer Straße 47 <br/>
-            10999 Berlin
-          </a>
-        </p>
-        <p>
-          030 864 514 59 <br/>
-          <a className='email' href='mailto:info@wunderundfitzig.de'>
-            info@wunderundfitzig.de
-          </a>
-        </p>
-      </div>
-    </div>
-    <div id='news-frame' className='news-feed'>
+    <Hero />
+
+    <div id='news-frame'>
       <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
     </div>
     <p className='more-news-link'>

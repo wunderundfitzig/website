@@ -2,12 +2,13 @@
   position         fixed
   top              0
   left             0
-  background-color wundf-black
-  height           header-height
+  background-color $wundf-black
+  height           $header-height
   width:           100%
   z-index          200
-  @media mobile
-    height mobile-header-height
+
+  @media $mobile
+    height $mobile-header-height
 
 .topNavigation
   max-width 660px
@@ -55,5 +56,4 @@
         height         0
         border-left    12px solid transparent
         border-right   12px solid transparent
-
-        border-top     13px solid wundf-black
+        border-top     13px solid $wundf-black

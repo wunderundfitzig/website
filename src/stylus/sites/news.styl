@@ -1,55 +1,43 @@
 //start page
-.neugierig
+.sloagen
+.sub-sloagen
   text-align  center
-  font-size   4.5em
-  font-weight 300
+  font-size   50px
+  font-weight 400
+
+.sloagen
   margin-top  70px
 
   strong
     font-weight normal
     font-weight 600
 
-  @media mobile
+  @media $mobile
     margin-top 30px
 
 .contact
-  height     2.5em
-  margin     30px auto 60px
-  padding    20px 0
-  border-top 1px dotted
+  margin     60px 0 50px
+  text-align center
+  font-size  17px
+  color      $text-grey
 
-  @media mobile
-    padding-top   7px
-    margin-bottom 25px
+  a
+    color      $text-grey
+    transition color 0.5s
+    border     0
 
-  .wrapper
-    margin    0 auto
-    width     30em
-    max-width 100%
-
-    p
-      float          left
-      width          9.6em
-      margin         0 auto
-      vertical-align top
-
-      @media small-mobile
-        width        auto
-        margin-right 15px
-
-        &:last-child
-          margin-right 0
+    &:hover
+      color $link-blue
 
 .news-feed
-  width      100%
-  max-width  inner-width
-  margin     0 auto
+  list-style none
+  padding    0
 
   //the post
   .fb-post
-    margin-bottom 60px
+    margin-bottom 70px
 
-    @media mobile
+    @media $mobile
       margin-bottom 20px
 
     img
@@ -60,23 +48,23 @@
         animation none
         filter    none
 
-  .fb-link:hover
+  .fb-link
     border 0
 
   .fb-date
-    font-size   1.2em
-    font-weight 300
-    margin      0 0 10px
+    font-size  18px
+    color      $text-grey
+    margin     0 0 15px
 
   .fb-picture
     width     100%
-    max-width inner-width
+    max-width $inner-width
     height    auto
 
   .fb-message
-    margin-top 10px
+    margin-top 18px
 
-    @media mobile
+    @media $mobile
       margin-top 3px
 
 .more-news-link
@@ -84,13 +72,13 @@
   padding-top 20px
   margin-top  80px
 
-  @media mobile
+  @media $mobile
     margin-top  30px
     padding-top 10px
 
 .impressum
   background-color #eee
-  background-color transparent-grey
+  background-color $transparent-grey
   position         absolute
   left             0
   margin-top       50px
@@ -100,5 +88,5 @@
   color            #777
   text-align       center
 
-  @media mobile
+  @media $mobile
     margin-top 0
