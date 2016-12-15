@@ -79,9 +79,11 @@ export default class NewsPost extends React.Component {
     return (
       <div className='fb-post'>
         { /* first element does not show the date */ }
-        { this.props.isFirst ? '' : <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p> }
+        { !this.props.isFirst &&
+          <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
+        }
         <a href={ url } target='_blank' className='fb-link'>
-          <img className={ `fb-picture ${ this.state.isHighRes ? 'isHighRes' : '' }` } src={ this.state.picture } />
+          <img className={ `fb-picture ${ this.state.isHighRes ? 'high-res' : 'low-res' }` } src={ this.state.picture } />
         </a>
         <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }}></p>
       </div>

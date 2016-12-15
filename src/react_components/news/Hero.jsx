@@ -33,7 +33,7 @@ class Hero extends React.Component {
           clearInterval(intervalID)
           resolve()
         }
-      }, 80)
+      }, backwards ? 50 : 150)
     })
   }
 
@@ -42,7 +42,7 @@ class Hero extends React.Component {
       this.animateTyping({ word: buzzwords[i], backwards: true })
       .then(() => this.animateTyping({ word: buzzwords[++i] }))
       .then(() => {
-        if (i < buzzwords.length - 1) setTimeout(() => { replaceWord(i) }, 2000)
+        if (i < buzzwords.length - 1) setTimeout(() => { replaceWord(i) }, 3000)
       })
     }
     setTimeout(replaceWord, 1000)

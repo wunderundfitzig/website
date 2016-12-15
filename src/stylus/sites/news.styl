@@ -39,13 +39,11 @@
     @media $mobile
       margin-bottom 20px
 
-    img
-      animation blurIn 2s
-      transition 2s
+  .fb-picture
+    transition opacity 1s
 
-      &.isHighRes
-        animation none
-        filter    none
+    &.low-res
+      opacity 0
 
   .fb-link
     border 0
