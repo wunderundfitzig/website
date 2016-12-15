@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   if (result.redirect) return res.redirect(301, result.redirect.pathname)
   if (result.missed) res.status(404)
 
-  initialDataLoader.getData(cache)
+  initialDataLoader.loadRequestedData(cache)
   .then(initialData => {
     cache = { ...cache, ...initialData }
 

@@ -13,9 +13,9 @@ class Page extends React.Component {
   componentDidUpdate (prevProps) {
     if (prevProps.location.key === this.props.location.key) return
 
-    this.context.loadInitialData(this.state)
+    this.context.initialDataLoader.loadRequestedData(this.state)
     .then((initialData) => {
-      this.setState({ ...this.state, ...initialData })
+      this.setState({ ...this.state, ...initialData }) // eslint-disable-line
     })
   }
 
@@ -83,7 +83,7 @@ Page.propTypes = {
   initialData: React.PropTypes.object
 }
 Page.contextTypes = {
-  loadInitialData: React.PropTypes.func
+  initialDataLoader: React.PropTypes.object
 }
 
 const PageWrapper = ({ initialData }) => (

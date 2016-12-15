@@ -18,7 +18,7 @@ export class InitialDataLoader {
   * }
   * @param newRequestDescriptions {array} of 'requestDescriptions'
   */
-  addRequestDescriptions (newRequestDescriptions) {
+  requestData (newRequestDescriptions) {
     this.storedRequestDescriptions = [...this.storedRequestDescriptions, ...newRequestDescriptions]
   }
 
@@ -27,7 +27,7 @@ export class InitialDataLoader {
   * @param cache {object} data already loaded by previos request
   * @return {Promise} of the fetched data
   */
-  getData (cache = {}) {
+  loadRequestedData (cache = {}) {
     const responses = []
     this.storedRequestDescriptions.forEach(requestDescription => {
       let url = requestDescription.url + '?'
@@ -64,13 +64,13 @@ export class InitialDataLoader {
 export class InitialDataCollecter extends React.Component {
   getChildContext () {
     const initialDataLoader = this.props.initialDataLoader || new InitialDataLoader()
-    return {
-      requestInitialData: (requestDescriptions) => {
-        initialDataLoader.addRequestDescriptions(requestDescriptions)
-      },
-
-      loadInitialData: alreadyLoaded => initialDataLoader.getData(alreadyLoaded)
-    }
+    return { initialDataLoader: initialDataLoader }
+    //   requestInitialData: (requestDescriptions) => {
+    //     initialDataLoader.addRequestDescriptions(requestDescriptions)
+    //   },
+    //
+    //   loadInitialData: alreadyLoaded => initialDataLoader.getData(alreadyLoaded)
+    // }
   }
 
   render () { return this.props.children }
@@ -81,6 +81,5 @@ InitialDataCollecter.propTypes = {
   children: React.PropTypes.node
 }
 InitialDataCollecter.childContextTypes = {
-  requestInitialData: React.PropTypes.func,
-  loadInitialData: React.PropTypes.func
+  initialDataLoader: React.PropTypes.instanceOf(InitialDataLoader)
 }

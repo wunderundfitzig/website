@@ -6,8 +6,8 @@ import NewsPost from './newsPost'
 class NewsFeed extends React.Component {
   constructor (props, context) {
     super(props)
-    if (context.requestInitialData) {
-      context.requestInitialData([{
+    if (context.initialDataLoader) {
+      context.initialDataLoader.requestData([{
         key: 'news',
         alwaysReload: false,
         url: 'https://graph.facebook.com/wunderundfitzig/feed',
@@ -57,7 +57,7 @@ NewsFeed.propTypes = {
 }
 
 NewsFeed.contextTypes = {
-  requestInitialData: React.PropTypes.func
+  initialDataLoader: React.PropTypes.object
 }
 
 export default NewsFeed
