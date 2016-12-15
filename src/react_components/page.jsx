@@ -1,22 +1,25 @@
 'use strict'
 
 import React from 'react'
-import { Link } from 'react-router'
-import { routeTitles } from '../routes'
-import store from '../store'
+import { Match, Link } from 'react-router'
+import NewsPage from './news/newsPage'
 
-let Page = (props) => (
+const routeTitles = {
+  '/': 'web & print',
+  '/creatives/': 'creatives'
+}
+
+const Page = ({ location, initialData }) => (
   <html lang='de'>
     <head>
         <meta charSet='UTF-8'/>
-        <meta
-          name='viewport'
+        <meta name='viewport'
           content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
         />
-        <title>{ `wunder & fitzig | ${ routeTitles[props.location.pathname] }` }</title>
+        <title>{ `wunder & fitzig | ${ routeTitles[location] }` }</title>
         <link rel='stylesheet' href='/assets/css/main.css'/>
         <script src='/assets/js/bundle.js'/>
-        <script dangerouslySetInnerHTML={{ __html: 'window.news = ' + JSON.stringify(store.news) }} />
+        <script dangerouslySetInnerHTML={{ __html: 'window.news = ' + JSON.stringify(initialData.news) }} />
     </head>
 
     <body>
@@ -29,7 +32,7 @@ let Page = (props) => (
               </Link>
             </li>
             <li className='menu-item'>
-              <Link to='/' activeClassName='active' onlyActiveOnIndex={ true }>
+              <Link to='/' activeClassName='active' activeOnlyWhenExact>
                 <img className='menu-logo' src='/assets/img/logo.svg' alt='wunder &amp; fitzig'/>
               </Link>
             </li>
@@ -42,9 +45,18 @@ let Page = (props) => (
         </nav>
       </header>
 
-      <div className='content'>{ props.children }</div>
+      <div className='content'>
+        <Match exactly pattern='/' render={ (matchProps) => (
+          <NewsPage {...matchProps} news={ initialData.news } />
+        )} />
+      </div>
     </body>
-  </html>
+    </html>
 )
+
+Page.propTypes = {
+  initialData: React.PropTypes.object,
+  location: React.PropTypes.string.isRequired
+}
 
 export default Page

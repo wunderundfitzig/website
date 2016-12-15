@@ -5,7 +5,7 @@ import { Route, IndexRoute } from 'react-router'
 import Page from './react_components/page'
 import Stories from './react_components/stories/storiesContainer'
 import Creatives from './react_components/creatives/creativesPage'
-import NewsPage from './react_components/news/newsPage'
+
 
 export default (
     <Route path='/' component={ Page } >
@@ -14,10 +14,5 @@ export default (
       <Route path='stories' component={ Stories } />
     </Route>
 )
-
-let routeTitles = {
-  '/': 'web & print',
-  '/creatives/': 'creatives'
-}
 
 export { routeTitles }

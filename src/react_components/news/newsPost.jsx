@@ -31,11 +31,13 @@ export default class NewsPost extends React.Component {
   }
 
   /**
-  * find first url in message and remove it from the message
+  * find first url in message and remove it
   * @param message {string}
-  * @return {string}
+  * @return {object} containing the 'url' and the 'message'
   */
   getAndRemoveFirstURL (message) {
+    if (!message) return {}
+
     let regex = /((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/
     let matches = message.match(regex)
     let url = null
@@ -61,17 +63,19 @@ export default class NewsPost extends React.Component {
   }
 
   componentDidMount () {
+    console.log('wtf')
     if (this.props.type !== 'photo') return
     // replace low res images with large ones
     let fetchBigImg = fetch(`https://graph.facebook.com/${ this.props.id }?fields=images&access_token=${ this.props.accessToken }`)
-      .then(res => res.json().then(json => json.images[0].source)) // images[0] should be the largest one
+      .then(res => res.json())
+      .then(json => json.images[0].source) // images[0] should be the largest one
       .catch(err => console.error(err))
 
     fetchBigImg.then(bigImg => this.setState({ picture: bigImg, isHighRes: true }))
   }
 
   render () {
-    let { url, message } = this.getAndRemoveFirstURL(this.props.message)
+    const { url, message } = this.getAndRemoveFirstURL(this.props.message)
 
     return (
       <div className='fb-post'>

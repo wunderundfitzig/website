@@ -3,7 +3,7 @@
 import React from 'react'
 import NewsFeed from './newsFeed'
 
-let NewsPage = () => (
+let NewsPage = ({ news }) => (
   <section className='inner-content'>
     <h1 className='neugierig'>neu<strong>gierig</strong>?</h1>
     <div className='contact'>
@@ -27,7 +27,7 @@ let NewsPage = () => (
       </div>
     </div>
     <div id='news-frame' className='news-feed'>
-      <NewsFeed accessToken={ NewsPage.accessToken } />
+      <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
     </div>
     <p className='more-news-link'>
       ältere News sind für alle Ewigkeit auf <a href='http://www.facebook.com/wunderundfitzig' target='_blank'>facebook</a> zu finden
@@ -39,17 +39,5 @@ let NewsPage = () => (
     </div>
   </section>
 )
-
-NewsPage.accessToken = '1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE'
-NewsPage.load = [{
-  key: 'news',
-  alwaysReload: false,
-  url: 'https://graph.facebook.com/wunderundfitzig/feed',
-  params: {
-    fields: 'message,object_id,created_time,picture,link,type',
-    access_token: NewsPage.accessToken,
-    limit: 10
-  }
-}]
 
 export default NewsPage

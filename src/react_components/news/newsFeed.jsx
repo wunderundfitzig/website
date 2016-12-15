@@ -2,38 +2,60 @@
 
 import React from 'react'
 import NewsPost from './newsPost'
-import store from '../../store'
 
-let NewsFeed = (props) => {
-  let posts = store.news.data.data
-  let NewsPosts = posts.map((post, index) => {
-    if (post.type === 'photo' || post.type === 'link') {
-      return (
-        <NewsPost
-          key = { 'key-' + index }
-          id = { post.object_id }
-          isFirst = { index === 0 }
-          createdTime = { post.created_time }
-          link = { post.link }
-          type = { post.type }
-          picture = { post.picture }
-          message = { post.message }
-          accessToken = { props.accessToken }
-        />
-      )
+class NewsFeed extends React.Component {
+  constructor (props, context) {
+    super(props)
+    if (context.requestInitialData) {
+      context.requestInitialData([{
+        key: 'news',
+        alwaysReload: false,
+        url: 'https://graph.facebook.com/wunderundfitzig/feed',
+        params: {
+          fields: 'message,object_id,created_time,picture,link,type',
+          access_token: props.accessToken,
+          limit: 10
+        }
+      }])
     }
-  })
+  }
 
-  return (
-    <span>
-      <h2>recent work:</h2>
-      { NewsPosts }
-    </span>
-  )
+  render () {
+    if (!this.props.news) return null
+
+    const posts = this.props.news.data.data
+    const NewsPosts = posts.map((post, index) => {
+      if ((post.type === 'photo' || post.type === 'link') && post.object_id) {
+        return (
+          <NewsPost
+            key = { 'key-' + index }
+            id = { post.object_id }
+            isFirst = { index === 0 }
+            createdTime = { post.created_time }
+            link = { post.link }
+            type = { post.type }
+            picture = { post.picture }
+            message = { post.message }
+            accessToken = { this.props.accessToken }
+          />
+        )
+      }
+    })
+
+    return (
+      <span>
+        <h2>recent work:</h2>
+        { NewsPosts }
+      </span>
+    )
+  }
 }
 
 NewsFeed.propTypes = {
+  news: React.PropTypes.object,
   accessToken: React.PropTypes.string.isRequired
 }
+
+NewsFeed.contextTypes = { requestInitialData: React.PropTypes.func }
 
 export default NewsFeed

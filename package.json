@@ -5,13 +5,12 @@
   "main": "app.js",
   "scripts": {
     "serve-dev": "nodemon --exec 'babel-node src/server.js' --ext js,jsx --ignore src/assets/",
-    "livereload": "livereload .reload",
     "build:js": "browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js",
     "watch:js": "nodemon --exec 'npm run build:js' --ext js,jsx --ignore src/assets/js/ -q",
     "build:css": "cd src/stylus; stylus < main.styl > ../assets/css/main.css",
     "watch:css": "nodemon --exec 'npm run build:css' -e styl --ignore src/assets/css/ -q",
     "build": "npm run build:js && npm run build:css",
-    "dev": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve-dev -s' 'npm run livereload -s'"
+    "dev": "parallelshell 'npm run watch:js -s' 'npm run watch:css -s' 'npm run serve-dev -s'"
   },
   "repository": {
     "type": "git",
@@ -26,13 +25,14 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "express": "^4.13.4",
+    "history": "^4.4.1",
     "node-fetch": "^1.5.2",
     "path": "^0.12.7",
     "react": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
     "react-addons-transition-group": "^15.0.2",
     "react-dom": "^15.0.2",
-    "react-router": "^2.4.0",
+    "react-router": "^4.0.0-2",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
@@ -43,7 +43,6 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "exorcist": "^0.4.0",
-    "livereload": "^0.4.1",
     "nodemon": "^1.9.2",
     "parallelshell": "^2.0.0",
     "stylus": "^0.54.5"
