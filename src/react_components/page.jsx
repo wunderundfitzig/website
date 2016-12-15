@@ -3,6 +3,7 @@
 import React from 'react'
 import { Match, Link } from 'react-router'
 import NewsPage from './news/newsPage'
+import CreativesPage from './creatives/creativesPage'
 
 class Page extends React.Component {
   constructor (props) {
@@ -71,6 +72,7 @@ class Page extends React.Component {
           <Match exactly pattern='/' render={ (matchProps) => (
             <NewsPage {...matchProps} news={ this.state.news } />
           )} />
+          <Match pattern='creatives' component={ CreativesPage } />
         </div>
       </body>
       </html>

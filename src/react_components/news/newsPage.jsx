@@ -5,15 +5,9 @@ import NewsFeed from './newsFeed'
 import Hero from './Hero'
 
 const NewsPage = ({ news }) => (
-  <section className='inner-content'>
+  <section id='news-page'>
     <Hero />
-
-    <div id='news-frame'>
-      <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
-    </div>
-    <p className='more-news-link'>
-      ältere News sind für alle Ewigkeit auf <a href='http://www.facebook.com/wunderundfitzig' target='_blank'>facebook</a> zu finden
-    </p>
+    <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
     <div className='impressum'>
       <p>
         wunder &amp; fitzig GBR - 2016
