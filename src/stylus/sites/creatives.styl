@@ -4,7 +4,7 @@
     width         calc(50% - 110px)
     margin-bottom 140px
 
-    @media $mobile
+    @media $narrow
       width calc(50% - 80px)
 
     @media $small-mobile
@@ -20,28 +20,26 @@
     background-size cover
     transition      opacity 1s
 
-    @media $mobile
+    @media $narrow
       width calc(50% + 35px)
-
-    @media $small-mobile
+    @media $mobile
       position  static
       display   block
       width     100%
-      height    120px
-
-    @media $small-mobile-wide
-      height 200px
+      height    200px
+    @media $small-mobile
+      height 120px
 
     &.out-of-view
       opacity 0
 
-      @media $small-mobile
+      @media $mobile
         opacity 1
 
   .creatives-section-title
     margin 45px 0 25px
 
-    @media $small-mobile
+    @media $mobile
       margin 35px 0 15px
 
   .creatives-paragraph

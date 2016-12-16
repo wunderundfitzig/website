@@ -27,7 +27,7 @@ class CreativesPage extends React.Component {
       context.initialDataLoader.requestData([{
         key: 'creatives',
         alwaysReload: false,
-        url: 'http://localhost:8080/assets/data/creatives.json'
+        url: 'http://new.wunderundfitzig.de/assets/data/creatives.json'
       }])
     }
     this.scrollHandler

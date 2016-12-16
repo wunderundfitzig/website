@@ -6,8 +6,8 @@
   height           $header-height
   width:           100%
   z-index          200
-  @media $mobile
-    height $mobile-header-height
+  @media $narrow
+    height $small-header-height
 
 .topNavigation
   max-width 660px
@@ -38,14 +38,14 @@
 
     .menu-img
       margin-top -15px
-      @media $mobile
+      @media $narrow
         height     13px
         margin-top -11px
 
 
     .menu-logo
       margin-left -13px
-      @media $mobile
+      @media $narrow
         height 35px
 
     .active

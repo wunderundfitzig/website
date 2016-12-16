@@ -8,16 +8,14 @@ body
   font-family    'Noto Serif', serif
   font-weight    400
   margin         0
-  @media $small-mobile
-    font-size 12px
-  @media $small-mobile-wide
+  @media $mobile
     font-size 14px
 
 h2
   font-weight bold
   color       $text-grey
   font-size   18px
-  @media $small-mobile
+  @media $mobile
     font-size 15px
 
 a
@@ -30,19 +28,19 @@ a
   margin-top $header-height
   overflow   hidden
   position   relative
-  @media $mobile
-    margin-top $mobile-header-height
+  @media $narrow
+    margin-top $small-header-height
 
 .inner-content
   margin 0 auto
   width  $page-width
 
-  @media $mobile
+  @media $narrow
     width   100%
     padding 0 50px
 
+  @media $mobile
+    padding 0 70px
+
   @media $small-mobile
     padding 0 20px
-
-  @media $small-mobile-wide
-    padding 0 70px
