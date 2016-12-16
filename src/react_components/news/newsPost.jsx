@@ -25,7 +25,7 @@ export default class NewsPost extends React.Component {
     var month = date[1] - 1
     var year = date[0]
 
-    var months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    var months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dez']
 
     return day + '. ' + months[month] + ' ' + year
   }
