@@ -64,13 +64,24 @@ export default class NewsPost extends React.Component {
 
   componentDidMount () {
     if (this.props.type !== 'photo') return
+
+    this._isMounted = true
     // replace low res images with large ones
     let fetchBigImg = fetch(`https://graph.facebook.com/${ this.props.id }?fields=images&access_token=${ this.props.accessToken }`)
       .then(res => res.json())
       .then(json => json.images[0].source) // images[0] should be the largest one
       .catch(err => console.error(err))
 
-    fetchBigImg.then(bigImg => this.setState({ picture: bigImg, isHighRes: true }))
+    fetchBigImg.then(bigImg => {
+      if (this._isMounted) this.setState({ picture: bigImg, isHighRes: true })
+    })
+  }
+
+  componentWillUnmount () {
+    // facebook says I should cancel the Promise on unmount
+    // but I think this is the same see:
+    // https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+    this._isMounted = false
   }
 
   render () {
