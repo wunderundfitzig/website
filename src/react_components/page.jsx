@@ -18,6 +18,7 @@ class Page extends React.Component {
 
   componentDidMount () {
     this.checkIfMobile()
+    this.setState({ clientLoaded: true })
     window.addEventListener('resize', this.checkIfMobile.bind(this))
   }
 
@@ -60,7 +61,11 @@ class Page extends React.Component {
           <title>{ this.getTitleString() }</title>
           <link rel='stylesheet' href='/assets/css/main.css'/>
           <script src='/assets/js/bundle.js'/>
-          <script dangerouslySetInnerHTML={{ __html: 'window.initialData = ' + JSON.stringify(this.state) }} />
+          { /* add data loded on the server so we can can read it and dont have
+            to load it again but only for the first render */ }
+          { !this.state.clientLoaded &&
+            <script dangerouslySetInnerHTML={{ __html: 'window.initialData = ' + JSON.stringify(this.state) }} />
+          }
       </head>
 
       <body>
