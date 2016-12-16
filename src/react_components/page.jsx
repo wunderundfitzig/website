@@ -4,11 +4,21 @@ import React from 'react'
 import { Match, Link } from 'react-router'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
+const MOBILE_WIDTH = 700
 
 class Page extends React.Component {
   constructor (props) {
     super(props)
     this.state = props.initialData || {}
+  }
+
+  checkIfMobile () {
+    this.setState({ isMobile: window.innerWidth <= MOBILE_WIDTH })
+  }
+
+  componentDidMount () {
+    this.checkIfMobile()
+    window.addEventListener('resize', this.checkIfMobile.bind(this))
   }
 
   componentDidUpdate (prevProps) {
@@ -18,6 +28,10 @@ class Page extends React.Component {
     .then((initialData) => {
       this.setState({ ...this.state, ...initialData }) // eslint-disable-line
     })
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.checkIfMobile)
   }
 
   getTitleString (pathname) {
@@ -77,7 +91,10 @@ class Page extends React.Component {
             <NewsPage {...matchProps} news={ news } />
           )}/>
           <Match pattern='creatives' render={ (matchProps) => (
-            <CreativesPage {...matchProps} sections={ creatives } />
+            <CreativesPage {...matchProps}
+              isMobile={ this.state.isMobile }
+              sections={ creatives }
+            />
           )}/>
         </div>
       </body>

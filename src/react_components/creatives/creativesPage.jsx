@@ -30,6 +30,7 @@ class CreativesPage extends React.Component {
         url: 'http://localhost:8080/assets/data/creatives.json'
       }])
     }
+    this.scrollHandler
 
     this.sectionRefs = []
     this.state = {
@@ -38,6 +39,8 @@ class CreativesPage extends React.Component {
   }
 
   setSectionImageStates () {
+    if (this.props.isMobile) return
+
     const sectionImageStates = this.sectionRefs.map(el =>
       el.getBoundingClientRect().top - (window.innerHeight * 5 / 8) < 0
     )
@@ -92,7 +95,8 @@ CreativesPage.contextTypes = {
   initialDataLoader: PropTypes.object
 }
 CreativesPage.propTypes = {
-  sections: PropTypes.array
+  sections: PropTypes.array,
+  isMobile: PropTypes.bool
 }
 
 export default CreativesPage
