@@ -23,7 +23,7 @@ class NewsFeed extends React.Component {
   render () {
     if (!this.props.news) return null
 
-    const posts = this.props.news.data.data
+    const posts = this.props.news.data
     const NewsPosts = posts.map((post, index) => {
       if ((post.type === 'photo' || post.type === 'link') && post.object_id) {
         return (

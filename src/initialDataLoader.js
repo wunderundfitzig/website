@@ -65,12 +65,6 @@ export class InitialDataCollecter extends React.Component {
   getChildContext () {
     const initialDataLoader = this.props.initialDataLoader || new InitialDataLoader()
     return { initialDataLoader: initialDataLoader }
-    //   requestInitialData: (requestDescriptions) => {
-    //     initialDataLoader.addRequestDescriptions(requestDescriptions)
-    //   },
-    //
-    //   loadInitialData: alreadyLoaded => initialDataLoader.getData(alreadyLoaded)
-    // }
   }
 
   render () { return this.props.children }

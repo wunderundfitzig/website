@@ -33,6 +33,9 @@ class Page extends React.Component {
   }
 
   render () {
+    const news = this.state.news ? this.state.news.data : null
+    const creatives = this.state.creatives ? this.state.creatives.data : null
+
     return (
       <html lang='de'>
       <head>
@@ -71,9 +74,11 @@ class Page extends React.Component {
 
         <div className='content'>
           <Match exactly pattern='/' render={ (matchProps) => (
-            <NewsPage {...matchProps} news={ this.state.news } />
-          )} />
-          <Match pattern='creatives' component={ CreativesPage } />
+            <NewsPage {...matchProps} news={ news } />
+          )}/>
+          <Match pattern='creatives' render={ (matchProps) => (
+            <CreativesPage {...matchProps} sections={ creatives } />
+          )}/>
         </div>
       </body>
       </html>

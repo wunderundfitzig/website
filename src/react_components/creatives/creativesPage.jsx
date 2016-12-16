@@ -1,41 +1,6 @@
 'use strict'
 
-import React from 'react'
-
-const persons = [
-  {
-    name: 'Martina Springmann',
-    image: '/assets/img/people/springmann.jpg',
-    paragraphs: [
-      `Formen, Farbe, Strategien!`,
-      `Martina spricht fliesend Gestaltung.
-      Mit Begeisterung etwickelt sie Markenbilder,
-      die nicht nur verdammt gut aussehen sondern klar
-      durchdacht sind.`,
-      `Sie ist nicht nur staatlich geprüfte Grafikdesignerin
-      sondern entstammt auch einer Künstlerfamilie.`,
-      `Design allein war ihr aber nicht genug darum schloss sie noch ein Studium in
-      Wirtschfaskomikation ab. Praxiserfahrung sammelte sie dann bei MetaDesign in Berlin.`,
-      `Inzwischen studiert sie Gesellschafts- und Wirtschaftskommunikation an der Universität der Künste Berlin.`,
-      `Wenn sie gerade mal nicht von einem Termin zum nächsten hetzt, sitzt Martina in der heimischen Küche und träumt von Luftschlössern oder Meister Proper.`
-    ]
-  }, {
-    name: 'Manuel Reich',
-    image: '/assets/img/people/reich.jpg',
-    paragraphs: [
-      `Manuel konzeptioniert und programmiert
-      Webseiten.`,
-      `Konzepte und Design hat er gerne modern und radikal schlicht.
-      Ziel ist es nur was wirklich gebraucht wird umsusetzen,
-      und das mit größtmöglicher Perfektion.`,
-      `Er studierte internationale Medieninformatik in Berlin.
-      Davor arbeitete er, als Teil der Generation Praktikum, in Freiburg bei der Werkstatt für kreative Konzepte.`,
-      `Bei der linkbird GmbH in Berlin war er Teil des SEO Teams. Und später entwickelte er viele, viele kleine und große Seiten für Common People Interactive in Barcelona.`,
-      `Manuel genießt sein Lotterleben in Berlin. Lange Reden über sinnvolle und sinnfreie Dinge gehören zu seinen absoluten Lieblingsbeschäftigungen.
-      Ab und zu kann man ihn in einem Hipster Cafe antreffen. Hier bestellt er seine Inspiration.`
-    ]
-  }
-]
+import React, { PropTypes } from 'react'
 
 const throttle = function ({ func, delay }) {
   let block = false
@@ -55,8 +20,16 @@ const throttle = function ({ func, delay }) {
 }
 
 class CreativesPage extends React.Component {
-  constructor (props) {
+  constructor (props, context) {
     super(props)
+
+    if (context.initialDataLoader) {
+      context.initialDataLoader.requestData([{
+        key: 'creatives',
+        alwaysReload: false,
+        url: 'http://localhost:8080/assets/data/creatives.json'
+      }])
+    }
 
     this.sectionRefs = []
     this.state = {
@@ -77,14 +50,20 @@ class CreativesPage extends React.Component {
     window.addEventListener('scroll', this.scrollHandler)
   }
 
+  componentWillReceiveProps () {
+    this.setSectionImageStates()
+  }
+
   componentWillUnmount () {
     window.removeEventListener('scroll', this.scrollHandler)
   }
 
   render () {
+    if (!this.props.sections) return null
+
     return (
       <article id='creatives-page'>
-        { persons.map((person, index) => {
+        { this.props.sections.map((section, index) => {
           const imgInView = index === 0 || this.state.sectionImageStates[index]
           const imgStateString = imgInView ? 'in-view' : 'out-of-view'
 
@@ -94,11 +73,11 @@ class CreativesPage extends React.Component {
               ref={ sectionRef => { this.sectionRefs[index] = sectionRef }}
             >
               <span className={ `creatives-image ${ imgStateString }` } style={{
-                backgroundImage: `url(${ person.image })`
+                backgroundImage: `url(${ section.image })`
               }}/>
-              <h2 className='creatives-section-title'>{ person.name }</h2>
+              <h2 className='creatives-section-title'>{ section.name }</h2>
 
-              { person.paragraphs.map((paragraph, pIndex) =>
+              { section.paragraphs.map((paragraph, pIndex) =>
                 <p key={ pIndex } className='creatives-paragraph'>{ paragraph }</p>
               )}
             </section>
@@ -107,6 +86,13 @@ class CreativesPage extends React.Component {
       </article>
     )
   }
+}
+
+CreativesPage.contextTypes = {
+  initialDataLoader: PropTypes.object
+}
+CreativesPage.propTypes = {
+  sections: PropTypes.array
 }
 
 export default CreativesPage
