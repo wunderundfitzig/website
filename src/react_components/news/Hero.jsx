@@ -58,7 +58,7 @@ class Hero extends React.Component {
     return (
       <div>
         <h1 className='sloagen'>
-          Wir gestalten <strong>{ this.state.buzzword }</strong>
+          Wir gestalten <strong className='buzzword'>{ this.state.buzzword }</strong>
         </h1>
         <h2 className='sub-sloagen'>Digital & Analog</h2>
 

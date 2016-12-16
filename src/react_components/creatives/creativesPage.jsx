@@ -62,7 +62,7 @@ class CreativesPage extends React.Component {
     if (!this.props.sections) return null
 
     return (
-      <article id='creatives-page'>
+      <article id='creatives-page' className='inner-content'>
         { this.props.sections.map((section, index) => {
           const imgInView = index === 0 || this.state.sectionImageStates[index]
           const imgStateString = imgInView ? 'in-view' : 'out-of-view'
@@ -72,10 +72,10 @@ class CreativesPage extends React.Component {
               key={ index }
               ref={ sectionRef => { this.sectionRefs[index] = sectionRef }}
             >
+              <h2 className='creatives-section-title'>{ section.name }</h2>
               <span className={ `creatives-image ${ imgStateString }` } style={{
                 backgroundImage: `url(${ section.image })`
               }}/>
-              <h2 className='creatives-section-title'>{ section.name }</h2>
 
               { section.paragraphs.map((paragraph, pIndex) =>
                 <p key={ pIndex } className='creatives-paragraph'>{ paragraph }</p>

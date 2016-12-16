@@ -6,7 +6,6 @@
   height           $header-height
   width:           100%
   z-index          200
-
   @media $mobile
     height $mobile-header-height
 
@@ -39,9 +38,15 @@
 
     .menu-img
       margin-top -15px
+      @media $mobile
+        height     13px
+        margin-top -11px
+
 
     .menu-logo
       margin-left -13px
+      @media $mobile
+        height 35px
 
     .active
       &:after
