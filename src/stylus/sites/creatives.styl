@@ -2,13 +2,24 @@
   margin     0 auto
   max-width  $page-width
 
-  .creatives-image
-    position         fixed
-    top              0
-    right            0
-    bottom           0
-    background-color $light-grey
-    width            calc(50% + 50px)
-
   .creatives-section
-    width calc(50% - 90px)
+    width         calc(50% - 110px)
+    margin-bottom 140px
+
+  .creatives-image
+    position        fixed
+    top             0
+    right           0
+    bottom          0
+    width           calc(50% + 55px)
+    background-size cover
+    transition      opacity 1s
+
+    &.out-of-view
+      opacity 0
+
+  .creatives-section-title
+    margin 40px 0 25px
+
+  .creatives-paragraph
+    line-height 1.7em

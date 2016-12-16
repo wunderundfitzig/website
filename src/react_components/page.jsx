@@ -24,11 +24,12 @@ class Page extends React.Component {
     // trim trailing slashes
     const path = this.props.location.pathname.replace(/\/$/, '')
     const titles = {
-      '': 'news',
-      '/creatives': 'creatives'
+      '': '',
+      '/creatives': '| creatives',
+      '/stories': '| stories'
     }
 
-    return `wunder & fitzig | ${ titles[path] }`
+    return `wunder & fitzig ${ titles[path] }`
   }
 
   render () {
