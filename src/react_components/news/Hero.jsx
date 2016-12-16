@@ -63,10 +63,12 @@ class Hero extends React.Component {
         <h2 className='sub-sloagen'>Digital & Analog</h2>
 
         <div className='contact'>
-          <span>+49 (0) 30 864 514 59 | </span>
-          <a className='email' href='mailto:info@wunderundfitzig.de'>
-            info@wunderundfitzig.de
-          </a><br />
+          <p className='phone-and-mail'>
+            <span>+49 (0) 30 864 514 59 | </span>
+            <a className='email' href='mailto:info@wunderundfitzig.de'>
+              info@wunderundfitzig.de
+            </a>
+          </p>
           <a href='https://goo.gl/maps/VsHnP' target='_blank'>
             Lausitzer Straße 47 10999 Berlin
           </a>

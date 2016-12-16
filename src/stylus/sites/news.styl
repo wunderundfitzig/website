@@ -3,7 +3,7 @@
   .sloagen
   .sub-sloagen
     width       calc(100% + 50px)
-    margin-left -30px
+    margin-left -25px
     text-align  center
     font-size   49px
     font-weight 400
@@ -12,9 +12,9 @@
     @media $narrow
       font-size 47px
     @media $mobile
-      font-size 23px
-    @media $small-mobile
       font-size 35px
+    @media $small-mobile
+      font-size 23px
 
   .sloagen
     margin-top    70px
@@ -42,21 +42,23 @@
     @media $mobile
       height 50px
     @media $small-mobile
-      height 30px
+      height 35px
 
   .contact
-    margin     60px 0 50px
-    text-align center
-    font-size  17px
-    color      $text-grey
+    margin      50px 0 50px
+    text-align  center
+    font-size   17px
+    line-height 1.7em
+    color       $text-grey
 
     @media $narrow
       margin-top 40px
     @media $mobile
       margin-top    20px
       margin-bottom 20px
+      font-size     14px
+    @media $small-mobile
       font-size     12px
-      line-height   1.7em
 
     a
       color      $text-grey
@@ -64,7 +66,11 @@
       border     0
 
       &:hover
-        color $link-blue
+        color $link-bluex
+
+  .phone-and-mail
+    white-space nowrap
+    margin      0
 
   .news-feed
     list-style none
@@ -75,7 +81,7 @@
     margin-bottom 70px
 
     @media $mobile
-      margin-bottom 30px
+      margin-bottom 40px
 
   .fb-picture
     transition       opacity 1s
@@ -94,7 +100,7 @@
     color      $text-grey
     margin     0 0 15px
     @media $mobile
-      font-size     13px
+      font-size     15px
       margin-bottom 8px
 
   .fb-picture
@@ -105,12 +111,10 @@
     margin-top  18px
     line-height 1.5em
     @media $mobile
-      margin-top 8px
+      margin-top 12px
 
   .impressum
     background-color $light-grey
-    position         absolute
-    left             0
     margin-top       50px
     width            100%
     padding          10px 0
