@@ -22,8 +22,8 @@ app.use((req, res, next) => {
   const initialDataLoader = new InitialDataLoader()
 
   let markup = renderToString(
-    <ServerRouter location={ req.url } context={ renderContext }>
-      <InitialDataCollecter initialDataLoader={ initialDataLoader }>
+    <ServerRouter location={req.url} context={renderContext}>
+      <InitialDataCollecter initialDataLoader={initialDataLoader}>
         <PageWrapper />
       </InitialDataCollecter>
     </ServerRouter>
@@ -38,8 +38,8 @@ app.use((req, res, next) => {
     cache = { ...cache, ...initialData }
 
     markup = renderToString(
-      <ServerRouter location={ req.url } context={ renderContext }>
-        <PageWrapper initialData={ initialData } />
+      <ServerRouter location={req.url} context={renderContext}>
+        <PageWrapper initialData={initialData} />
       </ServerRouter>
     )
     res.send(markup)

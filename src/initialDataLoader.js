@@ -34,7 +34,7 @@ export class InitialDataLoader {
       for (let param in requestDescription.params) {
         param = encodeURIComponent(param)
         const value = encodeURIComponent(requestDescription.params[param])
-        url += `${ param }=${ value }&`
+        url += `${param}=${value}&`
       }
 
       const cachedData = cache[requestDescription.key]

@@ -27,15 +27,15 @@ class NewsFeed extends React.Component {
       if ((post.type === 'photo' || post.type === 'link') && post.object_id) {
         return (
           <NewsPost
-            key = { 'key-' + index }
-            id = { post.object_id }
-            isFirst = { index === 0 }
-            createdTime = { post.created_time }
-            link = { post.link }
-            type = { post.type }
-            picture = { post.picture }
-            message = { post.message }
-            accessToken = { this.props.accessToken }
+            key={'key-' + index}
+            id={post.object_id}
+            isFirst={index === 0}
+            createdTime={post.created_time}
+            link={post.link}
+            type={post.type}
+            picture={post.picture}
+            message={post.message}
+            accessToken={this.props.accessToken}
           />
         )
       }

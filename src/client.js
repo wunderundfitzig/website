@@ -10,7 +10,7 @@ import PageWrapper from './react_components/page'
 window.addEventListener('load', () => {
   render(<BrowserRouter>
     <InitialDataCollecter>
-      <PageWrapper initialData={ window.initialData } />
+      <PageWrapper initialData={window.initialData} />
     </InitialDataCollecter>
   </BrowserRouter>, document)
 })

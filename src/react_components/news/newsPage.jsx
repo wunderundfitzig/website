@@ -8,7 +8,7 @@ const NewsPage = ({ news }) => (
   <div id='news-page'>
     <div className='inner-content'>
       <Hero />
-      <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={ news } />
+      <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={news} />
     </div>
     <div className='impressum'>
       <p>

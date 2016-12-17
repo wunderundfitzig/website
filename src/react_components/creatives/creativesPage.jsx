@@ -26,7 +26,7 @@ class CreativesPage extends React.Component {
     if (context.initialDataLoader) {
       context.initialDataLoader.requestData([{
         key: 'creatives',
-        url: `${ process.env.HOST || window.location.origin }/assets/data/creatives.json`
+        url: `${process.env.HOST || window.location.origin}/assets/data/creatives.json`
       }])
     }
     this.scrollHandler
@@ -71,16 +71,16 @@ class CreativesPage extends React.Component {
 
           return (
             <section className='creatives-section'
-              key={ index }
-              ref={ sectionRef => { this.sectionRefs[index] = sectionRef }}
+              key={index}
+              ref={sectionRef => { this.sectionRefs[index] = sectionRef }}
             >
               <h2 className='creatives-section-title'>{ section.name }</h2>
-              <span className={ `creatives-image ${ imgStateString }` } style={{
-                backgroundImage: `url(${ section.image })`
-              }}/>
+              <span className={`creatives-image ${imgStateString}`} style={{
+                backgroundImage: `url(${section.image})`
+              }} />
 
               { section.paragraphs.map((paragraph, pIndex) =>
-                <p key={ pIndex } className='creatives-paragraph'>{ paragraph }</p>
+                <p key={pIndex} className='creatives-paragraph'>{ paragraph }</p>
               )}
             </section>
           )

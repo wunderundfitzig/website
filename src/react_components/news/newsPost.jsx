@@ -38,7 +38,7 @@ export default class NewsPost extends React.Component {
   getAndRemoveFirstURL (message) {
     if (!message) return {}
 
-    let regex = /((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/
+    let regex = /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
     let matches = message.match(regex)
     let url = null
 
@@ -57,7 +57,7 @@ export default class NewsPost extends React.Component {
   */
   formatAsHtml (message) {
     if (message) {
-      var str = message.replace(/((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a>')
+      var str = message.replace(/((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a>')
       return str.replace(/(\r\n)|(\n\r)|\r|\n/g, '<br>')
     }
   }
@@ -67,7 +67,7 @@ export default class NewsPost extends React.Component {
 
     this._isMounted = true
     // replace low res images with large ones
-    let fetchBigImg = fetch(`https://graph.facebook.com/${ this.props.id }?fields=images&access_token=${ this.props.accessToken }`)
+    let fetchBigImg = fetch(`https://graph.facebook.com/${this.props.id}?fields=images&access_token=${this.props.accessToken}`)
       .then(res => res.json())
       .then(json => json.images[0].source) // images[0] should be the largest one
       .catch(err => console.error(err))
@@ -93,10 +93,10 @@ export default class NewsPost extends React.Component {
         { !this.props.isFirst &&
           <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
         }
-        <a href={ url } target='_blank' className='fb-link'>
-          <img className={ `fb-picture ${ this.state.isHighRes ? 'high-res' : 'low-res' }` } src={ this.state.picture } />
+        <a href={url} target='_blank' className='fb-link'>
+          <img className={`fb-picture ${this.state.isHighRes ? 'high-res' : 'low-res'}`} src={this.state.picture} />
         </a>
-        <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }}></p>
+        <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
       </div>
     )
   }
