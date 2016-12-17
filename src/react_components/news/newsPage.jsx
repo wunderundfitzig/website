@@ -10,10 +10,10 @@ const NewsPage = ({ news }) => (
       <Hero />
       <NewsFeed accessToken='1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE' news={news} />
     </div>
-    <div className='impressum'>
-      <p>
-        wunder &amp; fitzig GBR
-      </p>
+    <div className='footer'>
+      <a href='https://www.facebook.com/wunderundfitzig/' target='_blank' >facebook</a>|
+      <a href='https://www.instagram.com/wunderundfitzig/' target='_blank' >instagram</a>|
+      <a href='https://github.com/wunderundfitzig' target='_blank' >github</a>
     </div>
   </div>
 )

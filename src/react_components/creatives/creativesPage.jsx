@@ -41,7 +41,7 @@ class CreativesPage extends React.Component {
     if (this.props.isMobile) return
 
     const sectionImageStates = this.sectionRefs.map(el =>
-      el.getBoundingClientRect().top - (window.innerHeight * 5 / 8) < 0
+      el.getBoundingClientRect().top - (window.innerHeight * 2 / 3) < 0
     )
     this.setState({ sectionImageStates })
   }
