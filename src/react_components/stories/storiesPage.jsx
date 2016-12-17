@@ -22,8 +22,8 @@ class StoriesPage extends React.Component {
         { this.props.stories.map((storie, index) =>
           <li className='storie' key={index}>
             <Link to={storie.slug} className='storie-link'>
-              <h2 className='storie-titel'>{ storie.title }</h2>
               <HighResImg className='storie-img' alt={storie.title} src={storie.cover} />
+              <p className='storie-titel'>{ storie.title }</p>
             </Link>
           </li>
          )}

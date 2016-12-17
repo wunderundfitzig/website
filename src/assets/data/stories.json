@@ -30,6 +30,16 @@
     "cover": "/assets/img/stories/SchuemannInteriorsCover.jpg"
   },
   {
+    "title": "Universität der Künste Berlin",
+    "slug": "udk",
+    "cover": "/assets/img/stories/udkCover.png"
+  },
+  {
+    "title": "Dev Crew Berlin",
+    "slug": "dcb",
+    "cover": "/assets/img/stories/dcbCover.png"
+  },
+  {
     "title": "Drunken Sailor",
     "slug": "drunken-sailor",
     "cover": "/assets/img/stories/DrunkenSailorCover.jpg"
