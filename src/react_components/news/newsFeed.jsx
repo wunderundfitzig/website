@@ -9,7 +9,6 @@ class NewsFeed extends React.Component {
     if (context.initialDataLoader) {
       context.initialDataLoader.requestData([{
         key: 'news',
-        alwaysReload: false,
         url: 'https://graph.facebook.com/wunderundfitzig/feed',
         params: {
           fields: 'message,object_id,created_time,picture,link,type',

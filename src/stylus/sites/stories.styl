@@ -1,0 +1,28 @@
+#storiesPage
+  list-style    none
+  padding       0
+  margin-top    40px
+  margin-bottom 30px
+  overflow      hidden
+
+  .storie
+    float         left
+    width         (($page-width - 50px) / 3)
+    margin-bottom 30px
+
+    &:nth-child(3n - 1)
+      margin 0 25px
+
+  .storie-link
+    border 0
+
+    &:hover .storie-titel
+      color $link-blue
+
+  .storie-titel
+    font-weight normal
+    font-size   16px
+    transition  color 0.5s
+
+  .storie-img
+    width 100%

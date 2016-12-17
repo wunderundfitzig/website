@@ -4,6 +4,8 @@ import React from 'react'
 import { Match, Link } from 'react-router'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
+import StoriesPage from './stories/storiesPage'
+
 const MOBILE_WIDTH = 700
 
 class Page extends React.Component {
@@ -50,6 +52,7 @@ class Page extends React.Component {
   render () {
     const news = this.state.news ? this.state.news.data : null
     const creatives = this.state.creatives ? this.state.creatives.data : null
+    const stories = this.state.stories ? this.state.stories.data : null
 
     return (
       <html lang='de'>
@@ -99,6 +102,12 @@ class Page extends React.Component {
             <CreativesPage {...matchProps}
               isMobile={ this.state.isMobile }
               sections={ creatives }
+            />
+          )}/>
+          <Match pattern='stories' render={ (matchProps) => (
+            <StoriesPage {...matchProps}
+              isMobile={ this.state.isMobile }
+              stories={ stories }
             />
           )}/>
         </div>
