@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import StoriesOverview from './storiesOverview'
-import Story from './story'
+import StoryWrapper from './storyWrapper'
 import { Match, Miss, Redirect } from 'react-router'
 
 class StoriesPage extends React.Component {
@@ -25,13 +25,12 @@ class StoriesPage extends React.Component {
         <Match exactly pattern={`${pathname}/`} render={matchProps => (
           <StoriesOverview {...matchProps} stories={stories} />
         )} />
-        <Match
-          pattern={`${pathname}/:slug(${stories.map(storie => storie.slug).join('|')})`}
-          render={({ params }) => (
-            <Story story={stories.find(story => story.slug === params.slug)} />
-          )}
-        />
-        <Miss render={() => <Redirect to={`${pathname}/`} />} />
+        <Match pattern={`${pathname}/:slug`} render={matchProps => {
+          const story = stories.find(story => story.slug === matchProps.params.slug)
+
+          if (!story) return <Redirect to={`${pathname}/`} />
+          return <StoryWrapper {...matchProps} story={story} />
+        }} />
       </div>
     )
   }

@@ -28,9 +28,8 @@ class NewsFeed extends React.Component {
         {posts.filter(post => (
           (post.type === 'photo' || post.type === 'link') && post.object_id)
         ).map((post, index) => (
-          <li className='news-post'>
+          <li key={'key-' + index}>
             <NewsPost
-              key={'key-' + index}
               id={post.object_id}
               isFirst={index === 0}
               createdTime={post.created_time}

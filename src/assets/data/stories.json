@@ -12,7 +12,20 @@
   {
     "title": "Riptide",
     "slug": "riptide",
-    "cover": "/assets/img/stories/RiptideCover.jpg"
+    "cover": "/assets/img/stories/RiptideCover.jpg",
+    "pages": [
+      {
+        "title": "Riptide",
+        "image": "/assets/img/stories/riptidePartySchiff.jpg",
+        "markdown":
+          "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite. \n\n [link](http://www.riptide-filmmakers.de)"
+      },
+      {
+        "title": "Riptide",
+        "image": "/assets/img/stories/riptidePage.jpg",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Kutzke & Papstein",
