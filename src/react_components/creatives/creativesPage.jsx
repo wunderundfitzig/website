@@ -65,7 +65,7 @@ class CreativesPage extends React.Component {
 
     return (
       <article id='creatives-page' className='inner-content'>
-        { this.props.sections.map((section, index) => {
+        {this.props.sections.map((section, index) => {
           const imgInView = index === 0 || this.state.sectionImageStates[index]
           const imgStateString = imgInView ? 'in-view' : 'out-of-view'
 

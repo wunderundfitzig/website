@@ -20,30 +20,28 @@ class NewsFeed extends React.Component {
   }
 
   render () {
-    if (!this.props.news) return null
+    if (!this.props.news) return <div className='news-feed-placeholder' />
 
     const posts = this.props.news.data
-    const NewsPosts = posts.map((post, index) => {
-      if ((post.type === 'photo' || post.type === 'link') && post.object_id) {
-        return (
-          <NewsPost
-            key={'key-' + index}
-            id={post.object_id}
-            isFirst={index === 0}
-            createdTime={post.created_time}
-            link={post.link}
-            type={post.type}
-            picture={post.picture}
-            message={post.message}
-            accessToken={this.props.accessToken}
-          />
-        )
-      }
-    })
-
     return (
       <ul className='news-feed'>
-        <li className='news-post'>{ NewsPosts }</li>
+        {posts.filter(post => (
+          (post.type === 'photo' || post.type === 'link') && post.object_id)
+        ).map((post, index) => (
+          <li className='news-post'>
+            <NewsPost
+              key={'key-' + index}
+              id={post.object_id}
+              isFirst={index === 0}
+              createdTime={post.created_time}
+              link={post.link}
+              type={post.type}
+              picture={post.picture}
+              message={post.message}
+              accessToken={this.props.accessToken}
+            />
+          </li>
+        ))}
       </ul>
     )
   }
