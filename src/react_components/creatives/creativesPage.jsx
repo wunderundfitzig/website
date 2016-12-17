@@ -1,6 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
+import marked from 'marked'
 
 const throttle = function ({ func, delay }) {
   let block = false
@@ -79,9 +80,9 @@ class CreativesPage extends React.Component {
                 backgroundImage: `url(${section.image})`
               }} />
 
-              { section.paragraphs.map((paragraph, pIndex) =>
-                <p key={pIndex} className='creatives-paragraph'>{ paragraph }</p>
-              )}
+              <div className='creatives-text'
+                dangerouslySetInnerHTML={{ __html: marked(section.markdown) }}
+              />
             </section>
           )
         })}

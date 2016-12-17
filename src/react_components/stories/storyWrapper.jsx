@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { PropTypes } from 'react'
 import StoryPage from './storyPage'
 import { Match, Redirect } from 'react-router'

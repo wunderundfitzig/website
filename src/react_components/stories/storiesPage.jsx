@@ -1,7 +1,9 @@
+'use strict'
+
 import React, { PropTypes } from 'react'
 import StoriesOverview from './storiesOverview'
 import StoryWrapper from './storyWrapper'
-import { Match, Miss, Redirect } from 'react-router'
+import { Match, Redirect } from 'react-router'
 
 class StoriesPage extends React.Component {
   constructor (props, context) {
@@ -21,7 +23,7 @@ class StoriesPage extends React.Component {
     if (!stories) return null
 
     return (
-      <div id='storiesPage' className='inner-content'>
+      <div className='inner-content'>
         <Match exactly pattern={`${pathname}/`} render={matchProps => (
           <StoriesOverview {...matchProps} stories={stories} />
         )} />

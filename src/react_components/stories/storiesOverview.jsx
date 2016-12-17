@@ -3,12 +3,12 @@ import HighResImg from '../_helpers/highResImg'
 import { Link } from 'react-router'
 
 const StoriesOverview = ({ stories }) => (
-  <ul className='stories-overview'>
-    {stories.map((storie, index) =>
-      <li className='storie' key={index}>
-        <Link to={storie.slug} className='storie-link'>
-          <HighResImg className='storie-img' alt={storie.title} src={storie.cover} />
-          <p className='storie-titel'>{ storie.title }</p>
+  <ul id='storiesOverview'>
+    {stories.map((story, index) =>
+      <li className='story' key={index}>
+        <Link to={story.slug} className='story-link'>
+          <HighResImg className='story-img' alt={story.title} src={story.cover} />
+          <p className='story-titel'>{ story.title }</p>
         </Link>
       </li>
      )}

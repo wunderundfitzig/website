@@ -1,8 +1,10 @@
+'use strict'
+
 import React, { PropTypes } from 'react'
 import marked from 'marked'
 
 const StoryPage = ({ storyPage }) => (
-  <div className='story-page'>
+  <div id='storyPage'>
     <h2 className='story-title'>{ storyPage.title }</h2>
     <span className='story-image' style={{
       backgroundImage: `url(${storyPage.image})`
