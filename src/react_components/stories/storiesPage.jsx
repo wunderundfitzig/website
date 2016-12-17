@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
-import HighResImg from '../_helpers/highResImg'
-import { Link } from 'react-router'
+import StoriesOverview from './storiesOverview'
+import Story from './story'
+import { Match, Miss, Redirect } from 'react-router'
 
 class StoriesPage extends React.Component {
   constructor (props, context) {
@@ -14,26 +15,31 @@ class StoriesPage extends React.Component {
       }])
     }
   }
+
   render () {
-    if (!this.props.stories) return null
+    const { pathname, stories } = this.props
+    if (!stories) return null
 
     return (
-      <ul id='storiesPage' className='inner-content'>
-        { this.props.stories.map((storie, index) =>
-          <li className='storie' key={index}>
-            <Link to={storie.slug} className='storie-link'>
-              <HighResImg className='storie-img' alt={storie.title} src={storie.cover} />
-              <p className='storie-titel'>{ storie.title }</p>
-            </Link>
-          </li>
-         )}
-      </ul>
+      <div id='storiesPage' className='inner-content'>
+        <Match exactly pattern={`${pathname}/`} render={matchProps => (
+          <StoriesOverview {...matchProps} stories={stories} />
+        )} />
+        <Match
+          pattern={`${pathname}/:slug(${stories.map(storie => storie.slug).join('|')})`}
+          render={({ params }) => (
+            <Story story={stories.find(story => story.slug === params.slug)} />
+          )}
+        />
+        <Miss render={() => <Redirect to={`${pathname}/`} />} />
+      </div>
     )
   }
 }
 
 StoriesPage.propTypes = {
-  stories: PropTypes.array
+  stories: PropTypes.array,
+  pathname: PropTypes.string
 }
 
 StoriesPage.contextTypes = {
