@@ -7,7 +7,9 @@ const StoriesOverview = ({ stories }) => (
     {stories.map((story, index) =>
       <li className='story' key={index}>
         <Link to={`${story.slug}/0`} className='story-link'>
-          <HighResImg className='story-img' alt={story.title} src={story.cover} />
+          <span className='story-image-wrapper'>
+            <HighResImg className='story-img' alt={story.title} src={story.cover} />
+          </span>
           <p className='story-titel'>{ story.title }</p>
         </Link>
       </li>

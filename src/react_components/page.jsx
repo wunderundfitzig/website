@@ -37,18 +37,6 @@ class Page extends React.Component {
     window.removeEventListener('resize', this.checkIfMobile)
   }
 
-  getTitleString (pathname) {
-    // trim trailing slashes
-    const path = this.props.location.pathname.replace(/\/$/, '')
-    const titles = {
-      '': '',
-      '/creatives': '| creatives',
-      '/stories': '| stories'
-    }
-
-    return `wunder & fitzig ${titles[path]}`
-  }
-
   render () {
     const news = this.state.news ? this.state.news.data : null
     const creatives = this.state.creatives ? this.state.creatives.data : null
@@ -61,7 +49,9 @@ class Page extends React.Component {
           <meta name='viewport'
             content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
           />
-          <title>{ this.getTitleString() }</title>
+          <Match pattern='creatives' render={() => <title>wunder & fitzig | creatives</title>} />
+          <Match pattern='stories' render={() => <title>wunder & fitzig | stories</title>} />
+          <Match exactly pattern='/' render={() => <title>wunder & fitzig</title>} />
           <link rel='stylesheet' href='/assets/css/main.css' />
           <script src='/assets/js/bundle.js' />
           { /* add data loded on the server so we can can read it and dont have
