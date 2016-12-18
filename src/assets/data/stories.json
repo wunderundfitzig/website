@@ -2,12 +2,26 @@
   {
     "title": "Sebastian Schmidt",
     "slug": "sebastian-schmidt",
-    "cover": "/assets/img/stories/SebastianSchmidtCover.jpg"
+    "cover": "/assets/img/stories/SebastianSchmidtCover.jpg",
+    "pages": [
+      {
+        "title": "Sebastian Schmidt",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Brillenschatz",
     "slug": "brillenschatz",
-    "cover": "/assets/img/stories/BrillenschatzCover.png"
+    "cover": "/assets/img/stories/BrillenschatzCover.png",
+    "pages": [
+      {
+        "title": "Brillenschatz",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Riptide",
@@ -21,43 +35,85 @@
           "backgroundPosition": "top"
         },
         "markdown":
-          "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite. \n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
+          "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns ein Logo plus Corporate Design und eine Webseite. \n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
       },
       {
         "title": "Riptide",
         "image": "/assets/img/stories/riptidePage.jpg",
-        "markdown": "Die riptide Seite begrüßt den Besucher direkt mit einem vollbild Film. Auf der Seite kann man dann ansehen was die filmmakers machen: Filme. \n\n Inhalte werden dynamisch von Vimeo ausgelesen.\n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
+        "markdown": "Die riptide Seite begrüßt den Besucher direkt mit einem vollbild Film. Auf der Seite kann man dann ansehen was die filmmakers machen: Filme. \n\n Um einen neuen Film auf die Seite zu stellen wird dieser einfach in ein entsprechendes Album bei Vimeo geladen.\n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
       }
     ]
   },
   {
     "title": "Kutzke & Papstein",
     "slug": "kupa",
-    "cover": "/assets/img/stories/KuPaCover.jpg"
+    "cover": "/assets/img/stories/KuPaCover.jpg",
+    "pages": [
+      {
+        "title": "Kutzke & Papstein",
+        "image": "/assets/img/stories/kupaIpad.jpg",
+        "markdown": "Kutzke & Papstein sind eine Berliner Hausverwaltung. \n\n Wir haben hier viele Detailaufnahmen der betreuten Objekte angefertigt. So sieht die Seite sachlich und gleichzeitig sehr schön aus. \n\n [kupa.de](http://kupa.de/)"
+      }
+    ]
   },
   {
     "title": "Kaributu",
     "slug": "kaributu",
-    "cover": "/assets/img/stories/KaributuCover.jpg"
+    "cover": "/assets/img/stories/KaributuCover.jpg",
+    "pages": [
+      {
+        "title": "Kaributu",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Schuemann Interiors",
     "slug": "schuemann-interiors",
-    "cover": "/assets/img/stories/SchuemannInteriorsCover.jpg"
+    "cover": "/assets/img/stories/SchuemannInteriorsCover.jpg",
+    "pages": [
+      {
+        "title": "Schuemann Interiors",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Universität der Künste Berlin",
     "slug": "udk",
-    "cover": "/assets/img/stories/udkCover.png"
+    "cover": "/assets/img/stories/udkCover.png",
+    "pages": [
+      {
+        "title": "Universität der Künste Berlin",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Dev Crew Berlin",
     "slug": "dcb",
-    "cover": "/assets/img/stories/dcbCover.png"
+    "cover": "/assets/img/stories/dcbCover.png",
+    "pages": [
+      {
+        "title": "Dev Crew Berlin",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   },
   {
     "title": "Drunken Sailor",
     "slug": "drunken-sailor",
-    "cover": "/assets/img/stories/DrunkenSailorCover.jpg"
+    "cover": "/assets/img/stories/DrunkenSailorCover.jpg",
+    "pages": [
+      {
+        "title": "Drunken Sailor",
+        "image": "",
+        "markdown": ""
+      }
+    ]
   }
 ]
