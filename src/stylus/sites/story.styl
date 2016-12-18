@@ -1,26 +1,29 @@
-#storyPage
-    margin-left   calc(50% + 100px)
-    min-height    calc(100vh - 270px)
-    margin-bottom 60px
+#story
+  position      relative
+  margin-left   calc(50% + 90px)
+  min-height    calc(100vh - 270px)
+  margin-bottom 60px
 
-    @media $narrow
-      margin-left calc(50% + 80px)
-    @media $mobile
-      margin-left   0
-      margin-bottom 30px
+  @media $narrow
+    margin-left calc(50% + 80px)
+  @media $mobile
+    margin-left   0
+    margin-bottom 30px
 
   .story-image
-    position         fixed
-    top              0
-    left             0
-    bottom           0
-    width            calc(50% + 55px)
-    background-size  cover
-    transition       opacity 1s
-    background-color $light-grey
+    position            fixed
+    top                 $header-height
+    left                0
+    bottom              0
+    width               calc(50% + 55px)
+    background-size     cover
+    transition          opacity 1s
+    background-color    $light-grey
+    background-position center
 
     @media $narrow
       width calc(50% + 35px)
+      top   $small-header-height
     @media $mobile
       position  static
       display   block
@@ -29,11 +32,20 @@
     @media $small-mobile
       height 120px
 
-    &.out-of-view
-      opacity 0
-
-      @media $mobile
-        opacity 1
+  .close-button
+    position         absolute
+    right            0
+    top              -15px
+    display          block
+    text-align       center
+    font-size        18px
+    line-height      17px
+    background-color $button-grey
+    color            $background-grey
+    border-radius    2px
+    border           0
+    width            20px
+    height           20px
 
   .story-title
     margin 45px 0 25px
@@ -44,3 +56,23 @@
   .story-text
     line-height 1.7em
     max-width   500px
+
+  .arrow
+    text-align       center
+    display          inline-block
+    font-size        25px
+    line-height      12px
+    background-color $button-grey
+    color            $background-grey
+    border-radius    2px
+    border           0
+    height           20px
+    width            55px
+    margin-top       20px
+
+    &.prev
+      overflow     hidden
+      position     relative
+      margin-left  -125px
+      margin-right 70px
+      z-index      100

@@ -13,7 +13,7 @@
 
   .creatives-image
     position         fixed
-    top              0
+    top              $header-height
     right            0
     bottom           0
     width            calc(50% + 55px)
@@ -23,6 +23,7 @@
 
     @media $narrow
       width calc(50% + 35px)
+      top   $small-header-height
     @media $mobile
       position  static
       display   block

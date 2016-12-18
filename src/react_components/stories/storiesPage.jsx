@@ -2,8 +2,8 @@
 
 import React, { PropTypes } from 'react'
 import StoriesOverview from './storiesOverview'
-import StoryWrapper from './storyWrapper'
-import { Match, Redirect } from 'react-router'
+import Story from './story'
+import { Match, Miss, Redirect } from 'react-router'
 
 class StoriesPage extends React.Component {
   constructor (props, context) {
@@ -27,12 +27,23 @@ class StoriesPage extends React.Component {
         <Match exactly pattern={`${pathname}/`} render={matchProps => (
           <StoriesOverview {...matchProps} stories={stories} />
         )} />
-        <Match pattern={`${pathname}/:slug`} render={matchProps => {
-          const story = stories.find(story => story.slug === matchProps.params.slug)
-
+        <Match pattern={`${pathname}/:slug/:pageNumber?`} render={({ params }) => {
+          const story = stories.find(story => story.slug === params.slug)
           if (!story) return <Redirect to={`${pathname}/`} />
-          return <StoryWrapper {...matchProps} story={story} />
+
+          const pageNumber = parseInt(params.pageNumber)
+          const storyPage = story.pages[pageNumber]
+          if (!storyPage) return <Redirect to={`${pathname}/${params.slug}/0`} />
+
+          return <Story
+            parentPathname={pathname}
+            storyPage={storyPage}
+            pageNumber={pageNumber}
+            isFirstPage={pageNumber === 0}
+            isLastPage={pageNumber === story.pages.length - 1}
+          />
         }} />
+        <Miss render={() => <Redirect to={`${pathname}/`} />} />
       </div>
     )
   }

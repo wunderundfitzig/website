@@ -17,13 +17,16 @@
       {
         "title": "Riptide",
         "image": "/assets/img/stories/riptidePartySchiff.jpg",
+        "imageStyles": {
+          "backgroundPosition": "top"
+        },
         "markdown":
-          "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite. \n\n [link](http://www.riptide-filmmakers.de)"
+          "Die riptide filmmakers schneiden ihre Filme auf einem Schiff in Hamburg. Bei ihrer Gründung bekamen sie von uns Farben, Logo und eine Webseite. \n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
       },
       {
         "title": "Riptide",
         "image": "/assets/img/stories/riptidePage.jpg",
-        "markdown": ""
+        "markdown": "Die riptide Seite begrüßt den Besucher direkt mit einem vollbild Film. Auf der Seite kann man dann ansehen was die filmmakers machen: Filme. \n\n Inhalte werden dynamisch von Vimeo ausgelesen.\n\n [riptide-filmmakers.de](http://www.riptide-filmmakers.de)"
       }
     ]
   },

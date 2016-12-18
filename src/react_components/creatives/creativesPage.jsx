@@ -80,9 +80,9 @@ class CreativesPage extends React.Component {
                 backgroundImage: `url(${section.image})`
               }} />
 
-              <div className='creatives-text'
-                dangerouslySetInnerHTML={{ __html: marked(section.markdown) }}
-              />
+              <div className='creatives-text' dangerouslySetInnerHTML={{
+                __html: marked(section.markdown, { sanitize: true })
+              }} />
             </section>
           )
         })}
