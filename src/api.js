@@ -19,14 +19,14 @@ api.get('/newsFeed', (req, res) => {
   fetch(`https://graph.facebook.com/wunderundfitzig/feed?fields=${fields}&access_token=${accessToken}&limit=10`)
   .then(fbRes => fbRes.json())
   .then(feed => feed.data.filter(post => (post.type === 'photo' || post.type === 'link') && post.object_id))
-  .then(feed => Promise.all(feed.map(post =>
+  .then(feed => Promise.all(feed.map(post => (
     fetch(`https://graph.facebook.com/${post.object_id}?fields=images&access_token=${accessToken}`)
     .then(res => res.json())
     .then(res => {
-      post.picture = res.images[0].source // images[0] should be the largest one)
+      post.picture = res.images[0] // images[0] should be the largest one)
       return post
     })
-  )))
+  ))))
   .then(feed => {
     // for the first load the cache was empty
     // so send data now

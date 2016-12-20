@@ -87,15 +87,6 @@
     @media $mobile
       margin-bottom 40px
 
-  .fb-picture
-    transition       opacity 1s
-    transition-delay 1s
-
-  .fb-link
-    border           0
-    display          block
-    background-color $light-grey
-
   .fb-date
     font-size  18px
     color      $text-grey
@@ -104,7 +95,16 @@
       font-size     15px
       margin-bottom 8px
 
+  .fb-link
+    position         relative
+    border           0
+    display          block
+    background-color $light-grey
+
   .fb-picture
+    position  absolute
+    top       0
+    left      0
     width     100%
     height    auto
 

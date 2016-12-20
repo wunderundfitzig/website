@@ -64,7 +64,11 @@ export default class NewsPost extends React.Component {
           <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
         }
         <a href={url} target='_blank' className='fb-link'>
-          <img className='fb-picture' src={this.state.picture} />
+          <span className='spacer' style={{
+            display: 'block',
+            paddingTop: `${this.props.picture.height / this.props.picture.width * 100}%`
+          }} />
+          <img className='fb-picture' src={this.props.picture.source} />
         </a>
         <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
       </div>
@@ -76,6 +80,6 @@ NewsPost.propTypes = {
   isFirst: React.PropTypes.bool.isRequired,
   createdTime: React.PropTypes.string.isRequired,
   link: React.PropTypes.string,
-  picture: React.PropTypes.string,
+  picture: React.PropTypes.object,
   message: React.PropTypes.string
 }
