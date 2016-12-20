@@ -4,13 +4,12 @@ import express from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 import React from 'react'
+import Hover from 'hover'
 import { renderToString } from 'react-dom/server'
 import { ServerRouter, createServerRenderContext } from 'react-router'
-import { InitialDataCollecter, InitialDataLoader } from './initialDataLoader'
-
-import PageWrapper from './react_components/page'
-
-let cache = {}
+import StoreProvider, { ServerRenderPreparer } from './storeProvider'
+import storeDescription from './store'
+import Page from './react_components/page'
 
 const app = express()
 app.use(favicon(path.join(__dirname, 'assets/favicon.ico')))
@@ -19,13 +18,14 @@ app.use('/wunderundfitzig.jpg', express.static(path.join(__dirname, 'assets/wund
 
 app.use((req, res, next) => {
   const renderContext = createServerRenderContext()
-  const initialDataLoader = new InitialDataLoader()
+  const serverRenderPreparer = new ServerRenderPreparer()
+  const store = new Hover(storeDescription, {})
 
   let markup = renderToString(
     <ServerRouter location={req.url} context={renderContext}>
-      <InitialDataCollecter initialDataLoader={initialDataLoader}>
-        <PageWrapper />
-      </InitialDataCollecter>
+      <StoreProvider store={store} serverRenderPreparer={serverRenderPreparer}>
+        <Page />
+      </StoreProvider>
     </ServerRouter>
   )
 
@@ -33,15 +33,16 @@ app.use((req, res, next) => {
   if (result.redirect) return res.redirect(301, result.redirect.pathname)
   if (result.missed) res.status(404)
 
-  initialDataLoader.loadRequestedData(cache)
-  .then(initialData => {
-    cache = { ...cache, ...initialData }
-
-    markup = renderToString(
-      <ServerRouter location={req.url} context={renderContext}>
-        <PageWrapper initialData={initialData} />
-      </ServerRouter>
-    )
+  serverRenderPreparer.awaitPromises().then(fullfilled => {
+    if (result.missed || fullfilled.length > 0) {
+      markup = renderToString(
+        <ServerRouter location={req.url} context={renderContext}>
+          <StoreProvider store={store}>
+            <Page />
+          </StoreProvider>
+        </ServerRouter>
+      )
+    }
     res.send(markup)
   })
   .catch(e => {

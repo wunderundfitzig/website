@@ -1,47 +1,39 @@
 'use strict'
 
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Match, Link } from 'react-router'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
 import StoriesPage from './stories/storiesPage'
 
-const MOBILE_WIDTH = 700
-
 class Page extends React.Component {
-  constructor (props) {
+  constructor (props, context) {
     super(props)
-    this.state = props.initialData || {}
-  }
-
-  checkIfMobile () {
-    this.setState({ isMobile: window.innerWidth <= MOBILE_WIDTH })
+    this.state = context.store()
   }
 
   componentDidMount () {
-    this.checkIfMobile()
-    this.setState({ clientLoaded: true })
-    window.addEventListener('resize', this.checkIfMobile.bind(this))
+    this.unsubsribeFromStore = this.context.store(state => this.setState(state))
+    this.context.store.checkIfMobile()
+    this.context.store.clientLoaded()
+    window.addEventListener('resize', this.context.store.checkIfMobile())
   }
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.location.key === this.props.location.key) return
-
-    this.context.initialDataLoader.loadRequestedData(this.state)
-    .then((initialData) => {
-      this.setState({ ...this.state, ...initialData }) // eslint-disable-line
-    })
-  }
+  // componentDidUpdate (prevProps) {
+  //   if (prevProps.location.key === this.props.location.key) return
+  //
+  //   this.context.initialDataLoader.loadRequestedData(this.state)
+  //   .then((initialData) => {
+  //     this.setState({ ...this.state, ...initialData }) // eslint-disable-line
+  //   })
+  // }
 
   componentWillUnmount () {
+    this.unsubsribeFromStore()
     window.removeEventListener('resize', this.checkIfMobile)
   }
 
   render () {
-    const news = this.state.news ? this.state.news.data : null
-    const creatives = this.state.creatives ? this.state.creatives.data : null
-    const stories = this.state.stories ? this.state.stories.data : null
-
     return (
       <html lang='de'>
         <head>
@@ -86,18 +78,18 @@ class Page extends React.Component {
 
           <div className='content'>
             <Match exactly pattern='/' render={(matchProps) => (
-              <NewsPage {...matchProps} news={news} />
+              <NewsPage {...matchProps} news={this.state.news} />
             )} />
-            <Match pattern='creatives' render={(matchProps) => (
+            <Match pattern='/creatives' render={(matchProps) => (
               <CreativesPage {...matchProps}
                 isMobile={this.state.isMobile}
-                sections={creatives}
+                creatives={this.state.creatives}
               />
             )} />
-            <Match pattern='stories' render={(matchProps) => (
+            <Match pattern='/stories' render={(matchProps) => (
               <StoriesPage {...matchProps}
                 isMobile={this.state.isMobile}
-                stories={stories}
+                stories={this.state.stories}
               />
             )} />
           </div>
@@ -107,18 +99,11 @@ class Page extends React.Component {
   }
 }
 
-Page.propTypes = {
-  location: React.PropTypes.object.isRequired,
-  initialData: React.PropTypes.object
-}
 Page.contextTypes = {
   initialDataLoader: React.PropTypes.object
 }
+Page.contextTypes = {
+  store: PropTypes.func
+}
 
-const PageWrapper = ({ initialData }) => (
-  <Match pattern='/' render={({ location }) => (
-    <Page location={location} initialData={initialData} />
-  )} />
-)
-
-export default PageWrapper
+export default Page

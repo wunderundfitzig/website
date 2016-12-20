@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import marked from 'marked'
+import fetch from 'node-fetch'
 
 const throttle = function ({ func, delay }) {
   let block = false
@@ -24,14 +25,15 @@ class CreativesPage extends React.Component {
   constructor (props, context) {
     super(props)
 
-    if (context.initialDataLoader) {
-      context.initialDataLoader.requestData([{
-        key: 'creatives',
-        url: `${process.env.HOST || window.location.origin}/assets/data/creatives.json`
-      }])
+    if (!props.creatives) {
+      context.awaitBeforeServerRender.register({
+        promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/creatives.json`)
+        .then(res => res.json())
+        .then(creatives => { context.store.setState({ creatives }) })
+      })
     }
-    this.scrollHandler
 
+    this.scrollHandler
     this.sectionRefs = []
     this.state = {
       sectionImageStates: []
@@ -62,11 +64,11 @@ class CreativesPage extends React.Component {
   }
 
   render () {
-    if (!this.props.sections) return null
+    if (!this.props.creatives) return null
 
     return (
       <article id='creatives-page' className='inner-content'>
-        {this.props.sections.map((section, index) => {
+        {this.props.creatives.map((section, index) => {
           const imgInView = index === 0 || this.state.sectionImageStates[index]
           const imgStateString = imgInView ? 'in-view' : 'out-of-view'
 
@@ -91,12 +93,13 @@ class CreativesPage extends React.Component {
   }
 }
 
-CreativesPage.contextTypes = {
-  initialDataLoader: PropTypes.object
-}
 CreativesPage.propTypes = {
-  sections: PropTypes.array,
+  creatives: PropTypes.array,
   isMobile: PropTypes.bool
+}
+CreativesPage.contextTypes = {
+  awaitBeforeServerRender: PropTypes.object,
+  store: PropTypes.func
 }
 
 export default CreativesPage

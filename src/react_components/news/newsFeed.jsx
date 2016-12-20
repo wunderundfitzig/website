@@ -1,31 +1,32 @@
 'use strict'
 
-import React from 'react'
+import React, { PropTypes } from 'react'
+import fetch from 'node-fetch'
 import NewsPost from './newsPost'
 
 class NewsFeed extends React.Component {
   constructor (props, context) {
     super(props)
-    if (context.initialDataLoader) {
-      context.initialDataLoader.requestData([{
-        key: 'news',
-        url: 'https://graph.facebook.com/wunderundfitzig/feed',
-        params: {
-          fields: 'message,object_id,created_time,picture,link,type',
-          access_token: props.accessToken,
-          limit: 10
-        }
-      }])
-    }
+    if (props.news) return
+
+    const fields = 'message,object_id,created_time,picture,link,type'
+    context.awaitBeforeServerRender.register({
+      promise: fetch(`https://graph.facebook.com/wunderundfitzig/feed?fields=${fields}&access_token=${props.accessToken}&limit=10`)
+      .then(res => res.json())
+      .then(news => { context.store.setState({ news: news.data }) })
+      .catch(() => {
+        console.error('could not load news')
+        context.store.setState({ news: null })
+      })
+    })
   }
 
   render () {
     if (!this.props.news) return <div className='news-feed-placeholder' />
 
-    const posts = this.props.news.data
     return (
       <ul className='news-feed'>
-        {posts.filter(post => (
+        {this.props.news.filter(post => (
           (post.type === 'photo' || post.type === 'link') && post.object_id)
         ).map((post, index) => (
           <li key={'key-' + index}>
@@ -47,12 +48,13 @@ class NewsFeed extends React.Component {
 }
 
 NewsFeed.propTypes = {
-  news: React.PropTypes.object,
+  news: React.PropTypes.array,
   accessToken: React.PropTypes.string.isRequired
 }
 
 NewsFeed.contextTypes = {
-  initialDataLoader: React.PropTypes.object
+  awaitBeforeServerRender: PropTypes.object,
+  store: PropTypes.func
 }
 
 export default NewsFeed

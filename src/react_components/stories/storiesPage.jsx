@@ -1,20 +1,21 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
+import fetch from 'node-fetch'
+import { Match, Miss, Redirect } from 'react-router'
 import StoriesOverview from './storiesOverview'
 import Story from './story'
-import { Match, Miss, Redirect } from 'react-router'
 
 class StoriesPage extends React.Component {
   constructor (props, context) {
     super(props)
 
-    if (context.initialDataLoader) {
-      context.initialDataLoader.requestData([{
-        key: 'stories',
-        alwaysReload: true,
-        url: `${process.env.HOST || window.location.origin}/assets/data/stories.json`
-      }])
+    if (!props.stories) {
+      context.awaitBeforeServerRender.register({
+        promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/stories.json`)
+        .then(res => res.json())
+        .then(stories => context.store.setState({ stories }))
+      })
     }
   }
 
@@ -55,7 +56,8 @@ StoriesPage.propTypes = {
 }
 
 StoriesPage.contextTypes = {
-  initialDataLoader: PropTypes.object
+  awaitBeforeServerRender: PropTypes.object,
+  store: PropTypes.func
 }
 
 export default StoriesPage
