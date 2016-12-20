@@ -7,12 +7,14 @@ import React from 'react'
 import Hover from 'hover'
 import { renderToString } from 'react-dom/server'
 import { ServerRouter, createServerRenderContext } from 'react-router'
+import api from './api'
 import StoreProvider, { ServerRenderPreparer } from './storeProvider'
 import storeDescription from './store'
 import Page from './react_components/page'
 
 const app = express()
 app.use(favicon(path.join(__dirname, 'assets/favicon.ico')))
+app.use('/api', api)
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
 app.use('/wunderundfitzig.jpg', express.static(path.join(__dirname, 'assets/wunderundfitzig.jpg')))
 

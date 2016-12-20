@@ -1,16 +1,8 @@
 'use strict'
 
 import React from 'react'
-import fetch from 'node-fetch'
 
 export default class NewsPost extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isHighRes: false,
-      picture: this.props.picture
-    }
-  }
 
   /**
   * format facebook date String to a nice german date
@@ -62,28 +54,6 @@ export default class NewsPost extends React.Component {
     }
   }
 
-  componentDidMount () {
-    if (this.props.type !== 'photo') return
-
-    this._isMounted = true
-    // replace low res images with large ones
-    let fetchBigImg = fetch(`https://graph.facebook.com/${this.props.id}?fields=images&access_token=${this.props.accessToken}`)
-      .then(res => res.json())
-      .then(json => json.images[0].source) // images[0] should be the largest one
-      .catch(err => console.error(err))
-
-    fetchBigImg.then(bigImg => {
-      if (this._isMounted) this.setState({ picture: bigImg, isHighRes: true })
-    })
-  }
-
-  componentWillUnmount () {
-    // facebook says I should cancel the Promise on unmount
-    // but I think this is the same see:
-    // https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
-    this._isMounted = false
-  }
-
   render () {
     const { url, message } = this.getAndRemoveFirstURL(this.props.message)
 
@@ -94,7 +64,7 @@ export default class NewsPost extends React.Component {
           <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
         }
         <a href={url} target='_blank' className='fb-link'>
-          <img className={`fb-picture ${this.state.isHighRes ? 'high-res' : 'low-res'}`} src={this.state.picture} />
+          <img className='fb-picture' src={this.state.picture} />
         </a>
         <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
       </div>
@@ -103,9 +73,6 @@ export default class NewsPost extends React.Component {
 }
 
 NewsPost.propTypes = {
-  accessToken: React.PropTypes.string.isRequired,
-  id: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
   isFirst: React.PropTypes.bool.isRequired,
   createdTime: React.PropTypes.string.isRequired,
   link: React.PropTypes.string,
