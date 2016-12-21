@@ -63,11 +63,9 @@ export default class NewsPost extends React.Component {
         { !this.props.isFirst &&
           <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
         }
-        <a href={url} target='_blank' className='fb-link'>
-          <span className='spacer' style={{
-            display: 'block',
-            paddingTop: `${this.props.picture.height / this.props.picture.width * 100}%`
-          }} />
+        <a href={url} target='_blank' className='fb-link' style={{
+          paddingTop: `${this.props.picture.height / this.props.picture.width * 100}%`
+        }}>
           <img className='fb-picture' src={this.props.picture.source} />
         </a>
         <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
