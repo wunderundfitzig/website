@@ -17,16 +17,10 @@ class Page extends React.Component {
     this.context.store.checkIfMobile()
     this.context.store.clientLoaded()
     window.addEventListener('resize', this.context.store.checkIfMobile())
+    window.addEventListener('keydown', e => {
+      if (e.metaKey && e.key === 'e') this.context.store.toggleEditMode()
+    })
   }
-
-  // componentDidUpdate (prevProps) {
-  //   if (prevProps.location.key === this.props.location.key) return
-  //
-  //   this.context.initialDataLoader.loadRequestedData(this.state)
-  //   .then((initialData) => {
-  //     this.setState({ ...this.state, ...initialData }) // eslint-disable-line
-  //   })
-  // }
 
   componentWillUnmount () {
     this.unsubsribeFromStore()
@@ -54,7 +48,7 @@ class Page extends React.Component {
         </head>
 
         <body>
-          <header className='blackHeader'>
+          <header className={`blackHeader ${this.state.editMode && 'edit-mode'}`}>
             <nav className='topNavigation'>
               <ul>
                 <li className='menu-item'>

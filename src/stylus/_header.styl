@@ -6,6 +6,12 @@
   height           $header-height
   width:           100%
   z-index          200
+
+  &.edit-mode
+    background-color $link-blue
+
+    .topNavigation .active::after
+      border-top 13px solid $link-blue
   @media $narrow
     height $small-header-height
 
@@ -53,7 +59,7 @@
         height 33px
 
     .active
-      &:after
+      &::after
         content        ' '
         position       absolute
         margin-left    -12px

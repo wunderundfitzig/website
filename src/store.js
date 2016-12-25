@@ -10,5 +10,12 @@ export default {
     return { ...state, isMobile: window.innerWidth <= MOBILE_WIDTH }
   },
 
-  clientLoaded: state => ({ ...state, clientLoaded: true })
+  clientLoaded: state => ({ ...state, clientLoaded: true }),
+
+  toggleEditMode: state => {
+    let editMode = !state.editMode
+    if (state.isMobile) editMode = false
+
+    return { ...state, editMode }
+  }
 }
