@@ -8,13 +8,16 @@ class StoriesOverview extends React.Component {
     this.storiesContainerRef = null
     this.storyRefs = []
     this.state = {
-      dragedStoryIndex: null,
+      draggedStoryIndex: null,
       storyOrderNumbers: this.props.stories.map((_, index) => index)
     }
   }
 
-  setupDrag (dragedStoryIndex) {
-    if (!this.props.editMode) return
+  setupDrag (e, draggedStoryIndex) {
+    if (!this.props.editMode) {
+      e.preventDefault()
+      return
+    }
 
     const storyPositions = []
     for (const i in this.storyRefs) {
@@ -22,17 +25,19 @@ class StoriesOverview extends React.Component {
       storyPositions[i] = { top: ref.offsetTop, left: ref.offsetLeft }
     }
 
+    const storyContainerSize = {
+      x: this.storiesContainerRef.offsetLeft,
+      y: this.storiesContainerRef.offsetTop + this.storiesContainerRef.offsetParent.offsetTop,
+      width: this.storiesContainerRef.clientWidth,
+      height: this.storiesContainerRef.clientHeight
+    }
+
     this.setState({
       storyPositions,
-      dragedStoryIndex,
-      storyContainerSize: {
-        x: this.storiesContainerRef.offsetLeft,
-        y: this.storiesContainerRef.offsetTop + this.storiesContainerRef.offsetParent.offsetTop,
-        width: this.storiesContainerRef.clientWidth,
-        height: this.storiesContainerRef.clientHeight
-      },
-      numberOfCols: 3,
-      numberOfRows: 3
+      draggedStoryIndex,
+      storyContainerSize,
+      numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
+      numberOfRows: Math.round(storyContainerSize.height / this.storyRefs[0].clientHeight)
     })
   }
 
@@ -49,8 +54,8 @@ class StoriesOverview extends React.Component {
     if (pos !== this.lastPos) {
       this.lastPos = pos
       const positions = this.props.stories.map((_, index) => index)
-      const t = positions.splice(this.state.dragedStoryIndex, 1)
-      positions.splice(pos, 0, t[0])
+      positions.splice(this.state.draggedStoryIndex, 1)
+      positions.splice(pos, 0, this.state.draggedStoryIndex)
       const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
 
       this.setState({ storyOrderNumbers })
@@ -58,14 +63,14 @@ class StoriesOverview extends React.Component {
   }
 
   cleanupDrag () {
-    const stories = []
-    this.props.stories.forEach((story, index) => {
+    const stories = this.props.stories.reduce((newStories, story, index) => {
       const newPosition = this.state.storyOrderNumbers[index]
-      stories[newPosition] = story
-    })
+      newStories[newPosition] = story
+      return newStories
+    }, [])
     this.context.store.setState({ stories })
     this.setState({
-      dragedStoryIndex: null,
+      draggedStoryIndex: null,
       storyOrderNumbers: this.props.stories.map((_, index) => index)
     })
   }
@@ -81,13 +86,13 @@ class StoriesOverview extends React.Component {
       >
         {this.props.stories.map((story, index) => {
           let style = {}
-          if (this.state.dragedStoryIndex !== null) {
+          if (this.state.draggedStoryIndex !== null) {
             const pos = this.state.storyPositions[this.state.storyOrderNumbers[index]]
             style = {
               position: 'absolute',
               top: pos.top,
-              left: pos.left
-              // opacity: this.state.dragedStoryIndex === index ? 0 : 1
+              left: pos.left,
+              opacity: this.state.draggedStoryIndex === index ? 0 : 1
             }
           }
 
@@ -97,7 +102,7 @@ class StoriesOverview extends React.Component {
               key={story.slug}
               draggable={editMode}
               style={style}
-              onDragStart={() => { this.setupDrag(index) }}
+              onDragStart={e => { this.setupDrag(e, index) }}
               onDragEnd={() => { this.cleanupDrag() }}
             >
               <Link to={`${story.slug}/0`} className='story-link'>
