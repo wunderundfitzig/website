@@ -20,13 +20,13 @@ class StoriesPage extends React.Component {
   }
 
   render () {
-    const { pathname, stories } = this.props
+    const { pathname, stories, editMode } = this.props
     if (!stories) return null
 
     return (
       <div className='inner-content'>
         <Match exactly pattern={`${pathname}/`} render={matchProps => (
-          <StoriesOverview {...matchProps} stories={stories} />
+          <StoriesOverview {...matchProps} stories={stories} editMode={editMode} />
         )} />
         <Match pattern={`${pathname}/:slug/:pageNumber?`} render={({ params }) => {
           const story = stories.find(story => story.slug === params.slug)

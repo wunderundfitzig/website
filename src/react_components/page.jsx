@@ -13,12 +13,13 @@ class Page extends React.Component {
   }
 
   componentDidMount () {
-    this.unsubsribeFromStore = this.context.store(state => this.setState(state))
-    this.context.store.checkIfMobile()
-    this.context.store.clientLoaded()
-    window.addEventListener('resize', this.context.store.checkIfMobile())
+    const store = this.context.store
+    this.unsubsribeFromStore = store(state => this.setState(state))
+    store.checkIfMobile()
+    store.clientLoaded()
+    window.addEventListener('resize', () => { store.checkIfMobile() })
     window.addEventListener('keydown', e => {
-      if (e.metaKey && e.key === 'e') this.context.store.toggleEditMode()
+      if (e.metaKey && e.key === 'e') store.toggleEditMode()
     })
   }
 
@@ -83,6 +84,7 @@ class Page extends React.Component {
             <Match pattern='/stories' render={(matchProps) => (
               <StoriesPage {...matchProps}
                 isMobile={this.state.isMobile}
+                editMode={this.state.editMode}
                 stories={this.state.stories}
               />
             )} />

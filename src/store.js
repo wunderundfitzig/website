@@ -7,15 +7,12 @@ export default {
 
   checkIfMobile: state => {
     if (!window) return { ...state, isMobile: false }
-    return { ...state, isMobile: window.innerWidth <= MOBILE_WIDTH }
+    const isMobile = window.innerWidth <= MOBILE_WIDTH
+
+    return { ...state, isMobile, editMode: false }
   },
 
   clientLoaded: state => ({ ...state, clientLoaded: true }),
 
-  toggleEditMode: state => {
-    let editMode = !state.editMode
-    if (state.isMobile) editMode = false
-
-    return { ...state, editMode }
-  }
+  toggleEditMode: state => ({ ...state, editMode: !state.editMode && !state.isMobile })
 }
