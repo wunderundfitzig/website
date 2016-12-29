@@ -7,16 +7,14 @@ class StoriesOverview extends React.Component {
     super(props)
     this.storiesContainerRef = null
     this.storyRefs = []
-    this.dragedStoryIndex = null
     this.state = {
-      storyPositions: [],
-      storyOrderNumbers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      storyContainerSize: { x: null, y: null, height: null }
+      dragedStoryIndex: null,
+      storyOrderNumbers: this.props.stories.map((_, index) => index)
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.editMode || !nextProps.editMode) return
+  setupDrag (dragedStoryIndex) {
+    if (!this.props.editMode) return
 
     const storyPositions = []
     for (const i in this.storyRefs) {
@@ -26,6 +24,7 @@ class StoriesOverview extends React.Component {
 
     this.setState({
       storyPositions,
+      dragedStoryIndex,
       storyContainerSize: {
         x: this.storiesContainerRef.offsetLeft,
         y: this.storiesContainerRef.offsetTop + this.storiesContainerRef.offsetParent.offsetTop,
@@ -47,10 +46,28 @@ class StoriesOverview extends React.Component {
     const row = Math.floor(y / this.state.storyContainerSize.height * this.state.numberOfRows)
     const pos = row * this.state.numberOfCols + col
 
-    const newOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    newOrder.splice(this.dragedStoryIndex, 1)
-    newOrder.splice(pos, 0, this.dragedStoryIndex)
-    this.setState({ storyOrderNumbers: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(o => newOrder.indexOf(o)) })
+    if (pos !== this.lastPos) {
+      this.lastPos = pos
+      const positions = this.props.stories.map((_, index) => index)
+      const t = positions.splice(this.state.dragedStoryIndex, 1)
+      positions.splice(pos, 0, t[0])
+      const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
+
+      this.setState({ storyOrderNumbers })
+    }
+  }
+
+  cleanupDrag () {
+    const stories = []
+    this.props.stories.forEach((story, index) => {
+      const newPosition = this.state.storyOrderNumbers[index]
+      stories[newPosition] = story
+    })
+    this.context.store.setState({ stories })
+    this.setState({
+      dragedStoryIndex: null,
+      storyOrderNumbers: this.props.stories.map((_, index) => index)
+    })
   }
 
   render () {
@@ -59,33 +76,29 @@ class StoriesOverview extends React.Component {
     return (
       <ul id='storiesOverview'
         ref={storiesContainer => { this.storiesContainerRef = storiesContainer }}
-        style={{ height: editMode && this.state.storyContainerSize.height }}
+        style={{ height: this.state.storyContainerSize && this.state.storyContainerSize.height }}
         onDragOver={e => this.handleDrag(e)}
       >
         {this.props.stories.map((story, index) => {
-          const i = this.state.storyOrderNumbers[index]
-          const pos = this.state.storyPositions[i]
+          let style = {}
+          if (this.state.dragedStoryIndex !== null) {
+            const pos = this.state.storyPositions[this.state.storyOrderNumbers[index]]
+            style = {
+              position: 'absolute',
+              top: pos.top,
+              left: pos.left
+              // opacity: this.state.dragedStoryIndex === index ? 0 : 1
+            }
+          }
 
           return (
-            <li draggable={editMode} className={`story ${editMode && 'editMode'}`}
-              ref={story => { this.storyRefs[index] = story }}
+            <li className='story'
+              ref={li => { this.storyRefs[index] = li }}
               key={story.slug}
-              style={{
-                top: editMode && pos.top,
-                left: editMode && pos.left
-              }}
-              onDragStart={() => { this.dragedStoryIndex = index }}
-              onDragEnd={e => {
-                // this.content.store.resortStories()
-                // TODO: this is very ugly
-                // move this into the store
-                this.props.stories.map((story, i) => {
-                  story.order = this.state.storyOrderNumbers[i]
-                  return story
-                })
-                this.props.stories.sort((a, b) => a.order > b.order)
-                this.setState({ storyOrderNumbers: [0, 1, 2, 3, 4, 5, 6, 7, 8] })
-              }}
+              draggable={editMode}
+              style={style}
+              onDragStart={() => { this.setupDrag(index) }}
+              onDragEnd={() => { this.cleanupDrag() }}
             >
               <Link to={`${story.slug}/0`} className='story-link'>
                 <span className='story-image-wrapper'>
@@ -106,6 +119,7 @@ StoriesOverview.propTypes = {
 }
 
 StoriesOverview.contextTypes = {
+  store: PropTypes.func,
   initialDataLoader: PropTypes.object
 }
 
