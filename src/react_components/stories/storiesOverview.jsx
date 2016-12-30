@@ -76,7 +76,8 @@ class StoriesOverview extends React.Component {
   }
 
   render () {
-    const { editMode } = this.props
+    const { editMode, stories } = this.props
+    const { draggedStoryIndex, storyPositions, storyOrderNumbers } = this.state
     const height = this.state.draggedStoryIndex !== null
     ? this.state.storyContainerSize.height
     : 'auto'
@@ -87,15 +88,15 @@ class StoriesOverview extends React.Component {
         style={{ height: height }}
         onDragOver={e => this.handleDrag(e)}
       >
-        {this.props.stories.map((story, index) => {
+        {stories.map((story, index) => {
           let style = {}
-          if (this.state.draggedStoryIndex !== null) {
-            const pos = this.state.storyPositions[this.state.storyOrderNumbers[index]]
+          if (draggedStoryIndex !== null) {
+            const pos = storyPositions[storyOrderNumbers[index]]
             style = {
               position: 'absolute',
               top: pos.top,
               left: pos.left,
-              opacity: this.state.draggedStoryIndex === index ? 0 : 1
+              opacity: draggedStoryIndex === index ? 0 : 1
             }
           }
 
@@ -117,7 +118,7 @@ class StoriesOverview extends React.Component {
             </li>
           )
         })}
-        { editMode &&
+        { (editMode && draggedStoryIndex === null) &&
           <li className='new-story'
             onDragStart={e => { e.preventDefault() }}
             onClick={this.context.store.addStory}

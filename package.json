@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/wunderundfitzig/website#readme",
   "dependencies": {
-    "classnames": "^2.2.5",
     "express": "^4.13.4",
     "history": "^4.4.1",
+    "hover": "^3.0.0-alpha.6",
     "marked": "^0.3.6",
     "node-fetch": "^1.5.2",
     "path": "^0.12.7",
