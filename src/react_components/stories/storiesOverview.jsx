@@ -77,11 +77,14 @@ class StoriesOverview extends React.Component {
 
   render () {
     const { editMode } = this.props
+    const height = this.state.draggedStoryIndex !== null
+    ? this.state.storyContainerSize.height
+    : 'auto'
 
     return (
       <ul id='storiesOverview'
         ref={storiesContainer => { this.storiesContainerRef = storiesContainer }}
-        style={{ height: this.state.storyContainerSize && this.state.storyContainerSize.height }}
+        style={{ height: height }}
         onDragOver={e => this.handleDrag(e)}
       >
         {this.props.stories.map((story, index) => {
@@ -114,6 +117,14 @@ class StoriesOverview extends React.Component {
             </li>
           )
         })}
+        { editMode &&
+          <li className='new-story'
+            onDragStart={e => { e.preventDefault() }}
+            onClick={this.context.store.addStory}
+          >
+            <a className='new-story-inner' />
+          </li>
+        }
       </ul>
     )
   }

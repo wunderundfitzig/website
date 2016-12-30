@@ -14,5 +14,14 @@ export default {
 
   clientLoaded: state => ({ ...state, clientLoaded: true }),
 
-  toggleEditMode: state => ({ ...state, editMode: !state.editMode && !state.isMobile })
+  toggleEditMode: state => ({ ...state, editMode: !state.editMode && !state.isMobile }),
+
+  addStory: state => {
+    const { stories } = state
+    stories.push({
+      slug: `new-${stories.length}`,
+      title: 'Neue Story'
+    })
+    return { ...state, stories }
+  }
 }
