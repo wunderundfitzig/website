@@ -23,5 +23,19 @@ export default {
       title: 'Neue Story'
     })
     return { ...state, stories }
+  },
+
+  deleteStory: (state, { slug }) => {
+    const { stories } = state
+    const i = stories.findIndex(story => story.slug === slug)
+    stories.splice(i, 1)
+    return { ...state, stories }
+  },
+
+  setStoryTitle: (state, { slug, title }) => {
+    const { stories } = state
+    const story = stories.find(story => story.slug === slug)
+    story.title = title
+    return { ...state, stories }
   }
 }

@@ -1,6 +1,7 @@
+'use strict'
+
 import React, { PropTypes } from 'react'
-import HighResImg from '../_helpers/highResImg'
-import { Link } from 'react-router'
+import StoryCover from './storyCover'
 
 class StoriesOverview extends React.Component {
   constructor (props) {
@@ -8,8 +9,9 @@ class StoriesOverview extends React.Component {
     this.storiesContainerRef = null
     this.storyRefs = []
     this.state = {
+      storyPositions: null,
       draggedStoryIndex: null,
-      storyOrderNumbers: this.props.stories.map((_, index) => index)
+      storyOrderNumbers: null
     }
   }
 
@@ -36,14 +38,13 @@ class StoriesOverview extends React.Component {
       storyPositions,
       draggedStoryIndex,
       storyContainerSize,
+      storyOrderNumbers: this.props.stories.map((_, index) => index),
       numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
       numberOfRows: Math.round(storyContainerSize.height / this.storyRefs[0].clientHeight)
     })
   }
 
   handleDrag (e) {
-    if (!this.props.editMode) return
-
     const x = e.pageX - this.state.storyContainerSize.x
     const y = e.pageY - this.state.storyContainerSize.y
 
@@ -68,6 +69,7 @@ class StoriesOverview extends React.Component {
       newStories[newPosition] = story
       return newStories
     }, [])
+
     this.context.store.setState({ stories })
     this.setState({
       draggedStoryIndex: null,
@@ -79,8 +81,8 @@ class StoriesOverview extends React.Component {
     const { editMode, stories } = this.props
     const { draggedStoryIndex, storyPositions, storyOrderNumbers } = this.state
     const height = this.state.draggedStoryIndex !== null
-    ? this.state.storyContainerSize.height
-    : 'auto'
+      ? this.state.storyContainerSize.height
+      : 'auto'
 
     return (
       <ul id='storiesOverview'
@@ -109,12 +111,12 @@ class StoriesOverview extends React.Component {
               onDragStart={e => { this.setupDrag(e, index) }}
               onDragEnd={() => { this.cleanupDrag() }}
             >
-              <Link to={`${story.slug}/0`} className='story-link'>
-                <span className='story-image-wrapper'>
-                  <HighResImg className='story-img' alt={story.title} src={story.cover} />
-                </span>
-                <p className='story-titel'>{ story.title }</p>
-              </Link>
+              <StoryCover
+                title={story.title}
+                slug={story.slug}
+                image={story.cover}
+                editMode={editMode}
+              />
             </li>
           )
         })}
@@ -132,7 +134,8 @@ class StoriesOverview extends React.Component {
 }
 
 StoriesOverview.propTypes = {
-  stories: PropTypes.array.isRequired
+  stories: PropTypes.array.isRequired,
+  editMode: PropTypes.bool
 }
 
 StoriesOverview.contextTypes = {
