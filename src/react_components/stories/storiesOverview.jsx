@@ -47,6 +47,8 @@ class StoriesOverview extends React.Component {
   }
 
   handleDrag (e) {
+    if (this.state.draggedStoryIndex === null) return
+
     const x = e.pageX - this.state.storyContainerSize.x
     const y = e.pageY - this.state.storyContainerSize.y
 
@@ -54,15 +56,15 @@ class StoriesOverview extends React.Component {
     const row = Math.floor(y / this.state.storyContainerSize.height * this.state.numberOfRows)
     const pos = row * this.state.numberOfCols + col
 
-    if (pos !== this.lastPos) {
-      this.lastPos = pos
-      const positions = this.props.stories.map((_, index) => index)
-      positions.splice(this.state.draggedStoryIndex, 1)
-      positions.splice(pos, 0, this.state.draggedStoryIndex)
-      const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
+    if (pos === this.lastPos) return
 
-      this.setState({ dragPhase: 1, storyOrderNumbers })
-    }
+    this.lastPos = pos
+    const positions = this.props.stories.map((_, index) => index)
+    positions.splice(this.state.draggedStoryIndex, 1)
+    positions.splice(pos, 0, this.state.draggedStoryIndex)
+    const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
+
+    this.setState({ dragPhase: 1, storyOrderNumbers })
   }
 
   cleanupDrag () {
