@@ -19,7 +19,7 @@ class Page extends React.Component {
     store.clientLoaded()
     window.addEventListener('resize', () => { store.checkIfMobile() })
     window.addEventListener('keydown', e => {
-      if (e.metaKey && e.key === 'e') store.toggleEditMode()
+      if (e.metaKey && e.keyCode === 69) store.toggleEditMode()
     })
   }
 

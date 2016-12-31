@@ -34,14 +34,19 @@ class StoriesOverview extends React.Component {
       height: this.storiesContainerRef.clientHeight
     }
 
-    this.setState({
-      storyPositions,
-      draggedStoryIndex,
-      storyContainerSize,
-      storyOrderNumbers: this.props.stories.map((_, index) => index),
-      numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
-      numberOfRows: Math.round(storyContainerSize.height / this.storyRefs[0].clientHeight)
-    })
+    // safari wont let us drag if we update the state
+    // in here so we need setTimeout
+    setTimeout(() => {
+      this.setState({
+        dragPhase: 0,
+        draggedStoryIndex,
+        storyPositions,
+        storyContainerSize,
+        storyOrderNumbers: this.props.stories.map((_, index) => index),
+        numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
+        numberOfRows: Math.round(storyContainerSize.height / this.storyRefs[0].clientHeight)
+      })
+    }, 0)
   }
 
   handleDrag (e) {
@@ -59,7 +64,7 @@ class StoriesOverview extends React.Component {
       positions.splice(pos, 0, this.state.draggedStoryIndex)
       const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
 
-      this.setState({ storyOrderNumbers })
+      this.setState({ dragPhase: 1, storyOrderNumbers })
     }
   }
 
@@ -72,6 +77,7 @@ class StoriesOverview extends React.Component {
 
     this.context.store.setState({ stories })
     this.setState({
+      dragPhase: 3,
       draggedStoryIndex: null,
       storyOrderNumbers: this.props.stories.map((_, index) => index)
     })
@@ -79,26 +85,32 @@ class StoriesOverview extends React.Component {
 
   render () {
     const { editMode, stories } = this.props
-    const { draggedStoryIndex, storyPositions, storyOrderNumbers } = this.state
-    const height = this.state.draggedStoryIndex !== null
-      ? this.state.storyContainerSize.height
-      : 'auto'
+    const {
+      dragPhase,
+      draggedStoryIndex,
+      storyContainerSize,
+      storyPositions,
+      storyOrderNumbers
+    } = this.state
+    const isDragging = draggedStoryIndex !== null
 
     return (
       <ul id='storiesOverview'
         ref={storiesContainer => { this.storiesContainerRef = storiesContainer }}
-        style={{ height: height }}
+        style={{ height: isDragging ? storyContainerSize.height : 'auto' }}
         onDragOver={e => this.handleDrag(e)}
       >
         {stories.map((story, index) => {
           let style = {}
-          if (draggedStoryIndex !== null) {
+          if (isDragging) {
             const pos = storyPositions[storyOrderNumbers[index]]
             style = {
               position: 'absolute',
               top: pos.top,
               left: pos.left,
-              opacity: draggedStoryIndex === index ? 0 : 1
+              opacity: draggedStoryIndex === index ? 0 : 1,
+              // make shure to animate positions after positions are set to absolute
+              transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
             }
           }
 
@@ -120,7 +132,7 @@ class StoriesOverview extends React.Component {
             </li>
           )
         })}
-        { (editMode && draggedStoryIndex === null) &&
+        { (editMode && !isDragging) &&
           <li className='new-story'
             onDragStart={e => { e.preventDefault() }}
             onClick={this.context.store.addStory}
