@@ -37,5 +37,12 @@ export default {
     const story = stories.find(story => story.slug === slug)
     story.title = title
     return { ...state, stories }
+  },
+
+  setStorySlug: (state, { slug, newSlug }) => {
+    const { stories } = state
+    const story = state.stories.find(story => story.slug === slug)
+    story.slug = newSlug
+    return { ...state, stories }
   }
 }

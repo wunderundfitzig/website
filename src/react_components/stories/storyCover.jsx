@@ -3,10 +3,11 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import HighResImg from '../_helpers/highResImg'
+import SlugEditor from './slugEditor'
 
 class StoriesOverview extends React.Component {
   render () {
-    const { title, slug, image, editMode } = this.props
+    const { title, slug, image, editMode, stories } = this.props
 
     return (
       <Link to={`${slug}/0`}>{({ href, onClick }) => {
@@ -20,22 +21,26 @@ class StoriesOverview extends React.Component {
               <HighResImg className='story-img' alt={title} src={image} />
               {
                 editMode &&
-                  <button className='delete-button' onClick={() => {
-                    this.context.store.deleteStory({ slug: slug })
-                  }}>
-                    löschen
-                  </button>
+                  <div className='edit-buttons'>
+                    <button className='delete-button' onClick={() => {
+                      this.context.store.deleteStory({ slug: slug })
+                    }}>
+                      löschen
+                    </button>
+                    <SlugEditor slug={slug} stories={stories} />
+                    <button className='edit-slug-button'>Bild auswählen</button>
+                  </div>
               }
             </span>
             {
               editMode
                 ? <input className='story-title-input'
-                    type='text'                        // eslint-disable-line
-                    value={title}                      // eslint-disable-line
-                    onChange={e => {                   // eslint-disable-line
-                      this.context.store.setStoryTitle({ slug: slug, title: e.target.value })
-                    }}
-                  />
+                  type='text'
+                  value={title}
+                  onChange={e => {
+                    this.context.store.setStoryTitle({ slug: slug, title: e.target.value })
+                  }}
+                />
                 : <p className='story-title'>{ title }</p>
             }
           </a>
@@ -49,7 +54,8 @@ StoriesOverview.propTypes = {
   title: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   image: PropTypes.string,
-  editMode: PropTypes.bool
+  editMode: PropTypes.bool,
+  stories: PropTypes.array.isRequired
 }
 
 StoriesOverview.contextTypes = {

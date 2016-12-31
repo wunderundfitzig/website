@@ -33,17 +33,13 @@
       height 120px
 
   .close-button
+    $button()
     position         absolute
     right            0
     top              -15px
     display          block
-    text-align       center
     font-size        18px
     line-height      17px
-    background-color $button-grey
-    color            $background-grey
-    border-radius    2px
-    border           0
     width            20px
     height           20px
 
@@ -58,14 +54,10 @@
     max-width   500px
 
   .arrow
-    text-align       center
+    $button()
     display          inline-block
     font-size        25px
     line-height      12px
-    background-color $button-grey
-    color            $background-grey
-    border-radius    2px
-    border           0
     height           20px
     width            55px
     margin-top       20px

@@ -123,6 +123,7 @@ class StoriesOverview extends React.Component {
                 slug={story.slug}
                 image={story.cover}
                 editMode={editMode}
+                stories={stories}
               />
             </li>
           )
