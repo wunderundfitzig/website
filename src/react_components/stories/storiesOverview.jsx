@@ -21,11 +21,8 @@ class StoriesOverview extends React.Component {
       return
     }
 
-    const storyPositions = []
-    for (const i in this.storyRefs) {
-      const ref = this.storyRefs[i]
-      storyPositions[i] = { top: ref.offsetTop, left: ref.offsetLeft }
-    }
+    const storyPositions = this.storyRefs.filter(ref => ref !== null)
+    .map(ref => ({ top: ref.offsetTop, left: ref.offsetLeft }))
 
     const storyContainerSize = {
       x: this.storiesContainerRef.offsetLeft,
@@ -77,7 +74,7 @@ class StoriesOverview extends React.Component {
 
     this.context.store.setState({ stories })
     this.setState({
-      dragPhase: 3,
+      dragPhase: null,
       draggedStoryIndex: null,
       storyOrderNumbers: this.props.stories.map((_, index) => index)
     })
@@ -101,18 +98,14 @@ class StoriesOverview extends React.Component {
         onDragOver={e => this.handleDrag(e)}
       >
         {stories.map((story, index) => {
-          let style = {}
-          if (isDragging) {
-            const pos = storyPositions[storyOrderNumbers[index]]
-            style = {
-              position: 'absolute',
-              top: pos.top,
-              left: pos.left,
-              opacity: draggedStoryIndex === index ? 0 : 1,
-              // make shure to animate positions after positions are set to absolute
-              transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
-            }
-          }
+          const style = isDragging ? {
+            position: 'absolute',
+            top: storyPositions[storyOrderNumbers[index]].top,
+            left: storyPositions[storyOrderNumbers[index]].left,
+            opacity: draggedStoryIndex === index ? 0 : 1,
+            // make shure to animate positions after positions are set to absolute
+            transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
+          } : {}
 
           return (
             <li className='story'
