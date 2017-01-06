@@ -1,3 +1,4 @@
+/* global FileReader */
 'use strict'
 
 import React, { PropTypes } from 'react'
@@ -9,43 +10,54 @@ class StoriesOverview extends React.Component {
   render () {
     const { title, slug, image, editMode, stories } = this.props
 
-    return (
-      <Link to={`${slug}/0`}>{({ href, onClick }) => {
-        const clickHandler = editMode ? e => e.preventDefault() : onClick
-        const url = editMode ? '' : href
-        const className = `story-link ${editMode && 'editMode'}`
+    if (!editMode) {
+      return (
+        <Link to={`${slug}/0`} className='story-link'>
+          <span className='story-image-wrapper'>
+            <HighResImg className='story-img' alt={title} src={image} />
+          </span>
+          <p className='story-title'>{ title }</p>
+        </Link>
+      )
+    }
 
-        return (
-          <a className={className} onClick={clickHandler} href={url}>
-            <span className='story-image-wrapper'>
-              <HighResImg className='story-img' alt={title} src={image} />
-              {
-                editMode &&
-                  <div className='edit-buttons'>
-                    <button className='delete-button' onClick={() => {
-                      this.context.store.deleteStory({ slug: slug })
-                    }}>
-                      löschen
-                    </button>
-                    <SlugEditor slug={slug} stories={stories} />
-                    <button className='edit-slug-button'>Bild auswählen</button>
-                  </div>
-              }
-            </span>
-            {
-              editMode
-                ? <input className='story-title-input'
-                  type='text'
-                  value={title}
-                  onChange={e => {
-                    this.context.store.setStoryTitle({ slug: slug, title: e.target.value })
-                  }}
-                />
-                : <p className='story-title'>{ title }</p>
-            }
-          </a>
-        )
-      }}</Link>
+    return (
+      <div className='story-link editMode'>
+        <span className='story-image-wrapper'>
+          <HighResImg className='story-img' alt={title} src={image} />
+          <div className='edit-buttons'>
+            <button className='delete-button' onClick={() => {
+              this.context.store.deleteStory({ slug: slug })
+            }}>
+              löschen
+            </button>
+            <SlugEditor slug={slug} stories={stories} />
+            <input id={`img-selector${slug}`}
+              className='file-selector'
+              type='file'
+              accept='image/*'
+              onChange={e => {
+                e.preventDefault()
+                const fileReader = new FileReader()
+                const fileHandler = e => {
+                  this.context.store.setStoryCover({ slug, cover: e.target.result })
+                  fileReader.removeEventListener('load', fileHandler)
+                }
+                fileReader.addEventListener('load', fileHandler)
+                fileReader.readAsDataURL(e.target.files[0])
+              }}
+            />
+            <label htmlFor={`img-selector${slug}`}>Bild auswählen</label>
+          </div>
+        </span>
+        <input className='story-title-input'
+          type='text'
+          value={title}
+          onChange={e => {
+            this.context.store.setStoryTitle({ slug: slug, title: e.target.value })
+          }}
+        />
+      </div>
     )
   }
 }

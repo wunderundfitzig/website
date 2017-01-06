@@ -44,5 +44,12 @@ export default {
     const story = state.stories.find(story => story.slug === slug)
     story.slug = newSlug
     return { ...state, stories }
+  },
+
+  setStoryCover: (state, { slug, cover }) => {
+    const { stories } = state
+    const story = state.stories.find(story => story.slug === slug)
+    story.cover = cover
+    return { ...state, stories }
   }
 }
