@@ -38,10 +38,12 @@ class StoriesPage extends React.Component {
 
           return <Story
             parentPathname={pathname}
+            slug={params.slug}
             storyPage={storyPage}
             pageNumber={pageNumber}
             isFirstPage={pageNumber === 0}
             isLastPage={pageNumber === story.pages.length - 1}
+            editMode={editMode}
           />
         }} />
         <Miss render={() => <Redirect to={`${pathname}/`} />} />

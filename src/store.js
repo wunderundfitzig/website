@@ -48,8 +48,18 @@ export default {
 
   setStoryCover: (state, { slug, cover }) => {
     const { stories } = state
-    const story = state.stories.find(story => story.slug === slug)
+    const story = stories.find(story => story.slug === slug)
     story.cover = cover
+    return { ...state, stories }
+  },
+
+  setStoryPageMarkdown: (state, { slug, pageNumber, markdown }) => {
+    const { stories } = state
+    const story = stories.find(story => story.slug === slug)
+    const page = story.pages[pageNumber]
+    if (!page) return
+
+    page.markdown = markdown
     return { ...state, stories }
   }
 }

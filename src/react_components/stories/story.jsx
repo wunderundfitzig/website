@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import marked from 'marked'
+import MarkdownEditor from '../_helpers/markdownEditor'
 
 const renderer = new marked.Renderer()
 // override markdown link render method
@@ -20,7 +21,7 @@ renderer.link = function (href, title, text) {
   return out
 }
 
-const Story = ({ parentPathname, storyPage, pageNumber, isFirstPage, isLastPage }) => (
+const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLastPage, editMode }, { store }) => (
   <div id='story'>
     <h2 className='story-title'>{ storyPage.title }</h2>
     <Link className='close-button' to={parentPathname}>✕</Link>
@@ -28,10 +29,30 @@ const Story = ({ parentPathname, storyPage, pageNumber, isFirstPage, isLastPage 
       backgroundImage: `url(${storyPage.image})`,
       ...storyPage.imageStyles
     }} />
-    <div className='story-text' dangerouslySetInnerHTML={{ __html: marked(storyPage.markdown, {
-      renderer: renderer,
-      sanitize: true
-    })}} />
+    { editMode
+      ? <MarkdownEditor markdown={storyPage.markdown} onChange={markdown => {
+        store.setStoryPageMarkdown({ slug, pageNumber, markdown })
+      }} />
+      // <pre>
+      //   <code
+      //     className='hljs textarea'
+      //     contentEditable='true'
+      //     spellCheck='false'
+      //     onInput={e => {
+      //       store.setStoryPageMarkdown({
+      //         slug,
+      //         pageNumber,
+      //         markdown: e.target.innerText
+      //       })
+      //     }}>
+      //     {storyPage.markdown}
+      //   </code>
+      // </pre>
+      : <div className='story-text' dangerouslySetInnerHTML={{ __html: marked(storyPage.markdown, {
+        renderer: renderer,
+        sanitize: true
+      })}} />
+    }
 
     { !isFirstPage && <Link className='prev arrow' to={`${pageNumber - 1}`}>←</Link> }
     { !isLastPage && <Link className='next arrow' to={`${pageNumber + 1}`}>→</Link> }
@@ -40,6 +61,10 @@ const Story = ({ parentPathname, storyPage, pageNumber, isFirstPage, isLastPage 
 
 Story.propTypes = {
   storyPage: PropTypes.object.isRequired
+}
+
+Story.contextTypes = {
+  store: PropTypes.func
 }
 
 export default Story
