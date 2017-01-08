@@ -17,10 +17,10 @@ class NewsFeed extends React.Component {
   }
 
   render () {
-    if (!this.props.news) return <div className='news-feed-placeholder' />
+    if (!this.props.news) return <div id='news-feed' className='news-feed-placeholder' />
 
     return (
-      <ul className='news-feed'>
+      <ul id='news-feed'>
         {this.props.news.map((post, index) => (
           <li key={'key-' + index}>
             <NewsPost

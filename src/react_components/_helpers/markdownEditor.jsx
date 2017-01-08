@@ -17,32 +17,10 @@ export default class ComponentDemo extends React.Component {
   render () {
     const { onChange } = this.props
     const { initialMarkdown, markdown } = this.state
-    const wrapStyle = {
-      position: 'relative',
-      border: '1px solid #eee',
-      backgroundColor: 'white',
-      borderRadius: '2px',
-      margin: '-6px -9px'
-    }
-    const preStyle = {
-      position: 'absolute',
-      width: '100%',
-      whiteSpace: 'pre-wrap',
-      wordWrap: 'break-word',
-      backgroundColor: 'transparent',
-      margin: 0,
-      padding: '5px 8px'
-    }
-    const codeStyle = {
-      fontFamily: '"Noto Serif", serif',
-      lineHeight: '1.7em',
-      fontWeight: 'normal',
-      fontStyle: 'normal'
-    }
 
     return (
-      <div style={wrapStyle}>
-        <pre style={preStyle}
+      <div id='markdown-editor'>
+        <pre className='editor'
           contentEditable
           onInput={e => {
             this.setState({ markdown: e.target.innerText })
@@ -51,18 +29,17 @@ export default class ComponentDemo extends React.Component {
         >
           { /* initialMarkdown does not change with new props
             so react won't update this component and the cursor will stay in tact */ }
-          <code style={codeStyle}>{ initialMarkdown }</code>
+          <code className='code'>{ initialMarkdown }</code>
         </pre>
-        <SyntaxHighlighter
+        <SyntaxHighlighter className='editor'
           language='markdown'
           style={highlightStyle}
           customStyle={{
-            ...preStyle,
             position: 'relative',
             zIndex: 10,
             pointerEvents: 'none'
           }}
-          codeTagProps={{ style: codeStyle }}
+          codeTagProps={{ className: 'code' }}
         >
           { markdown }
         </SyntaxHighlighter>

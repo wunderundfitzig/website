@@ -12,7 +12,7 @@ class StoriesOverview extends React.Component {
 
     if (!editMode) {
       return (
-        <Link to={`${slug}/0`} className='story-link'>
+        <Link to={`${slug}/0`} id='story-cover'>
           <span className='story-image-wrapper'>
             <HighResImg className='story-img' alt={title} src={image} />
           </span>
@@ -22,7 +22,7 @@ class StoriesOverview extends React.Component {
     }
 
     return (
-      <div className='story-link editMode'>
+      <div id='story-cover' className='editMode'>
         <span className='story-image-wrapper'>
           <HighResImg className='story-img' alt={title} src={image} />
           <div className='edit-buttons'>

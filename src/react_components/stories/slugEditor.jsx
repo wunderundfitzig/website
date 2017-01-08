@@ -32,7 +32,7 @@ class SlugEditor extends React.Component {
 
     if (!editing) {
       return (
-        <button className='edit-slug-button' onClick={() => {
+        <button id='slug-editor' className='edit-slug-button' onClick={() => {
           this.setState({ editing: true })
         }}>
           slug bearbeiten
@@ -41,7 +41,7 @@ class SlugEditor extends React.Component {
     }
 
     return (
-      <form className='slug-editor'>
+      <form id='slug-editor'>
         <input className='slug-input'
           type='text'
           value={slug}

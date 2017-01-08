@@ -56,7 +56,7 @@ class Hero extends React.Component {
 
   render () {
     return (
-      <div>
+      <div id='hero'>
         <h1 className='sloagen'>
           Wir gestalten <strong className='buzzword'>{ this.state.buzzword }</strong>
         </h1>

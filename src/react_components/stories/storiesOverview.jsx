@@ -94,7 +94,7 @@ class StoriesOverview extends React.Component {
     const isDragging = draggedStoryIndex !== null
 
     return (
-      <ul id='storiesOverview'
+      <ul id='stories-overview'
         ref={storiesContainer => { this.storiesContainerRef = storiesContainer }}
         style={{ height: isDragging ? storyContainerSize.height : 'auto' }}
         onDragOver={e => this.handleDrag(e)}

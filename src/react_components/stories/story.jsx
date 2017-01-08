@@ -33,21 +33,6 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLas
       ? <MarkdownEditor markdown={storyPage.markdown} onChange={markdown => {
         store.setStoryPageMarkdown({ slug, pageNumber, markdown })
       }} />
-      // <pre>
-      //   <code
-      //     className='hljs textarea'
-      //     contentEditable='true'
-      //     spellCheck='false'
-      //     onInput={e => {
-      //       store.setStoryPageMarkdown({
-      //         slug,
-      //         pageNumber,
-      //         markdown: e.target.innerText
-      //       })
-      //     }}>
-      //     {storyPage.markdown}
-      //   </code>
-      // </pre>
       : <div className='story-text' dangerouslySetInnerHTML={{ __html: marked(storyPage.markdown, {
         renderer: renderer,
         sanitize: true

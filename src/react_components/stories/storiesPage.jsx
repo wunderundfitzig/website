@@ -24,7 +24,7 @@ class StoriesPage extends React.Component {
     if (!stories) return null
 
     return (
-      <div className='inner-content'>
+      <div id='stories-page' className='inner-content'>
         <Match exactly pattern={`${pathname}/`} render={matchProps => (
           <StoriesOverview {...matchProps} stories={stories} editMode={editMode} />
         )} />

@@ -58,17 +58,17 @@ export default class NewsPost extends React.Component {
     const { url, message } = this.getAndRemoveFirstURL(this.props.message)
 
     return (
-      <div className='fb-post'>
+      <div id='news-post'>
         { /* first element does not show the date */ }
         { !this.props.isFirst &&
-          <p className='fb-date'> { this.formatDate(this.props.createdTime) } </p>
+          <p className='date'> { this.formatDate(this.props.createdTime) } </p>
         }
-        <a href={url} target='_blank' className='fb-link' style={{
+        <a href={url} target='_blank' className='link' style={{
           paddingTop: `${this.props.picture.height / this.props.picture.width * 100}%`
         }}>
-          <img className='fb-picture' src={this.props.picture.source} />
+          <img className='picture' src={this.props.picture.source} />
         </a>
-        <p className='fb-message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
+        <p className='message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
       </div>
     )
   }

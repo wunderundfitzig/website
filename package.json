@@ -4,7 +4,7 @@
   "description": "static website realized with way to complicated tools",
   "main": "app.js",
   "scripts": {
-    "js": "BABEL_ENV=client browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js",
+    "js": "BABEL_ENV=client browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js && echo 'js bundle ready'",
     "css": "cd src/stylus; stylus < main.styl > ../assets/css/main.css",
     "build-production-server-code": "NODE_ENV=production BABEL_ENV=server babel src --ignore assets --out-dir tmp",
     "build-production-client-bundle": "NODE_ENV=production npm run js",
