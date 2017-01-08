@@ -33,16 +33,14 @@
     "node-fetch": "^1.5.2",
     "path": "^0.12.7",
     "react": "^15.0.2",
-    "react-addons-css-transition-group": "^15.0.2",
-    "react-addons-transition-group": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-router": "^4.0.0-2",
+    "react-syntax-highlighter": "^4.0.1",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
-    "babel-plugin-css-in-js": "^1.4.1",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "babel-preset-env": "^1.1.6",
     "babel-preset-react": "^6.16.0",

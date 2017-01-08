@@ -1,6 +1,6 @@
 import React from 'react'
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/dist/light'
-import markdown from 'react-syntax-highlighter/node_modules/highlight.js/lib/languages/markdown'
+import markdown from 'highlight.js/lib/languages/markdown'
 import highlightStyle from './syntaxStyles'
 
 registerLanguage('markdown', markdown)
