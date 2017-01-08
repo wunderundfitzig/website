@@ -1,3 +1,25 @@
 {
-  "presets": ["es2015", "react", "stage-2"],
+  "env": {
+    "server": {
+      "presets": ["react", ["env", {
+        "targets": {
+          "node": "current"
+        }
+      }]],
+      "plugins": [
+        "transform-object-rest-spread",
+        "css-in-js"
+      ]
+    },
+
+    "client": {
+      "presets": ["react", ["env", {
+        "targets": { "browsers": ["> 5%"] }
+      }]],
+      "plugins": [
+        "transform-object-rest-spread",
+        "css-in-js"
+      ]
+    },
+  }
 }
