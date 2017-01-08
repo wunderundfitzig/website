@@ -40,7 +40,8 @@ class Page extends React.Component {
           <Match pattern='stories' render={() => <title>wunder & fitzig | stories</title>} />
           <Match exactly pattern='/' render={() => <title>wunder & fitzig</title>} />
           <link rel='stylesheet' href='/assets/css/main.css' />
-          <script src='/assets/js/bundle.js' />
+          <link rel='stylesheet' href='/assets/css/bundle.css' />
+          <script async src='/assets/js/bundle.js' />
           { /* add data loded on the server so we can can read it and dont have
             to load it again but only for the first render */ }
           { !this.state.clientLoaded &&

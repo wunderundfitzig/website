@@ -6,20 +6,25 @@
           "node": "current"
         }
       }]],
-      "plugins": [
-        "transform-object-rest-spread",
-        "css-in-js"
-      ]
+      "plugins": ["transform-object-rest-spread", ["css-in-js", {
+        "bundleFile": null,
+        "mediaMap": {},
+        "identifier": "createStyles"
+      }]]
     },
 
     "client": {
       "presets": ["react", ["env", {
         "targets": { "browsers": ["> 5%"] }
       }]],
-      "plugins": [
-        "transform-object-rest-spread",
-        "css-in-js"
-      ]
+      "plugins": ["transform-object-rest-spread", ["css-in-js", {
+        "bundleFile": "src/assets/css/bundle.css",
+        "compressClassNames": false,
+        "minify": false,
+        "vendorPrefixes": false,
+        "mediaMap": {},
+        "identifier": "createStyles"
+      }]]
     },
   }
 }
