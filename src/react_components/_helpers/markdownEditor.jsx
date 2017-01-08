@@ -1,7 +1,7 @@
-/* global createStyles */
 'use-strict'
 
 import React from 'react'
+import scopeStyles from 'scope-styles'
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/dist/light'
 import markdown from 'react-syntax-highlighter/node_modules/highlight.js/lib/languages/markdown'
 import highlightStyle from './syntaxStyles'
@@ -51,7 +51,7 @@ export default class MarkdownEditor extends React.Component {
   }
 }
 
-const styles = createStyles({
+const styles = scopeStyles({
   editor: {
     position: 'relative',
     border: '1px solid #eee',
