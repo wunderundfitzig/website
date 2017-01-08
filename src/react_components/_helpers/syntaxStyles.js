@@ -6,7 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.default = {
   'hljs': {
     'display': 'block',
-    'background': 'white',
+    'background': 'transparent',
     'color': '#222;'
   },
   'hljs-string': {
