@@ -4,33 +4,35 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 })
 exports.default = {
-  'hljs': {
-    'display': 'block',
-    'background': 'transparent',
-    'color': '#222;'
-  },
-  'hljs-string': {
-    'color': '#538389'
-  },
-  'hljs-symbol': {
-    'color': '#c50061'
-  },
-  'hljs-bullet': {
-    'color': '#c50061'
+  hljs: {
+    display: 'block',
+    background: 'transparent',
+    color: '#222'
   },
   'hljs-section': {
-    'color': '#9f223c'
+    color: '#9f223c' // title – red
+  },
+  'hljs-string': {
+    color: '#538389' // link – blue
   },
   'hljs-link': {
-    'color': '#538389'
+    color: '#538389' // link – blue
+  },
+  'hljs-symbol': {
+    color: '#538389'
+  },
+  'hljs-bullet': {
+    color: '#538389'
   },
   'hljs-quote': {
-    'color': '#f5f5f5'
+    color: '#4F4F4F'
   },
   'hljs-strong': {
-    'color': '#005025'
+    color: '#4F4F4F',
+    fontWeight: 'bold'
   },
   'hljs-emphasis': {
-    color: '#d58f34'
+    color: '#4F4F4F',
+    fontStyle: 'italic'
   }
 }
