@@ -9,16 +9,16 @@
         "image": "/assets/img/stories/sebastianSchmidtLogo.png",
         "imageStyles": {
           "backgroundColor": "#46462a",
-          "backgroundSize": 400,
+          "backgroundSize": "auto 50%",
           "backgroundRepeat": "no-repeat",
           "backgroundPosition": "50% 40%"
         },
-        "markdown": "\n*Sebastian* ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln. \n\n [www.sebastianschmidt.co](http://www.sebastianschmidt.co/)"
+        "markdown": "Sebastian ist Photograf aus Hamburg. Er lies sich von uns eine ganz neue Webseite gestalten und bei dieser Gelegenheit gleich ein komplett neues CD entwickeln.\n\n [www.sebastianschmidt.co](http://www.sebastianschmidt.co/)"
       },
       {
         "title": "Sebastian Schmidt",
         "image": "/assets/img/stories/sebastianWeb.png",
-        "markdown": "Grundlage der Gestaltung bietet das Logo. Die Raute wird als solche oder in Form von dreiecken immer wieder verwendet. \n\n Die Webeite ist gegliedert durch olivgrünem Hintergrund für Photografie und orangenem Hintergrund für Videos, welche auch zu Sebastians Repertoire gehören. \n\n [www.sebastianschmidt.co](http://www.sebastianschmidt.co/)"
+        "markdown": "Grundlage der Gestaltung bietet das Logo. Die Raute wird als solche oder in Form von dreiecken immer wieder verwendet.\n\n Die Webeite ist gegliedert durch olivgrünem Hintergrund für Photografie und orangenem Hintergrund für Videos, welche auch zu Sebastians Repertoire gehören.\n\n [www.sebastianschmidt.co](http://www.sebastianschmidt.co/)"
       },
       {
         "title": "Sebastian Schmidt",
@@ -34,8 +34,8 @@
     "pages": [
       {
         "title": "Brillenschatz",
-        "image": "",
-        "markdown": ""
+        "image": "/assets/img/stories/Detail.jpg",
+        "markdown": "Brillenschatz ist ein sehr schöner Laden in Berlin für vintage designer Brillen. \n Wir haben dafür ein dynamisches Design mit wechselden Brillensilouhetten entwickelt. Im Onlinshop kann man Filter nach Kategorien, Marken oder Materialen belibig kombinieren.\n\nMobile und Social dürfen natürlich nicht fehlen. So werden zum Beispiel neue Produkte im Shop automatisch auf facebook geteilt.\n\n [www.brillenschatz.de](https://www.brillenschatz.de)"
       }
     ]
   },
@@ -130,8 +130,14 @@
     "pages": [
       {
         "title": "Dev Crew Berlin",
-        "image": "",
-        "markdown": ""
+        "image": "/assets/img/stories/enterLogo.png",
+        "imageStyles": {
+          "backgroundColor": "#FF5055",
+          "backgroundSize": "auto 40%",
+          "backgroundRepeat": "no-repeat",
+          "backgroundPosition": "50% 40%"
+        },
+        "markdown": "Hier galt es zu aller erst das visuelle Erscheinungsbild und das Logo für die dev crew zu kreieren.\n\n[dcb.ug](http://dcb.ug/)\n\nFür das Online-Registrierungssystem enter wurde dann das hier zu sehnde Logo, die Webseite und Benutzeroberflächen für Web und App mitgestaltet.\n\n[enter.events](https://enter.dcb.ug/de/)"
       }
     ]
   },
@@ -142,8 +148,8 @@
     "pages": [
       {
         "title": "Drunken Sailor",
-        "image": "",
-        "markdown": ""
+        "image": "/assets/img/stories/anatol.jpg",
+        "markdown": "Drunken Sailor Arts and Events ist das Produkt von unserem Freund Anatol Berg. Er kam zu uns auf der Suche nach einem Design das in die Berliner Clubszene passt.\n\nEntstanden ist ein Design, dass zu Anatol und zu dem Namen Drunken Sailor passt. Die charakteristischen Splitter lassen sich vielfältig als Gestaltelemente einsetzen und schöne mädchen können sie sich vor dem Clubbesuch auf die Wangen schminken.\n\n[drunkensailor-berlin.com](http://drunkensailor.wunderundfitzig.de/)"
       }
     ]
   }

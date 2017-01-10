@@ -100,7 +100,9 @@ export default class ComponentDemo extends React.Component {
         <div id='markdown-editor' className={className}
           dangerouslySetInnerHTML={{ __html: marked(markdown, {
             renderer: renderer,
-            sanitize: true
+            sanitize: true,
+            gfm: false,
+            smartypants: true
           })}}
         />
       )
