@@ -10,9 +10,7 @@
     },
 
     "client": {
-      "presets": ["react", ["env", {
-        "targets": { "browsers": ["> 5%"] }
-      }]],
+      "presets": ["react", ["env", {}]],
       "plugins": ["transform-object-rest-spread"]
     },
   }
