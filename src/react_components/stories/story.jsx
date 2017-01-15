@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import MarkdownEditor from '../_helpers/markdownEditor'
+import MarkdownEditor from '../_reusables/markdownEditor'
 
 const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLastPage, editMode }, { store }) => (
   <div id='story'>

@@ -3,7 +3,7 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import HighResImg from '../_helpers/highResImg'
+import HighResImg from '../_reusables/highResImg'
 import SlugEditor from './slugEditor'
 
 class StoriesOverview extends React.Component {

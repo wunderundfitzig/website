@@ -1,27 +1,12 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/dist/light'
 import markdownLang from 'highlight.js/lib/languages/markdown'
 import marked from 'marked'
-import highlightStyle from './syntaxStyles'
+import renderer from './markdownRenderer'
 
 registerLanguage('markdown', markdownLang)
-const renderer = new marked.Renderer()
-// override markdown link render method
-// to add target="_blank" to links
-renderer.link = function (href, title, text) {
-  if (this.options.sanitize) {
-    try {
-      var prot = decodeURIComponent(unescape(href)).replace(/[^\w:]/g, '').toLowerCase()
-    } catch (e) { return '' }
-    if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0) return ''
-  }
-  var out = '<a href="' + href + '" target="_blank"'
-  if (title) out += ' title="' + title + '"'
-  out += '>' + text + '</a>'
-  return out
-}
 
-export default class ComponentDemo extends React.Component {
+export default class MarkdownEditor extends React.Component {
   constructor (props) {
     super(props)
     this.i = 0
@@ -34,8 +19,8 @@ export default class ComponentDemo extends React.Component {
     const removeCommentsFrom = node => {
       const commentNodes = []
       for (const childNode of node.childNodes) {
-        if (childNode.nodeType > 3) {
-          commentNodes.push(childNode) // comment or other strange node
+        if (childNode.nodeType > 3) { // comment or other strange node
+          commentNodes.push(childNode)
         } else if (childNode.hasChildNodes()) {
           removeCommentsFrom(childNode)
         }
@@ -110,7 +95,7 @@ export default class ComponentDemo extends React.Component {
 
     return (
       <div>
-        <div id='markdown-editor' className='editMode'
+        <div id='markdown-editor' className={`${className} editMode`}
           key={++this.i}
           ref={ref => { this.editorRef = ref }}
           contentEditable
@@ -120,9 +105,9 @@ export default class ComponentDemo extends React.Component {
             onChange(e.target.innerText)
           }}
         >
-          <SyntaxHighlighter className='editor'
+          <SyntaxHighlighter
             language='markdown'
-            style={highlightStyle}
+            useInlineStyles={false}
             codeTagProps={{ className: 'code' }}
           >
             { markdown }
@@ -131,4 +116,11 @@ export default class ComponentDemo extends React.Component {
       </div>
     )
   }
+}
+
+MarkdownEditor.propTypes = {
+  markdown: PropTypes.string,
+  editMode: PropTypes.bool,
+  className: PropTypes.string,
+  onChange: PropTypes.func
 }
