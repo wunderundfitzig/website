@@ -78,6 +78,7 @@ class Page extends React.Component {
             <Match pattern='/creatives' render={(matchProps) => (
               <CreativesPage {...matchProps}
                 isMobile={this.state.isMobile}
+                editMode={this.state.editMode}
                 creatives={this.state.creatives}
               />
             )} />

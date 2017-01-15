@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
-import marked from 'marked'
+import MarkdownEditor from '../_reusables/markdownEditor'
 import fetch from 'node-fetch'
 
 const throttle = function ({ func, delay }) {
@@ -64,7 +64,8 @@ class CreativesPage extends React.Component {
   }
 
   render () {
-    if (!this.props.creatives) return null
+    const { creatives, editMode } = this.props
+    if (!creatives) return null
 
     return (
       <article id='creatives-page' className='inner-content'>
@@ -82,8 +83,8 @@ class CreativesPage extends React.Component {
                 backgroundImage: `url(${section.image})`
               }} />
 
-              <div className='creatives-text' dangerouslySetInnerHTML={{
-                __html: marked(section.markdown, { sanitize: true })
+              <MarkdownEditor className='creatives-text' editMode={editMode} markdown={section.markdown} onChange={markdown => {
+                // TODO: update store
               }} />
             </section>
           )
@@ -95,7 +96,8 @@ class CreativesPage extends React.Component {
 
 CreativesPage.propTypes = {
   creatives: PropTypes.array,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  editMode: PropTypes.bool
 }
 CreativesPage.contextTypes = {
   awaitBeforeServerRender: PropTypes.object,
