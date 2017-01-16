@@ -65,11 +65,12 @@ class CreativesPage extends React.Component {
 
   render () {
     const { creatives, editMode } = this.props
+    const { store } = this.context
     if (!creatives) return null
 
     return (
       <article id='creatives-page' className='inner-content'>
-        {this.props.creatives.map((section, index) => {
+        {creatives.map((section, index) => {
           const imgInView = index === 0 || this.state.sectionImageStates[index]
           const imgStateString = imgInView ? 'in-view' : 'out-of-view'
 
@@ -84,7 +85,7 @@ class CreativesPage extends React.Component {
               }} />
 
               <MarkdownEditor className='creatives-text' editMode={editMode} markdown={section.markdown} onChange={markdown => {
-                // TODO: update store
+                store.creatives.setMarkdown({ index, markdown })
               }} />
             </section>
           )
