@@ -1,7 +1,8 @@
 #story
   position      relative
-  margin-left   calc(50% + 90px)
   min-height    calc(100vh - 270px)
+  margin-top    45px
+  margin-left   calc(50% + 90px)
   margin-bottom 60px
 
   @media $narrow
@@ -35,7 +36,7 @@
   .close-button
     $button()
     position         absolute
-    right            0
+    right            -7px
     top              -15px
     display          block
     font-size        18px
@@ -43,8 +44,19 @@
     width            20px
     height           20px
 
+    &.editMode
+      top -11px
+
   .story-title
-    margin 45px 0 25px
+    margin 0 0 25px
+    width  calc(100% - 30px)
+
+    &.editMode
+      $title()
+      $input()
+      display block
+      padding 3px 8px
+      margin  -4px -9px 21px
 
     @media $mobile
       margin 35px 0 15px
@@ -53,10 +65,8 @@
     line-height 1.7em
     max-width   500px
 
-  .story-markdown-input
-    resize none
-    width 100%
-    height auto
+    &.editMode
+      margin-bottom 10px
 
   .arrow
     $button()

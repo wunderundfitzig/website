@@ -11,7 +11,7 @@ class Editable extends React.Component {
       <input {...childProps}
         className={`${className} editMode`}
         value={value}
-        onChange={onChange}
+        onChange={e => { onChange(e.target.value) }}
       />
     )
   }

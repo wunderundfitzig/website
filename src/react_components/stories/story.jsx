@@ -7,10 +7,12 @@ import MarkdownEditor from '../_reusables/markdownEditor'
 
 const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLastPage, editMode }, { store }) => (
   <div id='story'>
-    <Link className='close-button' to={parentPathname}>✕</Link>
-    <Editable editMode={editMode} onChange={() => {}}>
+    <Editable editMode={editMode} onChange={title => {
+      store.stories.setPageTitle({ slug, pageNumber, title })
+    }}>
       <h2 className='story-title'>{ storyPage.title }</h2>
     </Editable>
+    <Link className={`close-button ${editMode && 'editMode'}`} to={parentPathname}>✕</Link>
     <span className='story-image' style={{
       backgroundImage: `url(${storyPage.image})`,
       ...storyPage.imageStyles

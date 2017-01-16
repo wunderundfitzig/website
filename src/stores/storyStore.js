@@ -38,6 +38,13 @@ export const actions = {
     return stories
   },
 
+  setPageTitle: (stories, { slug, pageNumber, title }) => {
+    const story = stories.find(story => story.slug === slug)
+    const page = story.pages[pageNumber]
+    page.title = title
+    return stories
+  },
+
   setPageMarkdown: (stories, { slug, pageNumber, markdown }) => {
     const story = stories.find(story => story.slug === slug)
     const page = story.pages[pageNumber]
