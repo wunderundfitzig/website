@@ -12,7 +12,7 @@ class StoriesOverview extends React.Component {
 
     if (!editMode) {
       return (
-        <Link to={`${slug}/0`} id='story-cover'>
+        <Link to={`${slug}/1`} id='story-cover'>
           <span className='story-image-wrapper'>
             <HighResImg className='story-img' alt={title} src={image} />
           </span>

@@ -26,10 +26,10 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
       }} />
 
       { !isFirstPage &&
-        <Link className='prev arrow' to={`${pageNumber - 1}`}>←</Link>
+        <Link className='prev arrow' to={`${pageNumber}`}>←</Link>
       }
       { !isLastPage &&
-        <Link className='next arrow' to={`${pageNumber + 1}`}>→</Link>
+        <Link className='next arrow' to={`${pageNumber + 2}`}>→</Link>
       }
       { editMode &&
         <div className='edit-panel'>
@@ -39,7 +39,7 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
           <button className='create-page-button' onClick={() => {
             const newPageNumber = pageNumber + 1
             store.stories.createPage({ slug, newPageNumber })
-            router.transitionTo('' + newPageNumber)
+            router.transitionTo(`${newPageNumber + 1}`)
           }}>Neue Seite erstellen</button>
           { numberOfPages > 1 &&
             <p className='page-number-panel'>
@@ -49,7 +49,7 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
                 onClick={() => {
                   const newPageNumber = pageNumber - 1
                   store.stories.setPageNumber({ slug, pageNumber, newPageNumber })
-                  router.transitionTo('' + newPageNumber)
+                  router.transitionTo(`${newPageNumber + 1}`)
                 }}
               >-</button>
               <span className='page-number'>{ pageNumber + 1 }</span> / { numberOfPages }
@@ -58,7 +58,7 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
                 onClick={() => {
                   const newPageNumber = pageNumber + 1
                   store.stories.setPageNumber({ slug, pageNumber, newPageNumber })
-                  router.transitionTo('' + newPageNumber)
+                  router.transitionTo(`${newPageNumber + 1}`)
                 }}
               >+</button>
             </p>

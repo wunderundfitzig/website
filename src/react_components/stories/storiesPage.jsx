@@ -31,9 +31,9 @@ class StoriesPage extends React.Component {
           const story = stories.find(story => story.slug === params.slug)
           if (!story) return <Redirect to={`${pathname}/`} />
 
-          const pageNumber = parseInt(params.pageNumber)
+          const pageNumber = parseInt(params.pageNumber) - 1
           const storyPage = story.pages[pageNumber]
-          if (!storyPage) return <Redirect to={`${pathname}/${params.slug}/0`} />
+          if (!storyPage) return <Redirect to={`${pathname}/${params.slug}/1`} />
 
           return <Story
             parentPathname={pathname}
