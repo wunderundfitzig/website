@@ -15,11 +15,11 @@ class Page extends React.Component {
   componentDidMount () {
     const store = this.context.store
     this.unsubsribeFromStore = store(state => this.setState(state))
-    store.checkIfMobile()
-    store.clientLoaded()
-    window.addEventListener('resize', () => { store.checkIfMobile() })
+    store.main.checkIfMobile()
+    store.main.clientLoaded()
+    window.addEventListener('resize', () => { store.main.checkIfMobile() })
     window.addEventListener('keydown', e => {
-      if (e.metaKey && e.keyCode === 69) store.toggleEditMode()
+      if (e.metaKey && e.keyCode === 69) store.main.toggleEditMode()
     })
   }
 
@@ -29,6 +29,7 @@ class Page extends React.Component {
   }
 
   render () {
+    const { main: { editMode, clientLoaded, isMobile }, creatives, news, stories } = this.state
     return (
       <html lang='de'>
         <head>
@@ -43,13 +44,13 @@ class Page extends React.Component {
           <script async src='/assets/js/bundle.js' />
           { /* add data loded on the server so we can can read it and dont have
             to load it again but only for the first render */ }
-          { !this.state.clientLoaded &&
+          { !clientLoaded &&
             <script dangerouslySetInnerHTML={{ __html: 'window.initialData = ' + JSON.stringify(this.state) }} />
           }
         </head>
 
         <body>
-          <header className={`blackHeader ${this.state.editMode && 'edit-mode'}`}>
+          <header className={`blackHeader ${editMode && 'edit-mode'}`}>
             <nav className='topNavigation'>
               <ul>
                 <li className='menu-item'>
@@ -73,20 +74,20 @@ class Page extends React.Component {
 
           <div className='content'>
             <Match exactly pattern='/' render={(matchProps) => (
-              <NewsPage {...matchProps} news={this.state.news} />
+              <NewsPage {...matchProps} news={news} />
             )} />
             <Match pattern='/creatives' render={(matchProps) => (
               <CreativesPage {...matchProps}
-                isMobile={this.state.isMobile}
-                editMode={this.state.editMode}
-                creatives={this.state.creatives}
+                isMobile={isMobile}
+                editMode={editMode}
+                creatives={creatives}
               />
             )} />
             <Match pattern='/stories' render={(matchProps) => (
               <StoriesPage {...matchProps}
-                isMobile={this.state.isMobile}
-                editMode={this.state.editMode}
-                stories={this.state.stories}
+                isMobile={isMobile}
+                editMode={editMode}
+                stories={stories}
               />
             )} />
           </div>
@@ -100,7 +101,7 @@ Page.contextTypes = {
   initialDataLoader: React.PropTypes.object
 }
 Page.contextTypes = {
-  store: PropTypes.func
+  store: PropTypes.func.isRequired
 }
 
 export default Page

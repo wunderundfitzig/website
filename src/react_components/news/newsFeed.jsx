@@ -7,21 +7,22 @@ import NewsPost from './newsPost'
 class NewsFeed extends React.Component {
   constructor (props, context) {
     super(props)
-    if (props.news) return
+    if (props.news.length > 0) return
 
     context.awaitBeforeServerRender.register({
       promise: fetch(`${process.env.HOST || window.location.origin}/api/newsFeed`)
       .then(res => res.json())
-      .then(news => { context.store.setState({ news }) })
+      .then(news => { context.store.news.add(news) })
     })
   }
 
   render () {
-    if (!this.props.news) return <div id='news-feed' className='news-feed-placeholder' />
+    const { news } = this.props
+    if (news.length === 0) return <div id='news-feed' className='news-feed-placeholder' />
 
     return (
       <ul id='news-feed'>
-        {this.props.news.map((post, index) => (
+        {news.map((post, index) => (
           <li key={'key-' + index}>
             <NewsPost
               isFirst={index === 0}
@@ -38,7 +39,7 @@ class NewsFeed extends React.Component {
 }
 
 NewsFeed.propTypes = {
-  news: React.PropTypes.array
+  news: React.PropTypes.array.isRequired
 }
 
 NewsFeed.contextTypes = {

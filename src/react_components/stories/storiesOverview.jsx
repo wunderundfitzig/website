@@ -9,7 +9,7 @@ class StoriesOverview extends React.Component {
     this.storiesContainerRef = null
     this.storyRefs = []
     this.state = {
-      storyPositions: null,
+      storyCoordinates: null,
       draggedStoryIndex: null,
       storyOrderNumbers: null
     }
@@ -21,7 +21,7 @@ class StoriesOverview extends React.Component {
       return
     }
 
-    const storyPositions = this.storyRefs.filter(ref => ref !== null)
+    const storyCoordinates = this.storyRefs.filter(ref => ref !== null)
     .map(ref => ({ top: ref.offsetTop, left: ref.offsetLeft }))
 
     const storyContainerSize = {
@@ -37,7 +37,7 @@ class StoriesOverview extends React.Component {
       this.setState({
         dragPhase: 0,
         draggedStoryIndex,
-        storyPositions,
+        storyCoordinates,
         storyContainerSize,
         storyOrderNumbers: this.props.stories.map((_, index) => index),
         numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
@@ -68,13 +68,7 @@ class StoriesOverview extends React.Component {
   }
 
   cleanupDrag () {
-    const stories = this.props.stories.reduce((newStories, story, index) => {
-      const newPosition = this.state.storyOrderNumbers[index]
-      newStories[newPosition] = story
-      return newStories
-    }, [])
-
-    this.context.store.setState({ stories })
+    this.context.store.stories.resort({ newOrder: this.state.storyOrderNumbers })
     this.setState({
       dragPhase: null,
       draggedStoryIndex: null,
@@ -88,7 +82,7 @@ class StoriesOverview extends React.Component {
       dragPhase,
       draggedStoryIndex,
       storyContainerSize,
-      storyPositions,
+      storyCoordinates,
       storyOrderNumbers
     } = this.state
     const isDragging = draggedStoryIndex !== null
@@ -102,8 +96,8 @@ class StoriesOverview extends React.Component {
         {stories.map((story, index) => {
           const style = isDragging ? {
             position: 'absolute',
-            top: storyPositions[storyOrderNumbers[index]].top,
-            left: storyPositions[storyOrderNumbers[index]].left,
+            top: storyCoordinates[storyOrderNumbers[index]].top,
+            left: storyCoordinates[storyOrderNumbers[index]].left,
             opacity: draggedStoryIndex === index ? 0 : 1,
             // make shure to animate positions after positions are set to absolute
             transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
@@ -131,7 +125,7 @@ class StoriesOverview extends React.Component {
         { (editMode && !isDragging) &&
           <li className='new-story'
             onDragStart={e => { e.preventDefault() }}
-            onClick={this.context.store.addStory}
+            onClick={this.context.store.stories.create}
           >
             <a className='new-story-inner' />
           </li>

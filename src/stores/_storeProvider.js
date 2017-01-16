@@ -28,8 +28,8 @@ export default class StoreProvider extends React.Component {
 
 StoreProvider.propTypes = {
   serverRenderPreparer: PropTypes.instanceOf(ServerRenderPreparer),
-  store: PropTypes.func,
-  children: PropTypes.node
+  store: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 }
 StoreProvider.childContextTypes = {
   awaitBeforeServerRender: PropTypes.object,

@@ -13,7 +13,7 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLas
       ...storyPage.imageStyles
     }} />
     <MarkdownEditor className='story-text' editMode={editMode} markdown={storyPage.markdown} onChange={markdown => {
-      store.setStoryPageMarkdown({ slug, pageNumber, markdown })
+      store.stories.setPageMarkdown({ slug, pageNumber, markdown })
     }} />
 
     { !isFirstPage && <Link className='prev arrow' to={`${pageNumber - 1}`}>←</Link> }

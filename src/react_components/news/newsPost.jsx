@@ -30,16 +30,16 @@ export default class NewsPost extends React.Component {
   getAndRemoveFirstURL (message) {
     if (!message) return {}
 
-    let regex = /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
-    let matches = message.match(regex)
-    let url = null
+    const regex = /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
+    const matches = message.match(regex)
+    let text, url
 
     if (matches) {
-      message = message.replace(regex, '')
+      text = message.replace(regex, '')
       url = matches[0]
     }
 
-    return { url: url, message: message }
+    return { url, text }
   }
 
   /**
@@ -55,20 +55,21 @@ export default class NewsPost extends React.Component {
   }
 
   render () {
-    const { url, message } = this.getAndRemoveFirstURL(this.props.message)
+    const { isFirst, createdTime, picture, message } = this.props
+    const { url, text } = this.getAndRemoveFirstURL(message)
 
     return (
       <div id='news-post'>
         { /* first element does not show the date */ }
-        { !this.props.isFirst &&
-          <p className='date'> { this.formatDate(this.props.createdTime) } </p>
+        { !isFirst &&
+          <p className='date'> { this.formatDate(createdTime) } </p>
         }
         <a href={url} target='_blank' className='link' style={{
-          paddingTop: `${this.props.picture.height / this.props.picture.width * 100}%`
+          paddingTop: `${picture.height / picture.width * 100}%`
         }}>
-          <img className='picture' src={this.props.picture.source} />
+          <img className='picture' src={picture.source} />
         </a>
-        <p className='message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(message) }} />
+        <p className='message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(text) }} />
       </div>
     )
   }
@@ -77,7 +78,6 @@ export default class NewsPost extends React.Component {
 NewsPost.propTypes = {
   isFirst: React.PropTypes.bool.isRequired,
   createdTime: React.PropTypes.string.isRequired,
-  link: React.PropTypes.string,
   picture: React.PropTypes.object,
   message: React.PropTypes.string
 }

@@ -23,7 +23,7 @@ class SlugEditor extends React.Component {
   }
 
   submit () {
-    this.context.store.setStorySlug({ slug: this.props.slug, newSlug: this.state.slug })
+    this.context.store.stories.setSlug({ slug: this.props.slug, newSlug: this.state.slug })
     this.setState({ editing: false })
   }
 

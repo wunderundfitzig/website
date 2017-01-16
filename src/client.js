@@ -3,13 +3,12 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router'
-import Hover from 'hover'
-import StoreProvider from './storeProvider'
+import StoreProvider from './stores/_storeProvider'
+import storeFactory from './stores/_storeFactory'
 import Page from './react_components/page'
-import storeDescription from './store'
 
 window.addEventListener('load', () => {
-  const store = new Hover(storeDescription, window.initialData)
+  const store = storeFactory.createStore({ initialData: window.initialData })
   render(<BrowserRouter>
     <StoreProvider store={store}>
       <Page />

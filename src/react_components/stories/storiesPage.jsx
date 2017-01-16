@@ -9,19 +9,18 @@ import Story from './story'
 class StoriesPage extends React.Component {
   constructor (props, context) {
     super(props)
+    if (props.stories.length > 0) return
 
-    if (!props.stories) {
-      context.awaitBeforeServerRender.register({
-        promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/stories.json`)
-        .then(res => res.json())
-        .then(stories => context.store.setState({ stories }))
-      })
-    }
+    context.awaitBeforeServerRender.register({
+      promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/stories.json`)
+      .then(res => res.json())
+      .then(stories => context.store.stories.add(stories))
+    })
   }
 
   render () {
     const { pathname, stories, editMode } = this.props
-    if (!stories) return null
+    if (stories.length === 0) return null
 
     return (
       <div id='stories-page' className='inner-content'>

@@ -4,12 +4,11 @@ import express from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 import React from 'react'
-import Hover from 'hover'
 import { renderToString } from 'react-dom/server'
 import { ServerRouter, createServerRenderContext } from 'react-router'
 import api from './api'
-import StoreProvider, { ServerRenderPreparer } from './storeProvider'
-import storeDescription from './store'
+import StoreProvider, { ServerRenderPreparer } from './stores/_storeProvider'
+import storeFactory from './stores/_storeFactory'
 import Page from './react_components/page'
 
 const app = express()
@@ -21,7 +20,7 @@ app.use('/wunderundfitzig.jpg', express.static(path.join(__dirname, 'assets/wund
 app.use((req, res, next) => {
   const renderContext = createServerRenderContext()
   const serverRenderPreparer = new ServerRenderPreparer()
-  const store = new Hover(storeDescription, {})
+  const store = storeFactory.createStore()
 
   let markup = renderToString(
     <ServerRouter location={req.url} context={renderContext}>

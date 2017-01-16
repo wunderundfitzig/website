@@ -25,11 +25,11 @@ class CreativesPage extends React.Component {
   constructor (props, context) {
     super(props)
 
-    if (!props.creatives) {
+    if (props.creatives.length === 0) {
       context.awaitBeforeServerRender.register({
         promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/creatives.json`)
         .then(res => res.json())
-        .then(creatives => { context.store.setState({ creatives }) })
+        .then(creatives => { context.store.creatives.add(creatives) })
       })
     }
 
