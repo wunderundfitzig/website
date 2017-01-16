@@ -9,6 +9,7 @@ class StoriesOverview extends React.Component {
     this.storiesContainerRef = null
     this.storyRefs = []
     this.state = {
+      dragPhase: null,
       storyCoordinates: null,
       draggedStoryIndex: null,
       storyOrderNumbers: null
@@ -70,14 +71,16 @@ class StoriesOverview extends React.Component {
   cleanupDrag () {
     this.context.store.stories.resort({ newOrder: this.state.storyOrderNumbers })
     this.setState({
-      dragPhase: null,
+      dragPhase: 2,
       draggedStoryIndex: null,
       storyOrderNumbers: this.props.stories.map((_, index) => index)
     })
+    setTimeout(() => { this.setState({ dragPhase: null }) }, 10)
   }
 
   render () {
     const { editMode, stories } = this.props
+    const { router } = this.context
     const {
       dragPhase,
       draggedStoryIndex,
@@ -111,6 +114,10 @@ class StoriesOverview extends React.Component {
               style={style}
               onDragStart={e => { this.setupDrag(e, index) }}
               onDragEnd={() => { this.cleanupDrag() }}
+              onClick={() => {
+                if (dragPhase !== null) return
+                router.transitionTo(`${story.slug}/1`)
+              }}
             >
               <StoryCover
                 title={story.title}
@@ -142,7 +149,8 @@ StoriesOverview.propTypes = {
 
 StoriesOverview.contextTypes = {
   store: PropTypes.func,
-  initialDataLoader: PropTypes.object
+  initialDataLoader: PropTypes.object,
+  router: PropTypes.object
 }
 
 export default StoriesOverview
