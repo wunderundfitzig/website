@@ -1,3 +1,4 @@
+/* global FileReader */
 'use strict'
 
 import React, { PropTypes } from 'react'
@@ -31,7 +32,26 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
               store.stories.createPage({ slug, newPageNumber })
               router.transitionTo(`${newPageNumber + 1}`)
             }}>Neue Seite erstellen</button>
-            <button className='edit-image-button'>Bild auswählen</button>
+            <input id={`img-selector${slug}`}
+              className='file-selector'
+              type='file'
+              accept='image/*'
+              onChange={e => {
+                e.preventDefault()
+                const fileReader = new FileReader()
+                const fileHandler = e => {
+                  store.stories.setPageImage({
+                    slug,
+                    pageNumber,
+                    image: e.target.result
+                  })
+                  fileReader.removeEventListener('load', fileHandler)
+                }
+                fileReader.addEventListener('load', fileHandler)
+                fileReader.readAsDataURL(e.target.files[0])
+              }}
+            />
+            <label className='edit-image-button' htmlFor={`img-selector${slug}`}>Bild auswählen</label>
           </div>
         }
       </div>

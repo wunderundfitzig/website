@@ -45,6 +45,13 @@ export const actions = {
     return stories
   },
 
+  setPageImage: (stories, { slug, pageNumber, image }) => {
+    const story = stories.find(story => story.slug === slug)
+    const page = story.pages[pageNumber]
+    page.image = image
+    return stories
+  },
+
   setPageMarkdown: (stories, { slug, pageNumber, markdown }) => {
     const story = stories.find(story => story.slug === slug)
     const page = story.pages[pageNumber]

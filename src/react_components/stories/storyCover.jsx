@@ -9,6 +9,7 @@ import SlugEditor from './slugEditor'
 class StoriesOverview extends React.Component {
   render () {
     const { title, slug, image, editMode, stories } = this.props
+    const { store } = this.context
 
     if (!editMode) {
       return (
@@ -27,7 +28,7 @@ class StoriesOverview extends React.Component {
           <HighResImg className='story-img' alt={title} src={image} />
           <div className='edit-buttons'>
             <button className='delete-button' onClick={() => {
-              this.context.store.stories.delete({ slug: slug })
+              store.stories.delete({ slug: slug })
             }}>
               löschen
             </button>
@@ -40,7 +41,7 @@ class StoriesOverview extends React.Component {
                 e.preventDefault()
                 const fileReader = new FileReader()
                 const fileHandler = e => {
-                  this.context.store.stories.setCover({ slug, cover: e.target.result })
+                  store.stories.setCover({ slug, cover: e.target.result })
                   fileReader.removeEventListener('load', fileHandler)
                 }
                 fileReader.addEventListener('load', fileHandler)
@@ -54,7 +55,7 @@ class StoriesOverview extends React.Component {
           type='text'
           value={title}
           onChange={e => {
-            this.context.store.stories.setTitle({ slug: slug, title: e.target.value })
+            store.stories.setTitle({ slug: slug, title: e.target.value })
           }}
         />
       </div>
