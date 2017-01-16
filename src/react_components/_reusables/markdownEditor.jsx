@@ -34,7 +34,7 @@ export default class MarkdownEditor extends React.Component {
     // for the provided offset
     const findSelectionStartInNode = (node, offset) => {
       for (const childNode of node.childNodes) {
-        if (childNode.textContent.length > offset) {
+        if (childNode.textContent.length >= offset) {
           return childNode.hasChildNodes()
             ? findSelectionStartInNode(childNode, offset)
             : { node: childNode, offset }
