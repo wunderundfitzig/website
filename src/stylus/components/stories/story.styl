@@ -83,3 +83,45 @@
       margin-left  -125px
       margin-right 70px
       z-index      100
+
+  .edit-panel
+    font-size  14px
+    color      $text-grey
+    text-align center
+    margin     20px -9px 0
+    padding    20px 9px 0
+    border-top 1px solid $button-grey
+
+    button
+      font-size 13px
+      padding   2px 8px
+
+    .delete-page-button
+      $button(background-color: $red, color: white)
+
+    .create-page-button
+      $button(color: white)
+
+    .delete-page-button
+    .create-page-button
+      float         right
+      clear         right
+      display       block
+      margin-bottom 10px
+
+    .page-number-panel
+      padding-top 20px
+      clear       both
+      margin-left -10px
+
+    .page-number-button
+      $button()
+      padding 0 5px
+      margin  0 5px
+
+      &:disabled
+        opacity 0.5
+
+    .page-number
+      color $link-blue
+      font-weight bold

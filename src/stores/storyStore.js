@@ -50,6 +50,13 @@ export const actions = {
     const page = story.pages[pageNumber]
     page.markdown = markdown
     return stories
+  },
+
+  setPageNumber: (stories, { slug, pageNumber, newPageNumber }) => {
+    const story = stories.find(story => story.slug === slug)
+    const page = story.pages.splice(pageNumber, 1)[0]
+    story.pages.splice(newPageNumber, 0, page)
+    return stories
   }
 }
 

@@ -40,8 +40,7 @@ class StoriesPage extends React.Component {
             slug={params.slug}
             storyPage={storyPage}
             pageNumber={pageNumber}
-            isFirstPage={pageNumber === 0}
-            isLastPage={pageNumber === story.pages.length - 1}
+            numberOfPages={story.pages.length}
             editMode={editMode}
           />
         }} />
