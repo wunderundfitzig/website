@@ -2,12 +2,15 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import Editable from '../_reusables/editable'
 import MarkdownEditor from '../_reusables/markdownEditor'
 
 const Story = ({ parentPathname, slug, storyPage, pageNumber, isFirstPage, isLastPage, editMode }, { store }) => (
   <div id='story'>
-    <h2 className='story-title'>{ storyPage.title }</h2>
     <Link className='close-button' to={parentPathname}>✕</Link>
+    <Editable editMode={editMode} onChange={() => {}}>
+      <h2 className='story-title'>{ storyPage.title }</h2>
+    </Editable>
     <span className='story-image' style={{
       backgroundImage: `url(${storyPage.image})`,
       ...storyPage.imageStyles

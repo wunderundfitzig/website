@@ -42,9 +42,10 @@ class Page extends React.Component {
           <Match exactly pattern='/' render={() => <title>wunder & fitzig</title>} />
           <link rel='stylesheet' href='/assets/css/main.css' />
           <script async src='/assets/js/bundle.js' />
-          { /* add data loded on the server so we can can read it and dont have
-            to load it again but only for the first render */ }
-          { !clientLoaded &&
+          {
+            // add data loded on the server so we can can read it and dont have
+            // to load it again but only for the first render
+            !clientLoaded &&
             <script dangerouslySetInnerHTML={{ __html: 'window.initialData = ' + JSON.stringify(this.state) }} />
           }
         </head>
