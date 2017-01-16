@@ -52,6 +52,22 @@ export const actions = {
     return stories
   },
 
+  deletePage: (stories, { slug, pageNumber }) => {
+    const story = stories.find(story => story.slug === slug)
+    story.pages.splice(pageNumber, 1)
+    return stories
+  },
+
+  createPage: (stories, { slug, newPageNumber }) => {
+    const story = stories.find(story => story.slug === slug)
+    story.pages.splice(newPageNumber, 0, {
+      title: story.title,
+      image: '',
+      markdown: ''
+    })
+    return stories
+  },
+
   setPageNumber: (stories, { slug, pageNumber, newPageNumber }) => {
     const story = stories.find(story => story.slug === slug)
     const page = story.pages.splice(pageNumber, 1)[0]

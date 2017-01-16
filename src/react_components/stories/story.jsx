@@ -33,8 +33,14 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
       }
       { editMode &&
         <div className='edit-panel'>
-          <button className='delete-page-button'>Seite löschen</button>
-          <button className='create-page-button'>Neue Seite erstellen</button>
+          <button className='delete-page-button' onClick={() => {
+            store.stories.deletePage({ slug, pageNumber })
+          }}>Seite löschen</button>
+          <button className='create-page-button' onClick={() => {
+            const newPageNumber = pageNumber + 1
+            store.stories.createPage({ slug, newPageNumber })
+            router.transitionTo('' + newPageNumber)
+          }}>Neue Seite erstellen</button>
           { numberOfPages > 1 &&
             <p className='page-number-panel'>
               Seite:
