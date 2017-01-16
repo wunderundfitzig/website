@@ -1,6 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
+import Editable from '../_reusables/editable'
 import MarkdownEditor from '../_reusables/markdownEditor'
 import fetch from 'node-fetch'
 
@@ -79,7 +80,11 @@ class CreativesPage extends React.Component {
               key={index}
               ref={sectionRef => { this.sectionRefs[index] = sectionRef }}
             >
-              <h2 className='creatives-section-title'>{ section.name }</h2>
+              <Editable editMode={editMode} onChange={name => {
+                store.creatives.setName({ index, name })
+              }}>
+                <h2 className='creatives-section-title'>{ section.name }</h2>
+              </Editable>
               <span className={`creatives-image ${imgStateString}`} style={{
                 backgroundImage: `url(${section.image})`
               }} />
