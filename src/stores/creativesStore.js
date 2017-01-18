@@ -5,7 +5,7 @@ export const initialState = []
 export const actions = {
   add: (sections, newSections) => [...sections, ...newSections],
 
-  create: sections => [...sections, { name: `Neuer Abschnitt` }],
+  create: sections => [...sections, { name: 'Neuer Abschnitt', markdown: '' }],
 
   delete: (sections, { index }) => sections.filter((_, i) => i !== index),
 

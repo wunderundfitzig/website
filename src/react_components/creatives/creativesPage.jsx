@@ -1,3 +1,4 @@
+/* global FileReader */
 'use strict'
 
 import React, { PropTypes } from 'react'
@@ -36,44 +37,73 @@ class CreativesPage extends React.Component {
 
     this.scrollHandler
     this.sectionRefs = []
+    this.afterUpdateGoToSection = null
     this.state = {
-      sectionImageStates: []
+      currentSectionIndex: 0
     }
   }
 
-  setSectionImageStates () {
-    if (this.props.isMobile) return
-
-    const sectionImageStates = this.sectionRefs.map(el =>
-      el.getBoundingClientRect().top - (window.innerHeight * 2 / 3) < 0
-    )
-    this.setState({ sectionImageStates })
-  }
-
   componentDidMount () {
-    this.setSectionImageStates()
-    this.scrollHandler = throttle({ func: this.setSectionImageStates.bind(this), delay: 100 })
+    this.getCurrentSectionFromScrollPosition()
+    this.scrollHandler = throttle({ func: this.getCurrentSectionFromScrollPosition.bind(this), delay: 100 })
     window.addEventListener('scroll', this.scrollHandler)
   }
 
-  componentWillReceiveProps () {
-    this.setSectionImageStates()
+  componentDidUpdate (prevProps) {
+    if (this.afterUpdateGoToSection !== null) {
+      this.scrollSectionIntoView({ section: this.afterUpdateGoToSection })
+      this.afterUpdateGoToSection = null
+    }
+
+    if (prevProps === this.props) return
+    this.getCurrentSectionFromScrollPosition()
   }
 
   componentWillUnmount () {
     window.removeEventListener('scroll', this.scrollHandler)
   }
 
+  getCurrentSectionFromScrollPosition () {
+    if (this.props.isMobile) return
+
+    const currentSectionIndex = this.sectionRefs.filter(ref => ref !== null)
+    .reduce((currentSectionIndex, sectionRef, index) => (
+      sectionRef.getBoundingClientRect().top - (window.innerHeight * 2 / 3) < 0
+      ? index
+      : currentSectionIndex
+    ), 0)
+    this.setState({ currentSectionIndex })
+  }
+
+  scrollSectionIntoView ({ section, duration = 200 }) {
+    const SPACING = 40
+    const startOffset = window.pageYOffset
+    const endOffset = this.sectionRefs[section].offsetTop - SPACING
+    const offsetDifference = endOffset - startOffset
+
+    let startTime = null
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp
+      let progress = (timestamp - startTime) / duration
+      if (progress > 1) progress = 1
+      window.scrollTo(0, startOffset + offsetDifference * progress)
+      if (progress < 1) {
+        window.requestAnimationFrame(animate)
+      }
+    }
+    window.requestAnimationFrame(animate)
+  }
+
   render () {
     const { creatives, editMode } = this.props
+    const { currentSectionIndex } = this.state
     const { store } = this.context
     if (!creatives) return null
 
     return (
       <article id='creatives-page' className='inner-content'>
         {creatives.map((section, index) => {
-          const imgInView = index === 0 || this.state.sectionImageStates[index]
-          const imgStateString = imgInView ? 'in-view' : 'out-of-view'
+          const isCurrentSection = index === currentSectionIndex
 
           return (
             <section className='creatives-section'
@@ -85,16 +115,53 @@ class CreativesPage extends React.Component {
               }}>
                 <h2 className='creatives-section-title'>{ section.name }</h2>
               </Editable>
-              <span className={`creatives-image ${imgStateString}`} style={{
+              <div className={`creatives-image ${isCurrentSection && 'current-image'}`} style={{
                 backgroundImage: `url(${section.image})`
               }} />
-
               <MarkdownEditor className='creatives-text' editMode={editMode} markdown={section.markdown} onChange={markdown => {
                 store.creatives.setMarkdown({ index, markdown })
               }} />
             </section>
           )
         })}
+        { editMode &&
+          <div>
+            <div className='edit-panel'>
+              { creatives.length > 1 &&
+                <button className='delete-button' onClick={() => {
+                  store.creatives.delete({ index: currentSectionIndex })
+                  this.afterUpdateGoToSection = currentSectionIndex > 0 ? currentSectionIndex - 1 : 0
+                }}>Abschnitt { currentSectionIndex + 1 } löschen</button>
+              }
+              <br />
+              <input id='img-selector'
+                className='file-selector'
+                type='file'
+                accept='image/*'
+                onChange={e => {
+                  e.preventDefault()
+                  const fileReader = new FileReader()
+                  const fileHandler = e => {
+                    store.creatives.setImage({
+                      index: currentSectionIndex,
+                      image: e.target.result })
+                    fileReader.removeEventListener('load', fileHandler)
+                  }
+                  fileReader.addEventListener('load', fileHandler)
+                  fileReader.readAsDataURL(e.target.files[0])
+                }}
+              />
+              <label className='edit-image-button' htmlFor='img-selector'>Bild auswählen</label>
+
+            </div>
+            <button className='create-button' onClick={() => {
+              const newCreatives = store.creatives.create()
+              this.afterUpdateGoToSection = newCreatives.length - 1
+            }}>
+              Abschnitt hinzufügen
+            </button>
+          </div>
+        }
       </article>
     )
   }
