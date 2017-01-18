@@ -72,6 +72,8 @@ class CreativesPage extends React.Component {
       ? index
       : currentSectionIndex
     ), 0)
+
+    if (this.state.currentSectionIndex === currentSectionIndex) return
     this.setState({ currentSectionIndex })
   }
 
