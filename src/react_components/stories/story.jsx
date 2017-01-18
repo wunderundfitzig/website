@@ -24,14 +24,11 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
       }}>
         { editMode &&
           <div className='edit-panel'>
-            <button className='delete-page-button' onClick={() => {
-              store.stories.deletePage({ slug, pageNumber })
-            }}>Seite löschen</button>
-            <button className='create-page-button' onClick={() => {
-              const newPageNumber = pageNumber + 1
-              store.stories.createPage({ slug, newPageNumber })
-              router.transitionTo(`${newPageNumber + 1}`)
-            }}>Neue Seite erstellen</button>
+            { numberOfPages > 1 &&
+              <button className='delete-page-button' onClick={() => {
+                store.stories.deletePage({ slug, pageNumber })
+              }}>Seite { pageNumber + 1 } löschen</button>
+            }
             <input id={`img-selector${slug}`}
               className='file-selector'
               type='file'
@@ -85,7 +82,14 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
         <Link className='prev arrow' to={`${pageNumber}`}>←</Link>
       }
       { !isLastPage &&
-        <Link className='next arrow' to={`${pageNumber + 2}`}>→</Link>
+        <Link className={`next arrow ${editMode && 'editMode'}`} to={`${pageNumber + 2}`}>→</Link>
+      }
+      { editMode &&
+        <button className='create-page-button' onClick={() => {
+          const newPageNumber = pageNumber + 1
+          store.stories.createPage({ slug, newPageNumber })
+          router.transitionTo(`${newPageNumber + 1}`)
+        }}>Neue Seite erstellen</button>
       }
     </div>
   )

@@ -78,11 +78,14 @@
     margin-top       20px
 
     &.prev
-      overflow     hidden
       position     relative
       margin-left  -125px
       margin-right 70px
       z-index      100
+
+    &.next.editMode
+      margin-left  -9px
+      margin-right 20px
 
   .edit-panel
     margin 25px 30px
@@ -106,15 +109,23 @@
       $button(background-color: $red)
 
     .edit-image-button
-    .create-page-button
       $button()
 
+  .create-page-button
+    $button()
+    font-size      13px
+    padding        0 8px
+    vertical-align bottom
+    margin-left    -9px
+    height         20px
+    margin-top     20px
+
   .page-number-panel
-    font-size   14px
-    color       $text-grey
-    padding-top 10px
-    margin-left -10px
-    text-align  center
+    font-size     14px
+    color         $text-grey
+    padding-top   10px
+    margin-left   -10px
+    text-align    center
 
     .page-number-button
       $button()
