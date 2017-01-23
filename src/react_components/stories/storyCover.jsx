@@ -8,8 +8,8 @@ import SlugEditor from './slugEditor'
 
 class StoriesOverview extends React.Component {
   render () {
-    const { title, slug, image, editMode, stories } = this.props
-    const { store } = this.context
+    const { title, slug, image, editMode, stories, dragPhase } = this.props
+    const { store, router } = this.context
 
     if (!editMode) {
       return (
@@ -25,10 +25,15 @@ class StoriesOverview extends React.Component {
     return (
       <div id='story-cover' className='editMode'>
         <span className='story-image-wrapper'>
-          <HighResImg className='story-img' alt={title} src={image} />
+          <HighResImg className='story-img' alt={title} src={image}
+            onClick={(e) => {
+              if (dragPhase !== null) return
+              router.transitionTo(`${slug}/1`)
+            }} />
           <div className='edit-buttons'>
-            <button className='delete-button' onClick={() => {
+            <button className='delete-button' onClick={(e) => {
               store.stories.delete({ slug: slug })
+              e.stopPropagation()
             }}>
               löschen
             </button>
@@ -39,6 +44,8 @@ class StoriesOverview extends React.Component {
               accept='image/*'
               onChange={e => {
                 e.preventDefault()
+                e.stopPropagation()
+                console.log('one')
                 const fileReader = new FileReader()
                 const fileHandler = e => {
                   store.stories.setCover({ slug, cover: e.target.result })
@@ -72,7 +79,8 @@ StoriesOverview.propTypes = {
 }
 
 StoriesOverview.contextTypes = {
-  store: PropTypes.func
+  store: PropTypes.func,
+  router: PropTypes.object
 }
 
 export default StoriesOverview

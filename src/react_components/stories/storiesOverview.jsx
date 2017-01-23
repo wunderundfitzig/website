@@ -114,17 +114,14 @@ class StoriesOverview extends React.Component {
               style={style}
               onDragStart={e => { this.setupDrag(e, index) }}
               onDragEnd={() => { this.cleanupDrag() }}
-              onClick={() => {
-                if (dragPhase !== null) return
-                router.transitionTo(`${story.slug}/1`)
-              }}
             >
               <StoryCover
                 title={story.title}
                 slug={story.slug}
                 image={story.cover}
-                editMode={editMode}
                 stories={stories}
+                editMode={editMode}
+                dragPhase={dragPhase}
               />
             </li>
           )
@@ -149,8 +146,7 @@ StoriesOverview.propTypes = {
 
 StoriesOverview.contextTypes = {
   store: PropTypes.func,
-  initialDataLoader: PropTypes.object,
-  router: PropTypes.object
+  initialDataLoader: PropTypes.object
 }
 
 export default StoriesOverview
