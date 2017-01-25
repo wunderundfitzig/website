@@ -48,7 +48,7 @@ export default (req, res) => {
     res.sendStatus(HTTPStatus.OK)
   })
   .catch(err => {
-    console.log(err)
+    console.log('save err', err)
     res.sendStatus(HTTPStatus.INTERNAL_SERVER_ERROR)
   })
 }

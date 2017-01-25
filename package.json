@@ -33,6 +33,8 @@
     "http-status": "^0.2.5",
     "marked": "^0.3.6",
     "node-fetch": "^1.5.2",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
     "path": "^0.12.7",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",

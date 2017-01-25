@@ -3,11 +3,23 @@
 import express from 'express'
 import HTTPStatus from 'http-status'
 import bodyParser from 'body-parser'
+import passport from 'passport'
+import { BasicStrategy } from 'passport-http'
 
 import cache from './api/_cache'
 import jsonFromFile from './api/jsonFromFile'
 import newsFeed from './api/newsFeed'
 import saveEdits from './api/saveEdits'
+
+passport.use(new BasicStrategy(
+  function (userid, password, done) {
+    if (userid === 'wundf' && password === '123') {
+      done(null, {})
+    } else {
+      done()
+    }
+  }
+))
 
 const api = express.Router()
 
@@ -19,7 +31,7 @@ api.get('*', (req, res, next) => {
 })
 
 api.use(bodyParser.json())
-api.post('/saveEdits', saveEdits)
+api.post('/saveEdits', passport.authenticate('basic', { session: false }), saveEdits)
 api.get('/creatives', jsonFromFile)
 api.get('/stories', jsonFromFile)
 api.get('/newsFeed', newsFeed)

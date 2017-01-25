@@ -1,3 +1,4 @@
+/* global prompt alert btoa */
 'use strict'
 
 import React, { PropTypes } from 'react'
@@ -14,9 +15,14 @@ class Page extends React.Component {
   }
 
   saveEdits () {
+    const password = prompt('passwort bitte')
+    if (!password) return
     fetch(`${process.env.HOST || window.location.origin}/api/saveEdits`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Authorization': `Basic ${btoa(`wundf:${password}`)}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         stories: this.state.stories,
         creatives: this.state.creatives
@@ -26,7 +32,11 @@ class Page extends React.Component {
       if (res.ok) {
         window.location.reload()
       } else {
-        alert('something wrong')
+        if (res.status === 401) {
+          alert('falsches Passwort')
+        } else {
+          alert('unbekannter fehler')
+        }
       }
     })
   }
@@ -41,8 +51,7 @@ class Page extends React.Component {
       // meta + e
       if (e.metaKey && e.keyCode === 69) store.main.toggleEditMode()
       // meta + s
-      if (e.metaKey && e.keyCode === 83 && this.state.main.editMode) {
-        e.preventDefault()
+      if (e.metaKey && e.shiftKey && e.keyCode === 83 && this.state.main.editMode) {
         this.saveEdits()
       }
     })
