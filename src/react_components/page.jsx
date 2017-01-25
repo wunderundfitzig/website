@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import { Match, Link } from 'react-router'
+import fetch from 'node-fetch'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
 import StoriesPage from './stories/storiesPage'
@@ -12,6 +13,26 @@ class Page extends React.Component {
     this.state = context.store()
   }
 
+  saveEdits () {
+    const store = this.context.store
+
+    fetch(`${process.env.HOST || window.location.origin}/api/saveEdits`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        stories: this.state.stories,
+        creatives: this.state.creatives
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        store.main.toggleEditMode()
+      } else {
+        alert('something wrong')
+      }
+    })
+  }
+
   componentDidMount () {
     const store = this.context.store
     this.unsubsribeFromStore = store(state => this.setState(state))
@@ -19,13 +40,14 @@ class Page extends React.Component {
     store.main.clientLoaded()
     window.addEventListener('resize', () => { store.main.checkIfMobile() })
     window.addEventListener('keydown', e => {
+      // meta + e
       if (e.metaKey && e.keyCode === 69) store.main.toggleEditMode()
+      // meta + s
+      if (e.metaKey && e.keyCode === 83 && this.state.main.editMode) {
+        e.preventDefault()
+        this.saveEdits()
+      }
     })
-  }
-
-  componentWillUnmount () {
-    this.unsubsribeFromStore()
-    window.removeEventListener('resize', this.checkIfMobile)
   }
 
   render () {

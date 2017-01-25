@@ -4,6 +4,7 @@ import express from 'express'
 import fetch from 'node-fetch'
 import fs from 'fs'
 import path from 'path'
+import bodyParser from 'body-parser'
 
 const api = express.Router()
 const cache = {}
@@ -11,6 +12,13 @@ const cache = {}
 const storeInCache = ({ route, json }) => {
   cache[route] = { json, timestamp: Date.now() }
 }
+
+api.use(bodyParser.json())
+
+api.post('/saveEdits', (req, res) => {
+  console.log(req.body)
+  res.sendStatus(200)
+})
 
 api.get('*', (req, res, next) => {
   res.set('Content-Type', 'application/json; charset=utf-8')

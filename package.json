@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/wunderundfitzig/website#readme",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.13.4",
     "history": "^4.4.1",
     "hover": "^3.0.0-alpha.6",
