@@ -12,7 +12,7 @@ class StoriesPage extends React.Component {
     if (props.stories.length > 0) return
 
     context.awaitBeforeServerRender.register({
-      promise: fetch(`${process.env.HOST || window.location.origin}/assets/data/stories.json`)
+      promise: fetch(`${process.env.HOST || window.location.origin}/api/stories`)
       .then(res => res.json())
       .then(stories => context.store.stories.add(stories))
     })
