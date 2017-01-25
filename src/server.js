@@ -53,5 +53,5 @@ app.use((req, res, next) => {
   })
 })
 
-app.listen(process.env.PORT || 8080)
-console.log('listening on port: ', process.env.PORT || 8080)
+app.listen(process.env.PORT)
+console.log('listening on port: ', process.env.PORT)

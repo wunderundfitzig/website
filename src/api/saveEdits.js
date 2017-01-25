@@ -5,8 +5,6 @@ import fs from 'fs'
 import path from 'path'
 import cache from './_cache'
 
-const DATA_PATH = path.join(__dirname, '../../data')
-
 /**
  * encodes object as json string and writes it to file
  * @param  {string} filename
@@ -31,13 +29,13 @@ export default (req, res) => {
 
   if (creatives && creatives.length !== 0) {
     writeActions.push(writeJsonFile({
-      filename: path.join(DATA_PATH, 'creatives.json'),
+      filename: path.join(process.env.DATA_PATH, 'creatives.json'),
       json: creatives
     }))
   }
   if (stories && stories.length !== 0) {
     writeActions.push(writeJsonFile({
-      filename: path.join(DATA_PATH, 'stories.json'),
+      filename: path.join(process.env.DATA_PATH, 'stories.json'),
       json: stories
     }))
   }

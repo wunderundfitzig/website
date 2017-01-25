@@ -6,13 +6,10 @@
   "scripts": {
     "js": "BABEL_ENV=client browserify src/client.js -t babelify --extension=.jsx --debug | exorcist src/assets/js/bundle.js.map > src/assets/js/bundle.js && echo 'js bundle ready'",
     "css": "cd src/stylus; stylus < main.styl > ../assets/css/main.css",
-    "build-production-server-code": "NODE_ENV=production BABEL_ENV=server babel src --ignore assets --out-dir tmp",
-    "build-production-client-bundle": "NODE_ENV=production npm run js",
-    "build": "(npm run build-production-server-code & npm run build-production-client-bundle) && npm run css && cp -r src/assets tmp/assets; cp package.json tmp/package.json",
-    "deploy": "npm run build && rsync --archive --verbose --exclude-from '.deployignore' tmp/ wundf@wunderundfitzig.de:website; rm -r tmp",
+    "deploy": "sh deploy.sh",
     "watch-js": "nodemon --exec 'npm run js' --ext js,jsx --ignore src/assets/js/ -q",
     "watch-css": "nodemon --exec 'npm run css' -e styl --ignore src/assets/css/ -q",
-    "serve-dev": "nodemon --exec 'HOST=http://localhost:8080 BABEL_ENV=server babel-node src/server.js' --ext js,jsx --ignore src/assets/",
+    "serve-dev": "nodemon --exec 'source config.sh; source secrets.sh; BABEL_ENV=server babel-node src/server.js' --ext js,jsx --ignore src/assets/",
     "dev": "parallelshell 'npm run watch-js -s' 'npm run watch-css -s' 'npm run serve-dev -s'"
   },
   "repository": {

@@ -13,7 +13,7 @@ import saveEdits from './api/saveEdits'
 
 passport.use(new BasicStrategy(
   function (userid, password, done) {
-    if (userid === 'wundf' && password === '123') {
+    if (userid === 'wundf' && password === process.env.EDIT_PASSWORD) {
       done(null, {})
     } else {
       done()

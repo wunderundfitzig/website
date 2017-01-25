@@ -1,7 +1,8 @@
 node_modules/
 npm-debug.log
 .DS_Store
-secrets
+secrets.sh
+config.sh
 src/assets/js/
 src/assets/css/
 tmp/

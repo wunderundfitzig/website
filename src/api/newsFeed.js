@@ -5,7 +5,7 @@ import cache from './_cache'
 
 export default (req, res) => {
   const fields = 'message,object_id,created_time,picture,link,type'
-  const accessToken = '1406084659649648|WQ4B1azOuVfGMUoUvDrtXsJ27DE'
+  const accessToken = process.env.FACEBOOK_ACCESS_TOKEN
 
   fetch(`https://graph.facebook.com/wunderundfitzig/feed?fields=${fields}&access_token=${accessToken}&limit=10`)
   .then(fbRes => fbRes.json())
