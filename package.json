@@ -30,6 +30,7 @@
     "express": "^4.13.4",
     "history": "^4.4.1",
     "hover": "^3.0.0-alpha.6",
+    "http-status": "^0.2.5",
     "marked": "^0.3.6",
     "node-fetch": "^1.5.2",
     "path": "^0.12.7",

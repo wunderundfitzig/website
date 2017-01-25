@@ -2,12 +2,13 @@
 
 import express from 'express'
 import fetch from 'node-fetch'
+import HTTPStatus from 'http-status'
 import fs from 'fs'
 import path from 'path'
 import bodyParser from 'body-parser'
 
 const api = express.Router()
-const cache = {}
+let cache = {}
 
 const storeInCache = ({ route, json }) => {
   cache[route] = { json, timestamp: Date.now() }
@@ -16,8 +17,23 @@ const storeInCache = ({ route, json }) => {
 api.use(bodyParser.json())
 
 api.post('/saveEdits', (req, res) => {
-  console.log(req.body)
-  res.sendStatus(200)
+  const { creatives } = req.body
+
+  if (creatives && creatives.length !== 0) {
+    fs.writeFile(
+      path.join(__dirname, '../data/creatives.json'),
+      JSON.stringify(creatives),
+      'utf8',
+      err => {
+        if (err) {
+          res.sendStatus(HTTPStatus.INTERNAL_SERVER_ERROR)
+        } else {
+          res.sendStatus(HTTPStatus.OK)
+          cache = {}
+        }
+      }
+    )
+  }
 })
 
 api.get('*', (req, res, next) => {
@@ -25,6 +41,7 @@ api.get('*', (req, res, next) => {
   if (cache[req.path]) res.send(cache[req.path].json)
 
   const validDataInCache = cache[req.path] && Date.now() - cache[req.path].timestamp < 3600000
+  console.log(cache, validDataInCache)
   if (!validDataInCache) next()
 })
 
@@ -32,7 +49,7 @@ api.get('/creatives', (req, res) => {
   const filepath = path.join(__dirname, '../data/creatives.json')
   fs.readFile(filepath, 'utf8', (err, content) => {
     if (err) {
-      if (!res.headersSent) res.status(500).send(err)
+      if (!res.headersSent) res.status(HTTPStatus.INTERNAL_SERVER_ERROR).send(err)
     } else {
       storeInCache({ route: req.path, json: content })
       if (!res.headersSent) res.send(content)
@@ -44,7 +61,7 @@ api.get('/stories', (req, res) => {
   const filepath = path.join(__dirname, '../data/stories.json')
   fs.readFile(filepath, 'utf8', (err, content) => {
     if (err) {
-      if (!res.headersSent) res.status(500).send(err)
+      if (!res.headersSent) res.status(HTTPStatus.INTERNAL_SERVER_ERROR).send(err)
     } else {
       storeInCache({ route: req.path, json: content })
       if (!res.headersSent) res.send(content)
@@ -73,6 +90,6 @@ api.get('/newsFeed', (req, res) => {
   })
 })
 
-api.get('*', (req, res) => { res.sendStatus(404) })
+api.get('*', (req, res) => { res.sendStatus(HTTPStatus.NOT_FOUND) })
 
 export default api

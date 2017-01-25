@@ -14,8 +14,6 @@ class Page extends React.Component {
   }
 
   saveEdits () {
-    const store = this.context.store
-
     fetch(`${process.env.HOST || window.location.origin}/api/saveEdits`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -26,7 +24,7 @@ class Page extends React.Component {
     })
     .then(res => {
       if (res.ok) {
-        store.main.toggleEditMode()
+        window.location.reload()
       } else {
         alert('something wrong')
       }

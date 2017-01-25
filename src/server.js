@@ -1,6 +1,7 @@
 'use strict'
 
 import express from 'express'
+import HTTPStatus from 'http-status'
 import path from 'path'
 import favicon from 'serve-favicon'
 import React from 'react'
@@ -31,8 +32,8 @@ app.use((req, res, next) => {
   )
 
   const result = renderContext.getResult()
-  if (result.redirect) return res.redirect(301, result.redirect.pathname)
-  if (result.missed) res.status(404)
+  if (result.redirect) return res.redirect(HTTPStatus.MOVED_PERMANENTLY, result.redirect.pathname)
+  if (result.missed) res.status(HTTPStatus.NOT_FOUND)
 
   serverRenderPreparer.awaitPromises().then(fullfilled => {
     if (result.missed || fullfilled.length > 0) {
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
   })
   .catch(e => {
     console.log(e)
-    res.sendStatus(500)
+    res.sendStatus(HTTPStatus.INTERNAL_SERVER_ERROR)
   })
 })
 
