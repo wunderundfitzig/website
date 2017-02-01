@@ -66,6 +66,7 @@
     max-width   500px
 
     &.editMode
+      margin-top    10px
       margin-bottom 10px
 
   .arrow
@@ -75,12 +76,11 @@
     line-height      12px
     height           20px
     width            55px
-    margin-top       20px
 
     &.prev
       position     relative
-      margin-left  -125px
-      margin-right 70px
+      margin-left  -120px
+      margin-right 65px
       z-index      100
 
     &.next.editMode
@@ -88,7 +88,7 @@
       margin-right 20px
 
   .edit-panel
-    margin 25px 30px
+    margin 130px 30px
 
     .file-selector
       display none
@@ -109,16 +109,8 @@
       $button(background-color: $red)
 
     .edit-image-button
+    .create-page-button
       $button()
-
-  .create-page-button
-    $button()
-    font-size      13px
-    padding        0 8px
-    vertical-align bottom
-    margin-left    -9px
-    height         20px
-    margin-top     20px
 
   .page-number-panel
     font-size     14px

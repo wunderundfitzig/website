@@ -49,9 +49,20 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
               }}
             />
             <label className='edit-image-button' htmlFor={`img-selector${slug}`}>Bild auswählen</label>
+            <button className='create-page-button' onClick={() => {
+              const newPageNumber = pageNumber + 1
+              store.stories.createPage({ slug, newPageNumber })
+              router.transitionTo(`${newPageNumber + 1}`)
+            }}>Neue Seite erstellen</button>
           </div>
         }
       </div>
+      { !isFirstPage &&
+        <Link className='prev arrow' to={`${pageNumber}`}>←</Link>
+      }
+      { !isLastPage &&
+        <Link className={`next arrow ${editMode && 'editMode'}`} to={`${pageNumber + 2}`}>→</Link>
+      }
       <MarkdownEditor className='story-text' editMode={editMode} markdown={storyPage.markdown} onChange={markdown => {
         store.stories.setPageMarkdown({ slug, pageNumber, markdown })
       }} />
@@ -77,19 +88,6 @@ const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, edi
             }}
           >+</button>
         </div>
-      }
-      { !isFirstPage &&
-        <Link className='prev arrow' to={`${pageNumber}`}>←</Link>
-      }
-      { !isLastPage &&
-        <Link className={`next arrow ${editMode && 'editMode'}`} to={`${pageNumber + 2}`}>→</Link>
-      }
-      { editMode &&
-        <button className='create-page-button' onClick={() => {
-          const newPageNumber = pageNumber + 1
-          store.stories.createPage({ slug, newPageNumber })
-          router.transitionTo(`${newPageNumber + 1}`)
-        }}>Neue Seite erstellen</button>
       }
     </div>
   )
