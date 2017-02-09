@@ -1,9 +1,9 @@
-/* global prompt alert btoa */
+/* global prompt alert */
 'use strict'
 
 import React, { PropTypes } from 'react'
 import { Match, Link } from 'react-router'
-import fetch from 'node-fetch'
+import save from './_lib/save'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
 import StoriesPage from './stories/storiesPage'
@@ -17,16 +17,10 @@ class Page extends React.Component {
   saveEdits () {
     const password = prompt('passwort bitte')
     if (!password) return
-    fetch(`${process.env.HOST || window.location.origin}/api/saveEdits`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${btoa(`wundf:${password}`)}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        stories: this.state.stories,
-        creatives: this.state.creatives
-      })
+
+    save({
+      state: { stories: this.state.stories, creatives: this.state.creatives },
+      password
     })
     .then(res => {
       if (res.ok) {

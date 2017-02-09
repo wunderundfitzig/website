@@ -24,8 +24,12 @@ const writeJsonFile = ({ filename, json }) => {
 }
 
 export default (req, res) => {
-  const { creatives, stories } = req.body
+  let { creatives, stories } = req.body
+  creatives = JSON.parse(creatives)
+  stories = JSON.parse(stories)
   const writeActions = []
+
+  console.log(req.files)
 
   if (creatives && creatives.length !== 0) {
     writeActions.push(writeJsonFile({

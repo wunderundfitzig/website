@@ -2,8 +2,8 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
-import Editable from '../_reusables/editable'
-import MarkdownEditor from '../_reusables/markdownEditor'
+import Editable from '../_lib/editable'
+import MarkdownEditor from '../_lib/markdownEditor'
 import fetch from 'node-fetch'
 
 const throttle = function ({ func, delay }) {

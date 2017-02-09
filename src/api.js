@@ -3,6 +3,7 @@
 import express from 'express'
 import HTTPStatus from 'http-status'
 import bodyParser from 'body-parser'
+import multer from 'multer'
 import passport from 'passport'
 import { BasicStrategy } from 'passport-http'
 
@@ -22,6 +23,7 @@ passport.use(new BasicStrategy(
 ))
 
 const api = express.Router()
+const upload = multer({ dest: 'src/assets/imgs' })
 
 api.get('*', (req, res, next) => {
   res.set('Content-Type', 'application/json; charset=utf-8')
@@ -31,7 +33,7 @@ api.get('*', (req, res, next) => {
 })
 
 api.use(bodyParser.json())
-api.post('/saveEdits', passport.authenticate('basic', { session: false }), saveEdits)
+api.post('/saveEdits', passport.authenticate('basic', { session: false }), upload.any(), saveEdits)
 api.get('/creatives', jsonFromFile)
 api.get('/stories', jsonFromFile)
 api.get('/newsFeed', newsFeed)

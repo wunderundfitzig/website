@@ -3,7 +3,7 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import HighResImg from '../_reusables/highResImg'
+import HighResImg from '../_lib/highResImg'
 import SlugEditor from './slugEditor'
 
 class StoriesOverview extends React.Component {
@@ -45,7 +45,6 @@ class StoriesOverview extends React.Component {
               onChange={e => {
                 e.preventDefault()
                 e.stopPropagation()
-                console.log('one')
                 const fileReader = new FileReader()
                 const fileHandler = e => {
                   store.stories.setCover({ slug, cover: e.target.result })

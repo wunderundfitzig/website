@@ -3,8 +3,8 @@
 
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import Editable from '../_reusables/editable'
-import MarkdownEditor from '../_reusables/markdownEditor'
+import Editable from '../_lib/editable'
+import MarkdownEditor from '../_lib/markdownEditor'
 
 const Story = ({ parentPathname, slug, storyPage, pageNumber, numberOfPages, editMode },
 { store, router }) => {
