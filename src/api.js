@@ -33,7 +33,8 @@ api.get('*', (req, res, next) => {
 })
 
 api.use(bodyParser.json())
-api.post('/saveEdits', passport.authenticate('basic', { session: false }), upload.any(), saveEdits)
+api.post('/saveEdits', passport.authenticate('basic', { session: false }),
+  upload.any(), saveEdits)
 api.get('/creatives', jsonFromFile)
 api.get('/stories', jsonFromFile)
 api.get('/newsFeed', newsFeed)

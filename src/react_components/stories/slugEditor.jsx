@@ -2,7 +2,16 @@
 
 import React, { PropTypes } from 'react'
 
-class SlugEditor extends React.Component {
+export default class SlugEditor extends React.Component {
+  static propTypes = {
+    slug: PropTypes.string.isRequired,
+    stories: PropTypes.array.isRequired
+  }
+
+  static contextTypes = {
+    store: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -23,7 +32,9 @@ class SlugEditor extends React.Component {
   }
 
   submit () {
-    this.context.store.stories.setSlug({ slug: this.props.slug, newSlug: this.state.slug })
+    this.context.store.stories.setSlug({
+      slug: this.props.slug, newSlug: this.state.slug
+    })
     this.setState({ editing: false })
   }
 
@@ -58,14 +69,3 @@ class SlugEditor extends React.Component {
     )
   }
 }
-
-SlugEditor.propTypes = {
-  slug: PropTypes.string.isRequired,
-  stories: PropTypes.array.isRequired
-}
-
-SlugEditor.contextTypes = {
-  store: PropTypes.func
-}
-
-export default SlugEditor

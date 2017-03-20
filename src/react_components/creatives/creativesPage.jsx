@@ -23,7 +23,17 @@ const throttle = function ({ func, delay }) {
   }
 }
 
-class CreativesPage extends React.Component {
+export default class CreativesPage extends React.Component {
+  static propTypes = {
+    creatives: PropTypes.array,
+    isMobile: PropTypes.bool,
+    editMode: PropTypes.bool
+  }
+  static contextTypes = {
+    awaitBeforeServerRender: PropTypes.object,
+    store: PropTypes.func
+  }
+
   constructor (props, context) {
     super(props)
 
@@ -88,10 +98,9 @@ class CreativesPage extends React.Component {
       if (!startTime) startTime = timestamp
       let progress = (timestamp - startTime) / duration
       if (progress > 1) progress = 1
+
       window.scrollTo(0, startOffset + offsetDifference * progress)
-      if (progress < 1) {
-        window.requestAnimationFrame(animate)
-      }
+      if (progress < 1) window.requestAnimationFrame(animate)
     }
     window.requestAnimationFrame(animate)
   }
@@ -117,16 +126,24 @@ class CreativesPage extends React.Component {
               }}>
                 <h2 className='creatives-section-title'>{ section.name }</h2>
               </Editable>
-              <div className={`creatives-image ${isCurrentSection && 'current-image'}`} style={{
-                backgroundImage: `url(${section.image})`,
-                ...section.imageStyles
-              }} />
-              <MarkdownEditor className='creatives-text' editMode={editMode} markdown={section.markdown} onChange={markdown => {
-                store.creatives.setMarkdown({ index, markdown })
-              }} />
+              <div className={'creatives-image' +
+                `${isCurrentSection && 'current-image'}`}
+                style={{
+                  backgroundImage: `url(${section.image})`,
+                  ...section.imageStyles
+                }}
+              />
+              <MarkdownEditor className='creatives-text'
+                editMode={editMode}
+                markdown={section.markdown}
+                onChange={markdown => {
+                  store.creatives.setMarkdown({ index, markdown })
+                }}
+              />
             </section>
           )
         })}
+
         { editMode &&
           <div>
             <div className='edit-panel'>
@@ -154,7 +171,9 @@ class CreativesPage extends React.Component {
                   fileReader.readAsDataURL(e.target.files[0])
                 }}
               />
-              <label className='edit-image-button' htmlFor='img-selector'>Bild auswählen</label>
+              <label className='edit-image-button' htmlFor='img-selector'>
+                Bild auswählen
+              </label>
 
             </div>
             <button className='create-button' onClick={() => {
@@ -169,15 +188,3 @@ class CreativesPage extends React.Component {
     )
   }
 }
-
-CreativesPage.propTypes = {
-  creatives: PropTypes.array,
-  isMobile: PropTypes.bool,
-  editMode: PropTypes.bool
-}
-CreativesPage.contextTypes = {
-  awaitBeforeServerRender: PropTypes.object,
-  store: PropTypes.func
-}
-
-export default CreativesPage

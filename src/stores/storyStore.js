@@ -15,7 +15,8 @@ export const actions = {
   resort: (stories, { newOrder }) => {
     if (newOrder.length !== stories.length) throw new Error('invalid Order')
 
-    const containers = stories.map((story, i) => ({ story, order: newOrder[i] }))
+    const containers = stories.map((story, i) =>
+      ({ story, order: newOrder[i] }))
     containers.sort((a, b) => a.order > b.order ? 1 : -1)
     return containers.map(container => container.story)
   },

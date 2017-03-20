@@ -11,7 +11,7 @@ const buzzwords = [
 
 let intervalID, timeoutId
 
-class Hero extends React.Component {
+export default class Hero extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -58,7 +58,8 @@ class Hero extends React.Component {
     return (
       <div id='hero'>
         <h1 className='sloagen'>
-          Wir gestalten <strong className='buzzword'>{ this.state.buzzword }</strong>
+          Wir gestalten
+          <strong className='buzzword'>{ this.state.buzzword }</strong>
         </h1>
         <h2 className='sub-sloagen'>Digital & Analog</h2>
 
@@ -77,5 +78,3 @@ class Hero extends React.Component {
     )
   }
 }
-
-export default Hero

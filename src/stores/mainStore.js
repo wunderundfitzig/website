@@ -15,7 +15,10 @@ export const actions = {
     }
   },
   clientLoaded: state => ({ ...state, clientLoaded: true }),
-  toggleEditMode: state => ({ ...state, editMode: !state.editMode && !state.isMobile })
+  toggleEditMode: state => ({
+    ...state,
+    editMode: !state.editMode && !state.isMobile
+  })
 }
 
 export default { actions, initialState }

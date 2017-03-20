@@ -13,10 +13,11 @@ import storeFactory from './stores/_storeFactory'
 import Page from './react_components/page'
 
 const app = express()
+const mailSignatureImgPath = path.join(__dirname, 'assets/wunderundfitzig.jpg')
 app.use(favicon(path.join(__dirname, 'assets/favicon.ico')))
 app.use('/api', api)
 app.use('/assets', express.static(path.join(__dirname, 'assets')))
-app.use('/wunderundfitzig.jpg', express.static(path.join(__dirname, 'assets/wunderundfitzig.jpg')))
+app.use('/wunderundfitzig.jpg', express.static(mailSignatureImgPath))
 
 app.use((req, res, next) => {
   const renderContext = createServerRenderContext()
@@ -32,7 +33,9 @@ app.use((req, res, next) => {
   )
 
   const result = renderContext.getResult()
-  if (result.redirect) return res.redirect(HTTPStatus.MOVED_PERMANENTLY, result.redirect.pathname)
+  if (result.redirect) {
+    return res.redirect(HTTPStatus.MOVED_PERMANENTLY, result.redirect.pathname)
+  }
   if (result.missed) res.status(HTTPStatus.NOT_FOUND)
 
   serverRenderPreparer.awaitPromises().then(fullfilled => {

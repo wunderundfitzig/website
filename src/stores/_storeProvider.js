@@ -18,7 +18,8 @@ export class ServerRenderPreparer {
 export default class StoreProvider extends React.Component {
   getChildContext () {
     return {
-      awaitBeforeServerRender: this.props.serverRenderPreparer || new ServerRenderPreparer(),
+      awaitBeforeServerRender: this.props.serverRenderPreparer ||
+        new ServerRenderPreparer(),
       store: this.props.store
     }
   }

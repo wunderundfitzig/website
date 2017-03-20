@@ -4,7 +4,16 @@ import React, { PropTypes } from 'react'
 import fetch from 'node-fetch'
 import NewsPost from './newsPost'
 
-class NewsFeed extends React.Component {
+export default class NewsFeed extends React.Component {
+  static propTypes = {
+    news: React.PropTypes.array.isRequired
+  }
+
+  static contextTypes = {
+    awaitBeforeServerRender: PropTypes.object,
+    store: PropTypes.func
+  }
+
   constructor (props, context) {
     super(props)
     if (props.news.length > 0) return
@@ -18,7 +27,9 @@ class NewsFeed extends React.Component {
 
   render () {
     const { news } = this.props
-    if (news.length === 0) return <div id='news-feed' className='news-feed-placeholder' />
+    if (news.length === 0) {
+      return <div id='news-feed' className='news-feed-placeholder' />
+    }
 
     return (
       <ul id='news-feed'>
@@ -37,14 +48,3 @@ class NewsFeed extends React.Component {
     )
   }
 }
-
-NewsFeed.propTypes = {
-  news: React.PropTypes.array.isRequired
-}
-
-NewsFeed.contextTypes = {
-  awaitBeforeServerRender: PropTypes.object,
-  store: PropTypes.func
-}
-
-export default NewsFeed

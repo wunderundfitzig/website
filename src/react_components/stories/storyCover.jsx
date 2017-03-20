@@ -6,10 +6,48 @@ import { Link } from 'react-router'
 import HighResImg from '../_lib/highResImg'
 import SlugEditor from './slugEditor'
 
-class StoriesOverview extends React.Component {
+export default class StoriesOverview extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    editMode: PropTypes.bool,
+    stories: PropTypes.array.isRequired
+  }
+
+  static contextTypes = {
+    store: PropTypes.func,
+    router: PropTypes.object
+  }
+
+  setCover = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const fileReader = new FileReader()
+    const fileHandler = e => {
+      this.context.store.stories.setCover({
+        slug: this.props.slug,
+        cover: e.target.result
+      })
+      fileReader.removeEventListener('load', fileHandler)
+    }
+    fileReader.addEventListener('load', fileHandler)
+    fileReader.readAsDataURL(e.target.files[0])
+  }
+
+  deleteStory = (e) => {
+    this.context.store.stories.delete({ slug: this.props.slug })
+    e.stopPropagation()
+  }
+
+  openStory = () => {
+    if (this.props.dragPhase !== null) return
+    this.context.router.transitionTo(`${this.props.slug}/1`)
+  }
+
   render () {
-    const { title, slug, image, editMode, stories, dragPhase } = this.props
-    const { store, router } = this.context
+    const { title, slug, image, editMode, stories } = this.props
+    const { store } = this.context
 
     if (!editMode) {
       return (
@@ -26,15 +64,11 @@ class StoriesOverview extends React.Component {
       <div id='story-cover' className='editMode'>
         <span className='story-image-wrapper'>
           <HighResImg className='story-img' alt={title} src={image}
-            onClick={(e) => {
-              if (dragPhase !== null) return
-              router.transitionTo(`${slug}/1`)
-            }} />
+            onClick={this.openStory} />
           <div className='edit-buttons'>
-            <button className='delete-button' onClick={(e) => {
-              store.stories.delete({ slug: slug })
-              e.stopPropagation()
-            }}>
+            <button className='delete-button'
+              onClick={this.deleteStory}
+            >
               löschen
             </button>
             <SlugEditor slug={slug} stories={stories} />
@@ -42,17 +76,7 @@ class StoriesOverview extends React.Component {
               className='file-selector'
               type='file'
               accept='image/*'
-              onChange={e => {
-                e.preventDefault()
-                e.stopPropagation()
-                const fileReader = new FileReader()
-                const fileHandler = e => {
-                  store.stories.setCover({ slug, cover: e.target.result })
-                  fileReader.removeEventListener('load', fileHandler)
-                }
-                fileReader.addEventListener('load', fileHandler)
-                fileReader.readAsDataURL(e.target.files[0])
-              }}
+              onChange={this.setCover}
             />
             <label htmlFor={`img-selector${slug}`}>Bild auswählen</label>
           </div>
@@ -68,18 +92,3 @@ class StoriesOverview extends React.Component {
     )
   }
 }
-
-StoriesOverview.propTypes = {
-  title: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired,
-  image: PropTypes.string,
-  editMode: PropTypes.bool,
-  stories: PropTypes.array.isRequired
-}
-
-StoriesOverview.contextTypes = {
-  store: PropTypes.func,
-  router: PropTypes.object
-}
-
-export default StoriesOverview

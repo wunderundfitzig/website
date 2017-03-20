@@ -3,6 +3,12 @@
 import React from 'react'
 
 export default class NewsPost extends React.Component {
+  static propTypes = {
+    isFirst: React.PropTypes.bool.isRequired,
+    createdTime: React.PropTypes.string.isRequired,
+    picture: React.PropTypes.object,
+    message: React.PropTypes.string
+  }
 
   /**
   * format facebook date String to a nice german date
@@ -17,7 +23,8 @@ export default class NewsPost extends React.Component {
     var month = date[1] - 1
     var year = date[0]
 
-    var months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dez']
+    var months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug',
+      'Sep', 'Oct', 'Nov', 'Dez']
 
     return day + '. ' + months[month] + ' ' + year
   }
@@ -30,7 +37,8 @@ export default class NewsPost extends React.Component {
   getAndRemoveFirstURL (message) {
     if (!message) return {}
 
-    const regex = /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
+    const regex =
+      /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
     const matches = message.match(regex)
     let text, url
 
@@ -49,7 +57,8 @@ export default class NewsPost extends React.Component {
   */
   formatAsHtml (message) {
     if (message) {
-      var str = message.replace(/((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a>')
+      var str = message
+        .replace(/((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a>')
       return str.replace(/(\r\n)|(\n\r)|\r|\n/g, '<br>')
     }
   }
@@ -69,15 +78,9 @@ export default class NewsPost extends React.Component {
         }}>
           <img className='picture' src={picture.source} />
         </a>
-        <p className='message' dangerouslySetInnerHTML={{ __html: this.formatAsHtml(text) }} />
+        <p className='message'
+          dangerouslySetInnerHTML={{ __html: this.formatAsHtml(text) }} />
       </div>
     )
   }
-}
-
-NewsPost.propTypes = {
-  isFirst: React.PropTypes.bool.isRequired,
-  createdTime: React.PropTypes.string.isRequired,
-  picture: React.PropTypes.object,
-  message: React.PropTypes.string
 }

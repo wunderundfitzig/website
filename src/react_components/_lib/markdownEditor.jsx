@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
-import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/dist/light'
+import SyntaxHighlighter, { registerLanguage }
+  from 'react-syntax-highlighter/dist/light'
 import markdownLang from 'highlight.js/lib/languages/markdown'
 import marked from 'marked'
 import renderer from '../_lib/markdownRenderer'
@@ -7,6 +8,13 @@ import renderer from '../_lib/markdownRenderer'
 registerLanguage('markdown', markdownLang)
 
 export default class MarkdownEditor extends React.Component {
+  static propTypes = {
+    markdown: PropTypes.string,
+    editMode: PropTypes.bool,
+    className: PropTypes.string,
+    onChange: PropTypes.func
+  }
+
   constructor (props) {
     super(props)
     this.i = 0
@@ -44,7 +52,9 @@ export default class MarkdownEditor extends React.Component {
       }
     }
 
-    const { node, offset } = findSelectionStartInNode(this.editorRef, this.caretOffset)
+    const { node, offset } =
+      findSelectionStartInNode(this.editorRef, this.caretOffset)
+
     const selection = window.getSelection()
     const range = document.createRange()
     range.setStart(node, offset)
@@ -116,11 +126,4 @@ export default class MarkdownEditor extends React.Component {
       </div>
     )
   }
-}
-
-MarkdownEditor.propTypes = {
-  markdown: PropTypes.string,
-  editMode: PropTypes.bool,
-  className: PropTypes.string,
-  onChange: PropTypes.func
 }

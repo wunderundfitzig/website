@@ -6,12 +6,12 @@
           "node": "current"
         }
       }]],
-      "plugins": ["transform-object-rest-spread"]
+      "plugins": ["transform-object-rest-spread", "transform-class-properties"]
     },
 
     "client": {
       "presets": ["react", ["env", {}]],
-      "plugins": ["transform-object-rest-spread"]
+      "plugins": ["transform-object-rest-spread", "transform-class-properties"]
     },
   }
 }

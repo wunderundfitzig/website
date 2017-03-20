@@ -11,9 +11,15 @@ const NewsPage = ({ news }) => (
       <NewsFeed news={news} />
     </div>
     <div className='footer'>
-      <a href='https://www.facebook.com/wunderundfitzig/' target='_blank' >facebook</a>|
-      <a href='https://www.instagram.com/wunderundfitzig/' target='_blank' >instagram</a>|
-      <a href='https://github.com/wunderundfitzig' target='_blank' >github</a>
+      <a href='https://www.facebook.com/wunderundfitzig/' target='_blank'>
+        facebook
+      </a>|
+      <a href='https://www.instagram.com/wunderundfitzig/' target='_blank'>
+        instagram
+      </a>|
+      <a href='https://github.com/wunderundfitzig' target='_blank'>
+        github
+      </a>
     </div>
   </div>
 )

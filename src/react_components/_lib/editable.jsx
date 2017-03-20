@@ -1,6 +1,15 @@
 import React, { PropTypes } from 'react'
 
-class Editable extends React.Component {
+export default class Editable extends React.Component {
+  static propTypes = {
+    editMode: PropTypes.bool,
+    children: PropTypes.shape({
+      props: PropTypes.shape({
+        children: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
+      })
+    }),
+    onChange: PropTypes.func.isRequired
+  }
 
   render () {
     const { editMode, onChange, children } = this.props
@@ -16,15 +25,3 @@ class Editable extends React.Component {
     )
   }
 }
-
-Editable.propTypes = {
-  editMode: PropTypes.bool,
-  children: PropTypes.shape({
-    props: PropTypes.shape({
-      children: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ])
-    })
-  }),
-  onChange: PropTypes.func.isRequired
-}
-
-export default Editable

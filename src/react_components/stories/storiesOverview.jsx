@@ -3,7 +3,17 @@
 import React, { PropTypes } from 'react'
 import StoryCover from './storyCover'
 
-class StoriesOverview extends React.Component {
+export default class StoriesOverview extends React.Component {
+  static propTypes = {
+    stories: PropTypes.array.isRequired,
+    editMode: PropTypes.bool
+  }
+
+  static contextTypes = {
+    store: PropTypes.func,
+    initialDataLoader: PropTypes.object
+  }
+
   constructor (props) {
     super(props)
     this.storiesContainerRef = null
@@ -27,7 +37,8 @@ class StoriesOverview extends React.Component {
 
     const storyContainerSize = {
       x: this.storiesContainerRef.offsetLeft,
-      y: this.storiesContainerRef.offsetTop + this.storiesContainerRef.offsetParent.offsetTop,
+      y: this.storiesContainerRef.offsetTop +
+        this.storiesContainerRef.offsetParent.offsetTop,
       width: this.storiesContainerRef.clientWidth,
       height: this.storiesContainerRef.clientHeight
     }
@@ -41,8 +52,10 @@ class StoriesOverview extends React.Component {
         storyCoordinates,
         storyContainerSize,
         storyOrderNumbers: this.props.stories.map((_, index) => index),
-        numberOfCols: Math.round(storyContainerSize.width / this.storyRefs[0].clientWidth),
-        numberOfRows: Math.round(storyContainerSize.height / this.storyRefs[0].clientHeight)
+        numberOfCols: Math.round(storyContainerSize.width /
+          this.storyRefs[0].clientWidth),
+        numberOfRows: Math.round(storyContainerSize.height /
+          this.storyRefs[0].clientHeight)
       })
     }, 0)
   }
@@ -53,8 +66,10 @@ class StoriesOverview extends React.Component {
     const x = e.pageX - this.state.storyContainerSize.x
     const y = e.pageY - this.state.storyContainerSize.y
 
-    const col = Math.floor(x / this.state.storyContainerSize.width * this.state.numberOfCols)
-    const row = Math.floor(y / this.state.storyContainerSize.height * this.state.numberOfRows)
+    const col = Math.floor(x / this.state.storyContainerSize.width *
+      this.state.numberOfCols)
+    const row = Math.floor(y / this.state.storyContainerSize.height *
+      this.state.numberOfRows)
     const pos = row * this.state.numberOfCols + col
 
     if (pos === this.lastPos) return
@@ -63,13 +78,16 @@ class StoriesOverview extends React.Component {
     const positions = this.props.stories.map((_, index) => index)
     positions.splice(this.state.draggedStoryIndex, 1)
     positions.splice(pos, 0, this.state.draggedStoryIndex)
-    const storyOrderNumbers = this.props.stories.map((_, position) => positions.indexOf(position))
+    const storyOrderNumbers = this.props.stories.map((_, position) =>
+      positions.indexOf(position))
 
     this.setState({ dragPhase: 1, storyOrderNumbers })
   }
 
   cleanupDrag () {
-    this.context.store.stories.resort({ newOrder: this.state.storyOrderNumbers })
+    this.context.store.stories.resort({
+      newOrder: this.state.storyOrderNumbers
+    })
     this.setState({
       dragPhase: 2,
       draggedStoryIndex: null,
@@ -80,7 +98,6 @@ class StoriesOverview extends React.Component {
 
   render () {
     const { editMode, stories } = this.props
-    const { router } = this.context
     const {
       dragPhase,
       draggedStoryIndex,
@@ -92,7 +109,9 @@ class StoriesOverview extends React.Component {
 
     return (
       <ul id='stories-overview'
-        ref={storiesContainer => { this.storiesContainerRef = storiesContainer }}
+        ref={storiesContainer => {
+          this.storiesContainerRef = storiesContainer
+        }}
         style={{ height: isDragging ? storyContainerSize.height : 'auto' }}
         onDragOver={e => this.handleDrag(e)}
       >
@@ -102,7 +121,8 @@ class StoriesOverview extends React.Component {
             top: storyCoordinates[storyOrderNumbers[index]].top,
             left: storyCoordinates[storyOrderNumbers[index]].left,
             opacity: draggedStoryIndex === index ? 0 : 1,
-            // make shure to animate positions after positions are set to absolute
+            // make shure to animate positions after positions
+            // are set to absolute
             transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
           } : {}
 
@@ -138,15 +158,3 @@ class StoriesOverview extends React.Component {
     )
   }
 }
-
-StoriesOverview.propTypes = {
-  stories: PropTypes.array.isRequired,
-  editMode: PropTypes.bool
-}
-
-StoriesOverview.contextTypes = {
-  store: PropTypes.func,
-  initialDataLoader: PropTypes.object
-}
-
-export default StoriesOverview

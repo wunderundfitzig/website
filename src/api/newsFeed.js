@@ -7,11 +7,14 @@ export default (req, res) => {
   const fields = 'message,object_id,created_time,picture,link,type'
   const accessToken = process.env.FACEBOOK_ACCESS_TOKEN
 
-  fetch(`https://graph.facebook.com/wunderundfitzig/feed?fields=${fields}&access_token=${accessToken}&limit=10`)
+  fetch('https://graph.facebook.com/wunderundfitzig/feed?' +
+    `fields=${fields}&access_token=${accessToken}&limit=10`)
   .then(fbRes => fbRes.json())
-  .then(feed => feed.data.filter(post => (post.type === 'photo' || post.type === 'link') && post.object_id))
+  .then(feed => feed.data.filter(post =>
+    (post.type === 'photo' || post.type === 'link') && post.object_id))
   .then(feed => Promise.all(feed.map(post => (
-    fetch(`https://graph.facebook.com/${post.object_id}?fields=images&access_token=${accessToken}`)
+    fetch(`https://graph.facebook.com/${post.object_id}?` +
+      `fields=images&access_token=${accessToken}`)
     .then(res => res.json())
     .then(res => {
       post.picture = res.images[0] // images[0] should be the largest one)
