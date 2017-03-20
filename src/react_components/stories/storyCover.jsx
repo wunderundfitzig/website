@@ -10,7 +10,7 @@ export default class StoriesOverview extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
-    image: PropTypes.string,
+    image: PropTypes.object,
     editMode: PropTypes.bool,
     stories: PropTypes.array.isRequired
   }
@@ -27,7 +27,7 @@ export default class StoriesOverview extends React.Component {
     const fileHandler = e => {
       this.context.store.stories.setCover({
         slug: this.props.slug,
-        cover: e.target.result
+        coverURL: e.target.result
       })
       fileReader.removeEventListener('load', fileHandler)
     }
@@ -53,7 +53,7 @@ export default class StoriesOverview extends React.Component {
       return (
         <Link to={`${slug}/1`} id='story-cover'>
           <span className='story-image-wrapper'>
-            <HighResImg className='story-img' alt={title} src={image} />
+            <HighResImg className='story-img' alt={title} image={image} />
           </span>
           <p className='story-title'>{ title }</p>
         </Link>
@@ -63,7 +63,7 @@ export default class StoriesOverview extends React.Component {
     return (
       <div id='story-cover' className='editMode'>
         <span className='story-image-wrapper'>
-          <HighResImg className='story-img' alt={title} src={image}
+          <HighResImg className='story-img' alt={title} image={image}
             onClick={this.openStory} />
           <div className='edit-buttons'>
             <button className='delete-button'

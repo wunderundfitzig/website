@@ -7,6 +7,7 @@ export const actions = {
 
   create: stories => [...stories, {
     slug: `new-${stories.length}`,
+    cover: {},
     title: 'Neue Story'
   }],
 
@@ -33,9 +34,10 @@ export const actions = {
     return stories
   },
 
-  setCover: (stories, { slug, cover }) => {
+  setCover: (stories, { slug, coverURL }) => {
     const story = stories.find(story => story.slug === slug)
-    story.cover = cover
+    story.cover.url = coverURL
+    story.cover.imageNeedsUpload = true
     return stories
   },
 
@@ -46,10 +48,11 @@ export const actions = {
     return stories
   },
 
-  setPageImage: (stories, { slug, pageNumber, image }) => {
+  setPageImage: (stories, { slug, pageNumber, imageURL }) => {
     const story = stories.find(story => story.slug === slug)
     const page = story.pages[pageNumber]
-    page.image = image
+    page.image.url = imageURL
+    page.image.imageNeedsUpload = true
     return stories
   },
 
@@ -70,7 +73,7 @@ export const actions = {
     const story = stories.find(story => story.slug === slug)
     story.pages.splice(newPageNumber, 0, {
       title: story.title,
-      image: '',
+      image: { url: '' },
       markdown: ''
     })
     return stories

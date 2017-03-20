@@ -20,7 +20,7 @@ class Page extends React.Component {
 
     save({
       state: { stories: this.state.stories, creatives: this.state.creatives },
-      password
+      password: password
     })
     .then(res => {
       if (res.ok) {

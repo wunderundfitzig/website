@@ -126,11 +126,11 @@ export default class CreativesPage extends React.Component {
               }}>
                 <h2 className='creatives-section-title'>{ section.name }</h2>
               </Editable>
-              <div className={'creatives-image' +
+              <div className={'creatives-image ' +
                 `${isCurrentSection && 'current-image'}`}
                 style={{
-                  backgroundImage: `url(${section.image})`,
-                  ...section.imageStyles
+                  backgroundImage: `url(${section.image.url})`,
+                  ...section.image.styles
                 }}
               />
               <MarkdownEditor className='creatives-text'
@@ -164,7 +164,7 @@ export default class CreativesPage extends React.Component {
                   const fileHandler = e => {
                     store.creatives.setImage({
                       index: currentSectionIndex,
-                      image: e.target.result })
+                      imageURL: e.target.result })
                     fileReader.removeEventListener('load', fileHandler)
                   }
                   fileReader.addEventListener('load', fileHandler)

@@ -36,7 +36,7 @@ export default class Story extends React.Component {
       this.context.store.stories.setPageImage({
         slug: this.props.slug,
         pageNumber: this.props.pageNumber,
-        image: e.target.result
+        imageURL: e.target.result
       })
       fileReader.removeEventListener('load', fileHandler)
     }
@@ -100,8 +100,8 @@ export default class Story extends React.Component {
         <Link className={`close-button ${editMode && 'editMode'}`}
           to={parentPathname}>✕</Link>
         <div className='story-image' style={{
-          backgroundImage: `url(${storyPage.image})`,
-          ...storyPage.imageStyles
+          backgroundImage: `url(${storyPage.image.url})`,
+          ...storyPage.image.styles
         }}>
           { editMode &&
             <div className='edit-panel'>
