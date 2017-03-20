@@ -118,7 +118,8 @@ class CreativesPage extends React.Component {
                 <h2 className='creatives-section-title'>{ section.name }</h2>
               </Editable>
               <div className={`creatives-image ${isCurrentSection && 'current-image'}`} style={{
-                backgroundImage: `url(${section.image})`
+                backgroundImage: `url(${section.image})`,
+                ...section.imageStyles
               }} />
               <MarkdownEditor className='creatives-text' editMode={editMode} markdown={section.markdown} onChange={markdown => {
                 store.creatives.setMarkdown({ index, markdown })

@@ -1,3 +1,5 @@
 .DS_Store
 bundle.js.map
 client.js
+data/
+assets/imgs/
