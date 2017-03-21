@@ -29,7 +29,8 @@ export default (req, res) => {
   stories = JSON.parse(stories)
   const writeActions = []
 
-  console.log(req.files)
+  // TODO: detect highres images and create small version of them
+  // with: https://github.com/EyalAr/lwip
 
   if (creatives && creatives.length !== 0) {
     writeActions.push(writeJsonFile({
