@@ -29,6 +29,7 @@ class Page extends React.Component {
         if (res.status === 401) {
           alert('falsches Passwort')
         } else {
+          console.error(res)
           alert('unbekannter fehler')
         }
       }
