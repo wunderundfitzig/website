@@ -40,7 +40,8 @@ export default class NewsPost extends React.Component {
     const regex =
       /((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/
     const matches = message.match(regex)
-    let text, url
+    let text = message
+    let url
 
     if (matches) {
       text = message.replace(regex, '')
@@ -66,6 +67,7 @@ export default class NewsPost extends React.Component {
   render () {
     const { isFirst, createdTime, picture, message } = this.props
     const { url, text } = this.getAndRemoveFirstURL(message)
+    console.log(text)
 
     return (
       <div id='news-post'>
