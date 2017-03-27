@@ -23,31 +23,75 @@ const writeJsonFile = ({ filename, json }) => {
   })
 }
 
+const getJsonFromFile = (filename) => {
+  const filepath = path.join(process.env.DATA_PATH, `${filename}.json`)
+  return new Promise((resolve, reject) => {
+    fs.readFile(filepath, 'utf8', (err, content) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(JSON.parse(content))
+      }
+    })
+  })
+}
+
+const resolvePath = ({ obj, keys }) => {
+  keys = keys.split('.')
+  while (keys.length > 0) {
+    const key = keys.shift()
+    obj = obj[key]
+  }
+  return obj
+}
+
 export default (req, res) => {
-  let { creatives, stories } = req.body
-  creatives = JSON.parse(creatives)
-  stories = JSON.parse(stories)
-  const writeActions = []
+  Promise.all([
+    getJsonFromFile('creatives'),
+    getJsonFromFile('stories')
+  ])
+  .then(([creatives, stories]) => ({ creatives, stories }))
+  .then(oldState => {
+    let { creatives, stories } = req.body
+    creatives = JSON.parse(creatives)
+    stories = JSON.parse(stories)
+    const newState = { creatives, stories }
 
-  // TODO: detect highres images and create small version of them
-  // with: https://github.com/EyalAr/lwip
+    req.files.forEach(file => {
+      const keys = file.originalname
+      const img = resolvePath({ obj: newState, keys })
+      // TODO: detect highres images and create small version of them
+      // with: https://github.com/EyalAr/lwip
+      img.url = `/assets/imgs/${file.filename}`
+      img.imageNeedsUpload = false
 
-  if (creatives && creatives.length !== 0) {
-    writeActions.push(writeJsonFile({
-      filename: path.join(process.env.DATA_PATH, 'creatives.json'),
-      json: creatives
-    }))
-  }
-  if (stories && stories.length !== 0) {
-    writeActions.push(writeJsonFile({
-      filename: path.join(process.env.DATA_PATH, 'stories.json'),
-      json: stories
-    }))
-  }
+      const oldImg = resolvePath({ obj: oldState, keys })
+      const oldImgPath = path.join(process.env.IMAGE_PATH, path.basename(oldImg.url))
+      fs.unlink(oldImgPath, () => {})
+    })
 
-  Promise.all(writeActions)
+    return newState
+  })
+  .then(newState => {
+    const writeActions = []
+    if (newState.creatives && newState.creatives.length !== 0) {
+      writeActions.push(writeJsonFile({
+        filename: path.join(process.env.DATA_PATH, 'creatives.json'),
+        json: newState.creatives
+      }))
+    }
+    if (newState.stories && newState.stories.length !== 0) {
+      writeActions.push(writeJsonFile({
+        filename: path.join(process.env.DATA_PATH, 'stories.json'),
+        json: newState.stories
+      }))
+    }
+
+    return Promise.all(writeActions)
+  })
   .then(() => {
     cache.invalidate('/creatives')
+    cache.invalidate('/stories')
     res.sendStatus(HTTPStatus.OK)
   })
   .catch(err => {

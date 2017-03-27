@@ -23,15 +23,7 @@ passport.use(new BasicStrategy(
 ))
 
 const api = express.Router()
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, process.env.IMAGE_PATH)
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
-})
-const upload = multer({ storage: storage })
+const upload = multer({ dest: process.env.IMAGE_PATH })
 
 api.get('*', (req, res, next) => {
   res.set('Content-Type', 'application/json; charset=utf-8')
