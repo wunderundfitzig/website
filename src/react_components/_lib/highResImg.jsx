@@ -15,8 +15,10 @@ class HighResImg extends React.Component {
   }
 
   render () {
-    const src = this.props.image ? this.props.image.url : null
-    return <img {...this.props} src={src} srcSet={this.getHighResSrc()} />
+    const { image, ...other } = this.props
+    const src = image ? image.url : null
+
+    return <img {...other} src={src} srcSet={this.getHighResSrc()} />
   }
 }
 
