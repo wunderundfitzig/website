@@ -59,7 +59,7 @@ export default class Hero extends React.Component {
       <div id='hero'>
         <h1 className='sloagen'>
           Wir gestalten
-          <strong className='buzzword'>{ this.state.buzzword }</strong>
+          <strong className='buzzword'> { this.state.buzzword }</strong>
         </h1>
         <h2 className='sub-sloagen'>Digital & Analog</h2>
 

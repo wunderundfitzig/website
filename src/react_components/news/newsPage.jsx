@@ -14,9 +14,6 @@ const NewsPage = ({ news }) => (
       <a href='https://www.facebook.com/wunderundfitzig/' target='_blank'>
         facebook
       </a>|
-      <a href='https://www.instagram.com/wunderundfitzig/' target='_blank'>
-        instagram
-      </a>|
       <a href='https://github.com/wunderundfitzig' target='_blank'>
         github
       </a>

@@ -67,7 +67,6 @@ export default class NewsPost extends React.Component {
   render () {
     const { isFirst, createdTime, picture, message } = this.props
     const { url, text } = this.getAndRemoveFirstURL(message)
-    console.log(text)
 
     return (
       <div id='news-post'>
