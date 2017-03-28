@@ -1,6 +1,7 @@
-/* global FormData, fetch, Blob, btoa, atob */
+/* global FormData, Blob, btoa, atob */
 
 'use strict'
+import fetch from 'node-fetch'
 
 function dataURLtoBlob (dataurl) {
   const arr = dataurl.split(',')
@@ -44,7 +45,6 @@ function findImg ({ in: obj, images = {}, keys = [] }) {
 export default function ({ state, password }) {
   const stateCopy = JSON.parse(JSON.stringify(state))
   const images = findImg({ in: stateCopy })
-  console.log(images)
 
   const data = new FormData()
   for (const i in images) {

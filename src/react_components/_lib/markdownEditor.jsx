@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { PropTypes } from 'react'
 import SyntaxHighlighter, { registerLanguage }
   from 'react-syntax-highlighter/dist/light'

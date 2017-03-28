@@ -1,9 +1,10 @@
-/* global prompt alert */
+/* global alert */
 'use strict'
 
 import React, { PropTypes } from 'react'
 import { Match, Link } from 'react-router'
 import save from './_lib/save'
+import PasswordPromt from './_lib/passwordPromt'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
 import StoriesPage from './stories/storiesPage'
@@ -15,12 +16,14 @@ class Page extends React.Component {
   }
 
   saveEdits () {
-    const password = prompt('passwort bitte')
-    if (!password) return
+    if (!this.passwordPromt) return
 
-    save({
-      state: { stories: this.state.stories, creatives: this.state.creatives },
-      password: password
+    this.passwordPromt.requestPassword()
+    .then(password => {
+      return save({
+        state: { stories: this.state.stories, creatives: this.state.creatives },
+        password: password
+      })
     })
     .then(res => {
       if (res.ok) {
@@ -34,6 +37,9 @@ class Page extends React.Component {
         }
       }
     })
+    .catch(reason => {
+      console.log('save failed:', reason)
+    })
   }
 
   componentDidMount () {
@@ -46,7 +52,8 @@ class Page extends React.Component {
       // meta + e
       if (e.metaKey && e.keyCode === 69) store.main.toggleEditMode()
       // meta + s
-      if (e.metaKey && e.shiftKey && e.keyCode === 83 && this.state.main.editMode) {
+      if (e.metaKey && e.keyCode === 83) {
+        e.preventDefault()
         this.saveEdits()
       }
     })
@@ -116,6 +123,7 @@ class Page extends React.Component {
               />
             )} />
           </div>
+          <PasswordPromt ref={promt => { this.passwordPromt = promt }} />
         </body>
       </html>
     )
