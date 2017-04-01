@@ -22,8 +22,7 @@ export default class Editable extends React.Component {
       <input {...childProps}
         className={`${className} editMode`}
         value={value}
-        onChange={e => { onChange(e.target.value) }}
-      />
+        onChange={e => { onChange(e.target.value) }} />
     )
   }
 }

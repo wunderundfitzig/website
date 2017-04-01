@@ -107,8 +107,7 @@ export default class Story extends React.Component {
             <div className='edit-panel'>
               { numberOfPages > 1 &&
                 <button className='delete-page-button'
-                  onClick={this.deletePage}
-                >
+                  onClick={this.deletePage}>
                   Seite { pageNumber + 1 } löschen
                 </button>
               }
@@ -116,16 +115,13 @@ export default class Story extends React.Component {
                 className='file-selector'
                 type='file'
                 accept='image/*'
-                onChange={this.setPageImage}
-              />
+                onChange={this.setPageImage} />
               <label className='edit-image-button'
-                htmlFor={`img-selector${slug}`}
-              >
+                htmlFor={`img-selector${slug}`}>
                 Bild auswählen
               </label>
               <button className='create-page-button'
-                onClick={this.createPage}
-              >
+                onClick={this.createPage}>
                 Neue Seite erstellen
               </button>
             </div>
@@ -143,22 +139,19 @@ export default class Story extends React.Component {
           markdown={storyPage.markdown}
           onChange={markdown => {
             store.stories.setPageMarkdown({ slug, pageNumber, markdown })
-          }}
-        />
+          }} />
 
         { (editMode && numberOfPages > 1) &&
           <div className='page-number-panel'>
             Seite:
             <button className='page-number-button'
               disabled={isFirstPage}
-              onClick={this.decreasePageNumber}
-            >-</button>
+              onClick={this.decreasePageNumber}>-</button>
             <span className='page-number'>{ pageNumber + 1 }</span>
              / { numberOfPages }
             <button className='page-number-button'
               disabled={isLastPage}
-              onClick={this.increasePageNumber}
-            >+</button>
+              onClick={this.increasePageNumber}>+</button>
           </div>
         }
       </div>

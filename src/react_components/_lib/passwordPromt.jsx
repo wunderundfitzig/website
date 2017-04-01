@@ -20,22 +20,22 @@ export default class PsswordPropmt extends React.Component {
     const { password } = this.state
     if (password === '') return this.reject('empty password')
 
-    this.resolve(password)
     this.setState({ isVisible: false, password: '' })
+    this.resolve(password)
   }
 
   handleCancel = (e) => {
     e.preventDefault()
+    window.removeEventListener('keydown', this.keyListener)
     this.setState({ isVisible: false, password: '' })
     this.reject('canceled')
-    window.removeEventListener('keydown', this.keyListener)
   }
 
   requestPassword = () => {
     this.setState({ isVisible: true, password: '' })
     if (this.input) this.input.focus()
     this.keyListener = window.addEventListener('keydown', e => {
-      if (e.keyCode === 27) this.handleCancel()
+      if (e.keyCode === 27) this.handleCancel(e)
     })
 
     return new Promise((resolve, reject) => {
@@ -52,8 +52,7 @@ export default class PsswordPropmt extends React.Component {
       <div id='password-promt' className='overlay'>
         <form className='password-promt'
           onReset={this.handleCancel}
-          onSubmit={this.handleSubmit}
-        >
+          onSubmit={this.handleSubmit}>
           <label>Bitte Passwort eingeben:</label>
           <input
             ref={i => { this.input = i }}
@@ -64,8 +63,7 @@ export default class PsswordPropmt extends React.Component {
           </button>
           <button className='submit-button'
             type='submit'
-            disabled={password === ''}
-          >
+            disabled={password === ''}>
             absenden
           </button>
         </form>

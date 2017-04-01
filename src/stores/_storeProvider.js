@@ -6,20 +6,16 @@ export class ServerRenderPreparer {
     this.promises = []
   }
 
-  register ({ promise }) {
-    this.promises.push(promise)
-  }
+  register ({ promise }) { this.promises.push(promise) }
 
-  awaitPromises () {
-    return Promise.all(this.promises)
-  }
+  awaitPromises () { return Promise.all(this.promises) }
 }
 
 export default class StoreProvider extends React.Component {
   getChildContext () {
     return {
       awaitBeforeServerRender: this.props.serverRenderPreparer ||
-        new ServerRenderPreparer(),
+                               new ServerRenderPreparer(),
       store: this.props.store
     }
   }

@@ -34,11 +34,13 @@ export default class StoriesPage extends React.Component {
 
     return (
       <div id='stories-page' className='inner-content'>
-        <Match exactly pattern={`${pathname}/`} render={matchProps => (
-          <StoriesOverview {...matchProps}
-            stories={stories}
-            editMode={editMode} />
-        )} />
+        <Match exactly pattern={`${pathname}/`}
+          render={matchProps =>
+            <StoriesOverview
+              {...matchProps}
+              stories={stories}
+              editMode={editMode} />
+          } />
         <Match pattern={`${pathname}/:slug/:pageNumber?`}
           render={({ params }) => {
             const story = stories.find(story => story.slug === params.slug)
@@ -56,10 +58,9 @@ export default class StoriesPage extends React.Component {
               storyPage={storyPage}
               pageNumber={pageNumber}
               numberOfPages={story.pages.length}
-              editMode={editMode}
-            />
-          }}
-        />
+              editMode={editMode} />
+          }} />
+
         <Miss render={() => <Redirect to={`${pathname}/`} />} />
       </div>
     )

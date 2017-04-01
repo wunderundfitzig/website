@@ -14,9 +14,7 @@ let intervalID, timeoutId
 export default class Hero extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      buzzword: buzzwords[0]
-    }
+    this.state = { buzzword: buzzwords[0] }
   }
 
   animateTyping ({ word, backwards = false }) {
@@ -43,7 +41,9 @@ export default class Hero extends React.Component {
       this.animateTyping({ word: buzzwords[i], backwards: true })
       .then(() => this.animateTyping({ word: buzzwords[++i] }))
       .then(() => {
-        if (i < buzzwords.length - 1) timeoutId = setTimeout(() => { replaceWord(i) }, 3000)
+        if (i < buzzwords.length - 1) {
+          timeoutId = setTimeout(() => { replaceWord(i) }, 3000)
+        }
       })
     }
     timeoutId = setTimeout(replaceWord, 1000)

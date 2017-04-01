@@ -52,10 +52,10 @@ export default (req, res) => {
   ])
   .then(([creatives, stories]) => ({ creatives, stories }))
   .then(oldState => {
-    let { creatives, stories } = req.body
-    creatives = JSON.parse(creatives)
-    stories = JSON.parse(stories)
-    const newState = { creatives, stories }
+    const newState = {
+      creatives: JSON.parse(req.body.creatives),
+      stories: JSON.parse(req.body.stories)
+    }
 
     req.files.forEach(file => {
       const keys = file.originalname
@@ -66,7 +66,8 @@ export default (req, res) => {
       img.imageNeedsUpload = false
 
       const oldImg = resolvePath({ obj: oldState, keys })
-      const oldImgPath = path.join(process.env.IMAGE_PATH, path.basename(oldImg.url))
+      const oldImgPath = path.join(process.env.IMAGE_PATH,
+                                   path.basename(oldImg.url))
       fs.unlink(oldImgPath, () => {})
     })
 

@@ -8,9 +8,7 @@ export default class SlugEditor extends React.Component {
     stories: PropTypes.array.isRequired
   }
 
-  static contextTypes = {
-    store: PropTypes.func
-  }
+  static contextTypes = { store: PropTypes.func }
 
   constructor (props) {
     super(props)
@@ -33,7 +31,8 @@ export default class SlugEditor extends React.Component {
 
   submit () {
     this.context.store.stories.setSlug({
-      slug: this.props.slug, newSlug: this.state.slug
+      slug: this.props.slug,
+      newSlug: this.state.slug
     })
     this.setState({ editing: false })
   }
@@ -43,9 +42,9 @@ export default class SlugEditor extends React.Component {
 
     if (!editing) {
       return (
-        <button id='slug-editor' className='edit-slug-button' onClick={() => {
-          this.setState({ editing: true })
-        }}>
+        <button id='slug-editor'
+          className='edit-slug-button'
+          onClick={() => { this.setState({ editing: true }) }}>
           slug bearbeiten
         </button>
       )
@@ -61,8 +60,7 @@ export default class SlugEditor extends React.Component {
         <button className='sumbit-slug-button'
           type='submit'
           disabled={!isValid}
-          onClick={() => { this.submit() }}
-        >
+          onClick={() => { this.submit() }}>
           ok
         </button>
       </form>

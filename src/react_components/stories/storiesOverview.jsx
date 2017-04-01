@@ -38,7 +38,7 @@ export default class StoriesOverview extends React.Component {
     const storyContainerSize = {
       x: this.storiesContainerRef.offsetLeft,
       y: this.storiesContainerRef.offsetTop +
-        this.storiesContainerRef.offsetParent.offsetTop,
+         this.storiesContainerRef.offsetParent.offsetTop,
       width: this.storiesContainerRef.clientWidth,
       height: this.storiesContainerRef.clientHeight
     }
@@ -53,9 +53,9 @@ export default class StoriesOverview extends React.Component {
         storyContainerSize,
         storyOrderNumbers: this.props.stories.map((_, index) => index),
         numberOfCols: Math.round(storyContainerSize.width /
-          this.storyRefs[0].clientWidth),
+                      this.storyRefs[0].clientWidth),
         numberOfRows: Math.round(storyContainerSize.height /
-          this.storyRefs[0].clientHeight)
+                      this.storyRefs[0].clientHeight)
       })
     }, 0)
   }
@@ -67,9 +67,9 @@ export default class StoriesOverview extends React.Component {
     const y = e.pageY - this.state.storyContainerSize.y
 
     const col = Math.floor(x / this.state.storyContainerSize.width *
-      this.state.numberOfCols)
+                           this.state.numberOfCols)
     const row = Math.floor(y / this.state.storyContainerSize.height *
-      this.state.numberOfRows)
+                           this.state.numberOfRows)
     const pos = row * this.state.numberOfCols + col
 
     if (pos === this.lastPos) return
@@ -78,8 +78,9 @@ export default class StoriesOverview extends React.Component {
     const positions = this.props.stories.map((_, index) => index)
     positions.splice(this.state.draggedStoryIndex, 1)
     positions.splice(pos, 0, this.state.draggedStoryIndex)
-    const storyOrderNumbers = this.props.stories.map((_, position) =>
-      positions.indexOf(position))
+    const storyOrderNumbers = this.props.stories.map((_, position) => {
+      return positions.indexOf(position)
+    })
 
     this.setState({ dragPhase: 1, storyOrderNumbers })
   }
@@ -113,19 +114,20 @@ export default class StoriesOverview extends React.Component {
           this.storiesContainerRef = storiesContainer
         }}
         style={{ height: isDragging ? storyContainerSize.height : 'auto' }}
-        onDragOver={e => this.handleDrag(e)}
-      >
-        {stories.map((story, index) => {
-          const style = isDragging ? {
-            position: 'absolute',
-            top: storyCoordinates[storyOrderNumbers[index]].top,
-            left: storyCoordinates[storyOrderNumbers[index]].left,
-            opacity: draggedStoryIndex === index ? 0 : 1,
-            // make shure to animate positions after positions
-            // are set to absolute
-            transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
-          } : {}
+        onDragOver={e => this.handleDrag(e)}>
 
+        {stories.map((story, index) => {
+          const style = isDragging
+                        ? {
+                          position: 'absolute',
+                          top: storyCoordinates[storyOrderNumbers[index]].top,
+                          left: storyCoordinates[storyOrderNumbers[index]].left,
+                          opacity: draggedStoryIndex === index ? 0 : 1,
+                          // make shure to animate positions after positions
+                          // are set to absolute
+                          transition: dragPhase > 0 ? 'top 0.3s, left 0.3s' : ''
+                        }
+                        : {}
           return (
             <li className='story'
               ref={li => { this.storyRefs[index] = li }}
@@ -133,24 +135,21 @@ export default class StoriesOverview extends React.Component {
               draggable={editMode}
               style={style}
               onDragStart={e => { this.setupDrag(e, index) }}
-              onDragEnd={() => { this.cleanupDrag() }}
-            >
+              onDragEnd={() => { this.cleanupDrag() }}>
               <StoryCover
                 title={story.title}
                 slug={story.slug}
                 image={story.cover}
                 stories={stories}
                 editMode={editMode}
-                dragPhase={dragPhase}
-              />
+                dragPhase={dragPhase} />
             </li>
           )
         })}
         { (editMode && !isDragging) &&
           <li className='new-story'
             onDragStart={e => { e.preventDefault() }}
-            onClick={this.context.store.stories.create}
-          >
+            onClick={this.context.store.stories.create}>
             <a className='new-story-inner' />
           </li>
         }

@@ -59,8 +59,10 @@ export default class NewsPost extends React.Component {
   formatAsHtml (message) {
     if (message) {
       var str = message
-        .replace(/((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a>')
-      return str.replace(/(\r\n)|(\n\r)|\r|\n/g, '<br>')
+        .replace(/((http|https|ftp):\/\/[\w?=&./-;#~%-]+(?![\w\s?&./;#~%"=-]*>))/g,
+                 '<a href="$1" target="_blank">$1</a>')
+
+      return str.trim().replace(/(\r\n)|(\n\r)|\r|\n/g, '<br>')
     }
   }
 

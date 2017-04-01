@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import SyntaxHighlighter, { registerLanguage }
-  from 'react-syntax-highlighter/dist/light'
+       from 'react-syntax-highlighter/dist/light'
 import markdownLang from 'highlight.js/lib/languages/markdown'
 import marked from 'marked'
 import renderer from '../_lib/markdownRenderer'
@@ -46,8 +46,8 @@ export default class MarkdownEditor extends React.Component {
       for (const childNode of node.childNodes) {
         if (childNode.textContent.length >= offset) {
           return childNode.hasChildNodes()
-            ? findSelectionStartInNode(childNode, offset)
-            : { node: childNode, offset }
+                 ? findSelectionStartInNode(childNode, offset)
+                 : { node: childNode, offset }
         } else {
           offset -= childNode.textContent.length
         }
@@ -100,8 +100,7 @@ export default class MarkdownEditor extends React.Component {
             sanitize: true,
             gfm: false,
             smartypants: true
-          })}}
-        />
+          })}} />
       )
     }
 
@@ -120,8 +119,7 @@ export default class MarkdownEditor extends React.Component {
           <SyntaxHighlighter
             language='markdown'
             useInlineStyles={false}
-            codeTagProps={{ className: 'code' }}
-          >
+            codeTagProps={{ className: 'code' }}>
             { markdown }
           </SyntaxHighlighter>
         </div>

@@ -67,8 +67,7 @@ export default class StoriesOverview extends React.Component {
             onClick={this.openStory} />
           <div className='edit-buttons'>
             <button className='delete-button'
-              onClick={this.deleteStory}
-            >
+              onClick={this.deleteStory}>
               löschen
             </button>
             <SlugEditor slug={slug} stories={stories} />
@@ -76,8 +75,7 @@ export default class StoriesOverview extends React.Component {
               className='file-selector'
               type='file'
               accept='image/*'
-              onChange={this.setCover}
-            />
+              onChange={this.setCover} />
             <label htmlFor={`img-selector${slug}`}>Bild auswählen</label>
           </div>
         </span>
