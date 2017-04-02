@@ -152,9 +152,7 @@ export default class CreativesPage extends React.Component {
                 <h2 className='creatives-section-title'>{ section.name }</h2>
               </Editable>
               <div
-                className={
-                  `creatives-image ${isCurrentSection && 'current-image'}`
-                }
+                className={`creatives-image ${isCurrentSection && 'current-image'}`}
                 style={{
                   backgroundImage: `url(${section.image.url})`,
                   ...section.image.styles
