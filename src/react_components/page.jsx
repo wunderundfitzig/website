@@ -19,12 +19,10 @@ class Page extends React.Component {
     if (!this.passwordPromt) return
 
     this.passwordPromt.requestPassword()
-    .then(password => {
-      return save({
-        state: { stories: this.state.stories, creatives: this.state.creatives },
-        password: password
-      })
-    })
+    .then(password => save({
+      state: { stories: this.state.stories, creatives: this.state.creatives },
+      password: password
+    }))
     .then(res => {
       if (res.ok) {
         window.location.reload()

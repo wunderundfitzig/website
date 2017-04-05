@@ -1,7 +1,6 @@
-/* global FormData, Blob, btoa, atob */
+/* global FormData, fetch, Blob, btoa, atob */
 
 'use strict'
-import fetch from 'node-fetch'
 
 function dataURLtoBlob (dataurl) {
   const arr = dataurl.split(',')

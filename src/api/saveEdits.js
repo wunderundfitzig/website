@@ -53,8 +53,8 @@ export default (req, res) => {
   .then(([creatives, stories]) => ({ creatives, stories }))
   .then(oldState => {
     const newState = {
-      creatives: JSON.parse(req.body.creatives),
-      stories: JSON.parse(req.body.stories)
+      creatives: req.body.creatives ? JSON.parse(req.body.creatives) : [],
+      stories: req.body.stories ? JSON.parse(req.body.stories) : []
     }
 
     req.files.forEach(file => {
@@ -75,13 +75,13 @@ export default (req, res) => {
   })
   .then(newState => {
     const writeActions = []
-    if (newState.creatives && newState.creatives.length !== 0) {
+    if (newState.creatives.length !== 0) {
       writeActions.push(writeJsonFile({
         filename: path.join(process.env.DATA_PATH, 'creatives.json'),
         json: newState.creatives
       }))
     }
-    if (newState.stories && newState.stories.length !== 0) {
+    if (newState.stories.length !== 0) {
       writeActions.push(writeJsonFile({
         filename: path.join(process.env.DATA_PATH, 'stories.json'),
         json: newState.stories
