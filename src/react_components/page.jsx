@@ -48,9 +48,9 @@ class Page extends React.Component {
     window.addEventListener('resize', () => { store.main.checkIfMobile() })
     window.addEventListener('keydown', e => {
       // meta + e
-      if (e.metaKey && e.keyCode === 69) store.main.toggleEditMode()
+      if ((e.metaKey || e.ctrlKey) && e.keyCode === 69) store.main.toggleEditMode()
       // meta + s
-      if (e.metaKey && e.keyCode === 83) {
+      if ((e.metaKey || e.ctrlKey) && e.keyCode === 83) {
         e.preventDefault()
         this.saveEdits()
       }
