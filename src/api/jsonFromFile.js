@@ -10,7 +10,7 @@ export default (req, res) => {
   const filepath = path.join(process.env.DATA_PATH, `${filename}.json`)
   fs.readFile(filepath, 'utf8', (err, content) => {
     if (err) {
-      if (!res.headersSent) res.status(HTTPStatus.INTERNAL_SERVER_ERROR).send(err)
+      if (!res.headersSent) res.sendStatus(HTTPStatus.INTERNAL_SERVER_ERROR)
     } else {
       cache.store({ route: req.path, json: content })
       if (!res.headersSent) res.send(content)
