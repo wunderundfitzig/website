@@ -65,7 +65,7 @@ export default class Hero extends React.Component {
 
         <div className='contact'>
           <p className='phone-and-mail'>
-            <span>+49 (0) 30 864 514 59 | </span>
+            <span>+49 (0) 30 91 523 845 | </span>
             <a className='email' href='mailto:info@wunderundfitzig.de'>
               info@wunderundfitzig.de
             </a>

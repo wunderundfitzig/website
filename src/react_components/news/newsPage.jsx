@@ -2,7 +2,7 @@
 
 import React from 'react'
 import NewsFeed from './newsFeed'
-import Hero from './hero'
+import Hero from './Hero'
 
 const NewsPage = ({ news }) => (
   <div id='news-page'>
