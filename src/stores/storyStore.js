@@ -8,7 +8,12 @@ export const actions = {
   create: stories => [...stories, {
     slug: `new-${stories.length}`,
     cover: {},
-    title: 'Neue Story'
+    title: 'Neue Story',
+    pages: [{
+      title: 'Neue Seite',
+      image: { url: '' },
+      markdown: ''
+    }]
   }],
 
   delete: (stories, { slug }) => stories.filter(story => story.slug !== slug),

@@ -65,10 +65,12 @@ export default (req, res) => {
       img.url = `/assets/imgs/${file.filename}`
       img.imageNeedsUpload = false
 
-      const oldImg = resolvePath({ obj: oldState, keys })
-      const oldImgPath = path.join(process.env.IMAGE_PATH,
-                                   path.basename(oldImg.url))
-      fs.unlink(oldImgPath, () => {})
+      try {
+        const oldImg = resolvePath({ obj: oldState, keys })
+        const oldImgPath = path.join(process.env.IMAGE_PATH,
+                                     path.basename(oldImg.url))
+        fs.unlink(oldImgPath, () => {})
+      } catch (e) {}
     })
 
     return newState
