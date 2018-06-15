@@ -38,7 +38,9 @@
     "react-dom": "^15.0.2",
     "react-router": "^4.0.0-2",
     "react-syntax-highlighter": "^4.0.1",
-    "serve-favicon": "^2.3.0"
+    "request": "^2.87.0",
+    "serve-favicon": "^2.3.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -51,8 +53,8 @@
     "browserify": "^13.0.1",
     "browserify-incremental": "^3.1.1",
     "exorcist": "^0.4.0",
-    "nodemon": "^1.9.2",
-    "parallelshell": "^2.0.0",
+    "nodemon": "^1.17.5",
+    "parallelshell": "^3.0.2",
     "stylus": "^0.54.5"
   },
   "standard": {
