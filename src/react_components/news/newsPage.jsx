@@ -10,14 +10,6 @@ const NewsPage = ({ news }) => (
       <Hero />
       <NewsFeed news={news} />
     </div>
-    <div className='footer'>
-      <a href='https://www.facebook.com/wunderundfitzig/' target='_blank'>
-        facebook
-      </a>|
-      <a href='https://github.com/wunderundfitzig' target='_blank'>
-        github
-      </a>
-    </div>
   </div>
 )
 

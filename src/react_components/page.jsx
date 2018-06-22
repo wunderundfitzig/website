@@ -142,6 +142,14 @@ class Page extends React.Component {
               />
             )} />
           </div>
+          <div className='footer'>
+            <a href='https://www.facebook.com/wunderundfitzig/' target='_blank'>
+              facebook
+            </a>|
+            <a href='https://github.com/wunderundfitzig' target='_blank'>
+              github
+            </a>
+          </div>
           <PasswordPromt ref={promt => { this.passwordPromt = promt }} />
         </body>
       </html>

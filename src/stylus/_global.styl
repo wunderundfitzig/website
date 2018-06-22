@@ -24,8 +24,11 @@ a
   margin-top $header-height
   overflow   hidden
   position   relative
+  min-height "calc(100vh - %s - %s)" % ($header-height $footer-height)
+
   @media $narrow
     margin-top $small-header-height
+    min-height "calc(100vh - %s - %s)" % ($small-header-height $footer-height)
 
 .inner-content
   margin 0 auto
@@ -40,3 +43,19 @@ a
 
   @media $small-mobile
     padding 0 20px
+
+.footer
+  background-color $light-grey
+  height           $footer-height
+  width            100%
+  display          flex
+  justify-content  center
+  align-items      center
+  font-size        0.8em
+  color            $text-grey
+  text-align       center
+  position         relative
+  z-index          1
+
+  a
+    margin 0 7px
