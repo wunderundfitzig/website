@@ -52,6 +52,7 @@ export default function ({ state, password }) {
   }
   data.append('stories', JSON.stringify(stateCopy.stories))
   data.append('creatives', JSON.stringify(stateCopy.creatives))
+  data.append('privacyInfo', JSON.stringify(stateCopy.privacyInfo))
 
   return fetch(`${window.location.origin}/api/saveEdits`, {
     method: 'POST',

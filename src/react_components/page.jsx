@@ -8,6 +8,7 @@ import PasswordPromt from './_lib/passwordPromt'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
 import StoriesPage from './stories/storiesPage'
+import PrivacyPage from './privacy/privacyPage'
 
 class Page extends React.Component {
   constructor (props, context) {
@@ -20,7 +21,11 @@ class Page extends React.Component {
 
     this.passwordPromt.requestPassword()
     .then(password => save({
-      state: { stories: this.state.stories, creatives: this.state.creatives },
+      state: {
+        stories: this.state.stories,
+        creatives: this.state.creatives,
+        privacyInfo: this.state.privacyInfo
+      },
       password: password
     }))
     .then(res => {
@@ -62,7 +67,8 @@ class Page extends React.Component {
       main: { editMode, clientLoaded, isMobile },
       creatives,
       news,
-      stories
+      stories,
+      privacyInfo
     } = this.state
 
     return (
@@ -141,8 +147,17 @@ class Page extends React.Component {
                 stories={stories}
               />
             )} />
+            <Match pattern='/privacy' render={(matchProps) => (
+              <PrivacyPage
+                editMode={editMode}
+                privacyInfo={privacyInfo}
+              />
+            )} />
           </div>
           <div className='footer'>
+            <Link to='/privacy/' activeClassName='active'>
+              Datenschutz / Impressum
+            </Link>|
             <a href='https://www.facebook.com/wunderundfitzig/' target='_blank'>
               facebook
             </a>|

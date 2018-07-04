@@ -54,7 +54,8 @@ export default (req, res) => {
   .then(oldState => {
     const newState = {
       creatives: req.body.creatives ? JSON.parse(req.body.creatives) : [],
-      stories: req.body.stories ? JSON.parse(req.body.stories) : []
+      stories: req.body.stories ? JSON.parse(req.body.stories) : [],
+      privacyInfo: req.body.privacyInfo ? JSON.parse(req.body.privacyInfo) : { markdown: '' }
     }
 
     req.files.forEach(file => {
@@ -89,12 +90,19 @@ export default (req, res) => {
         json: newState.stories
       }))
     }
+    if (newState.privacyInfo.markdown !== '') {
+      writeActions.push(writeJsonFile({
+        filename: path.join(process.env.DATA_PATH, 'privacyInfo.json'),
+        json: newState.privacyInfo
+      }))
+    }
 
     return Promise.all(writeActions)
   })
   .then(() => {
     cache.invalidate('/creatives')
     cache.invalidate('/stories')
+    cache.invalidate('/privacyInfo')
     res.sendStatus(HTTPStatus.OK)
   })
   .catch(err => {

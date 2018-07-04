@@ -5,6 +5,7 @@ import mainStore from './mainStore'
 import creativesStore from './creativesStore'
 import newsStore from './newsStore'
 import storyStore from './storyStore'
+import privacyStore from './privacyStore'
 
 export const createStore = ({ initialData = {} } = {}) => {
   return Hover.compose({
@@ -13,7 +14,9 @@ export const createStore = ({ initialData = {} } = {}) => {
                      creativesStore.initialState),
     news: Hover(newsStore.actions, initialData.news || newsStore.initialState),
     stories: Hover(storyStore.actions, initialData.stories ||
-                   storyStore.initialState)
+                   storyStore.initialState),
+    privacyInfo: Hover(privacyStore.actions, initialData.privacyInfo ||
+                       privacyStore.initialState)
   })
 }
 

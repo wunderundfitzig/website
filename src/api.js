@@ -37,6 +37,7 @@ api.post('/saveEdits', passport.authenticate('basic', { session: false }),
   upload.array('image'), saveEdits)
 api.get('/creatives', jsonFromFile)
 api.get('/stories', jsonFromFile)
+api.get('/privacyInfo', jsonFromFile)
 api.get('/newsFeed', newsFeed)
 
 api.get('*', (req, res) => { res.sendStatus(HTTPStatus.NOT_FOUND) })
