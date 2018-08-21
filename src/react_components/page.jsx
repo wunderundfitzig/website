@@ -7,7 +7,7 @@ import save from './_lib/save'
 import PasswordPromt from './_lib/passwordPromt'
 import NewsPage from './news/newsPage'
 import CreativesPage from './creatives/creativesPage'
-import StoriesPage from './stories/storiesPage'
+import WorkPage from './work/workPage'
 import PrivacyPage from './privacy/privacyPage'
 
 class Page extends React.Component {
@@ -81,7 +81,7 @@ class Page extends React.Component {
           <Match pattern='creatives'
             render={() => <title>wunder & fitzig | creatives</title>} />
           <Match pattern='stories'
-            render={() => <title>wunder & fitzig | stories</title>} />
+            render={() => <title>wunder & fitzig | work</title>} />
           <Match exactly pattern='/'
             render={() => <title>wunder & fitzig</title>} />
 
@@ -119,10 +119,10 @@ class Page extends React.Component {
                   </Link>
                 </li>
                 <li className='menu-item'>
-                  <Link to='/stories/' activeClassName='active'>
+                  <Link to='/work/' activeClassName='active'>
                     <img className='menu-img'
-                      src='/assets/img/stories.svg'
-                      alt='stories' />
+                      src='/assets/img/work.svg'
+                      alt='work' />
                   </Link>
                 </li>
               </ul>
@@ -140,8 +140,8 @@ class Page extends React.Component {
                 creatives={creatives}
               />
             )} />
-            <Match pattern='/stories' render={(matchProps) => (
-              <StoriesPage {...matchProps}
+            <Match pattern='/work' render={(matchProps) => (
+              <WorkPage {...matchProps}
                 isMobile={isMobile}
                 editMode={editMode}
                 stories={stories}

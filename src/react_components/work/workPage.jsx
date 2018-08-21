@@ -6,7 +6,7 @@ import { Match, Miss, Redirect } from 'react-router'
 import StoriesOverview from './storiesOverview'
 import Story from './story'
 
-export default class StoriesPage extends React.Component {
+export default class WorkPage extends React.Component {
   static propTypes = {
     stories: PropTypes.array,
     pathname: PropTypes.string
@@ -33,7 +33,7 @@ export default class StoriesPage extends React.Component {
     if (stories.length === 0) return null
 
     return (
-      <div id='stories-page' className='inner-content'>
+      <div id='work-page' className='inner-content'>
         <Match exactly pattern={`${pathname}/`}
           render={matchProps =>
             <StoriesOverview
