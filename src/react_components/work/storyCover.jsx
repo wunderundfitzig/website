@@ -52,16 +52,23 @@ export default class StoriesOverview extends React.Component {
     if (!editMode) {
       return (
         <Link to={`${slug}/1`} id='story-cover'>
+          <p className='story-title'>{ title }</p>
           <span className='story-image-wrapper'>
             <HighResImg className='story-img' alt={title} image={image} />
           </span>
-          <p className='story-title'>{ title }</p>
         </Link>
       )
     }
 
     return (
       <div id='story-cover' className='editMode'>
+        <input className='story-title-input'
+          type='text'
+          value={title}
+          onChange={e => {
+            store.stories.setTitle({ slug: slug, title: e.target.value })
+          }}
+        />
         <span className='story-image-wrapper'>
           <HighResImg className='story-img' alt={title} image={image}
             onClick={this.openStory} />
@@ -79,13 +86,6 @@ export default class StoriesOverview extends React.Component {
             <label htmlFor={`img-selector${slug}`}>Bild auswählen</label>
           </div>
         </span>
-        <input className='story-title-input'
-          type='text'
-          value={title}
-          onChange={e => {
-            store.stories.setTitle({ slug: slug, title: e.target.value })
-          }}
-        />
       </div>
     )
   }

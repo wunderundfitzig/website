@@ -48,14 +48,17 @@
   .story-title
   .story-title-input
     font-weight normal
-    font-size   14px
+    font-size   16px
+    max-height: 25px
+    overflow:   hidden
+    text-overflow: ellipsis
     transition  color 0.5s
-    margin      5px 0 0
-    color       $wundf-black
-    text-align  center
+    margin      0 0 15px 0
+    font-weight bold
+    color       $text-grey
 
   .story-title-input
     $input()
     display       block
     width         90%
-    margin        2px auto -3px
+    margin        -3px -6px 12px
